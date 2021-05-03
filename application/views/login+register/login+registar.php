@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="log.css">
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/log.css'); ?>">
 
     <title>Log-in</title>
 </head>
@@ -136,7 +136,7 @@
         <div class="form-container sign-in-container">
             <form id="signInForm" method="POST" action="" ;>
                 <div class="login-logo">
-                    <img src="pics/logo/blue_logo.png">
+                    <img src="<?php echo base_url('assets/pics/logo/blue_logo.png'); ?>">
                 </div>
                 <h1>ברוכים השבים</h1>
                 <input type="tel" id="login-phone" name="phone" placeholder="טלפון">
@@ -170,6 +170,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-    <script src="log.js"></script>
+    <script src="<?php echo base_url('assets/js/log.js')?>"></script>
 
 </body>
