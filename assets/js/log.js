@@ -89,7 +89,7 @@ function passFormData(formID) {
 
 	$.ajax ({
 		type: "POST",
-		url: "registrationComplete.php",
+		url: "/application/views/login+register/registrationComplete.php\"",
 		data: $("#"+formID).serialize(),
 		success: function(data) {
 			console.log(data)
@@ -148,7 +148,7 @@ submitForm.addEventListener("submit", (e) =>  {
 	});
 
 	document.getElementById("endSubmitBtn").addEventListener('click', () => {
-		window.location.href = "registrationComplete.php";
+		window.location.href = "/application/views/login+register/registrationComplete.php";
 	})
 
 
