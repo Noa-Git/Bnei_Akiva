@@ -1,13 +1,25 @@
 <?php
 
 
-class Statistics_model extends CI_Model
+class Guide_model extends CI_Model
 {
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->database();
 		$this->db->db_debug = FALSE;
+	}
+
+	public function get_next_activity()
+	{
+		$error = null;
+		$query = $this->db->query('SELECT ttime, street, street_num FROM activity WHERE guide_id = ?');
+
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
 	}
 
 	public function get_expanses_per_month()
@@ -21,6 +33,5 @@ class Statistics_model extends CI_Model
 		$error = $this->db->error();
 		return $error;
 	}
-
 
 }

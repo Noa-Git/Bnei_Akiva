@@ -61,7 +61,7 @@
 				<div class="student-sex-radio">
 					<input type="radio" id="male" name="memberSex" value="male" class="radio-input">
 					<label for="male" class="radio-label" id="male-label">זכר</label>
-					<input type="radio" id="female" name="studentSex" value="female" class="radio-input">
+					<input type="radio" id="female" name="memberSex" value="female" class="radio-input">
 					<label for="female" class="radio-label" id="female-label">נקבה</label>
 					<input type="radio" id="studSex" name="female" value="female" class="radio-input">
 				</div>
