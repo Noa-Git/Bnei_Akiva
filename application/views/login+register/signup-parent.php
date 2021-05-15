@@ -15,7 +15,7 @@
 	</div>
 
 	<div class="form-div">
-		<?php echo form_open('Login/regitserParent'); ?>
+		<?php echo form_open('User/regitserParent'); ?>
 		<div class="login-nocorrect">
 
 			<?php if (form_error('parentEmail') != NULL)
@@ -80,7 +80,7 @@
 
 
 	<div id="gotoSignIn">
-		<?php echo anchor('Login/login', 'החשבון כבר קיים? לחצו כדי להתחבר'); ?>
+		<?php echo anchor('User/login', 'החשבון כבר קיים? לחצו כדי להתחבר'); ?>
 		<!--//            <a href="/application/views/login+register/login.php">החשבון כבר קיים? לחצו כדי להתחבר</a>-->
 	</div>
 

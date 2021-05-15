@@ -1,10 +1,10 @@
 <?php
 
-class Login extends CI_Controller {
+class User extends CI_Controller {
 	//put your code here
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('Login_model');
+		$this->load->model('User_model');
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -13,7 +13,6 @@ class Login extends CI_Controller {
 	}
 
 	public function login($data=array('error'=>null)){
-
 		$this->load->view('templates/loginAndRegisterHead');
 		$this->load->view('login+register/login', $data);
 
@@ -67,7 +66,7 @@ class Login extends CI_Controller {
 
 	public function regitserParent() {
 
-		$this->load->model('Login_model');
+		$this->load->model('User_model');
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 
@@ -112,7 +111,7 @@ class Login extends CI_Controller {
 
 	public function regitserStudent($data=array('user'=>null)) {
 
-		$this->load->model('Login_model');
+		$this->load->model('User_model');
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 

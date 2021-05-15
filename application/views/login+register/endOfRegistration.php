@@ -13,7 +13,7 @@
 
 	<div class="form-div">
 		<?php
-		echo form_open('Login/regitserOneMoreStudent'); ?>
+		echo form_open('User/regitserOneMoreStudent'); ?>
 
 		<input  type="hidden" name="parentEmail" readonly value="<?php echo set_value('parentEmail'); ?>">
 		<input  type="hidden" name="password" readonly value="<?php echo set_value('password'); ?>">
@@ -21,7 +21,7 @@
 		<input name='finish' type="submit" class="btn" id="endSubmitBtn" value="הוספת חניך נוסף">
 		<?php form_close();?>
 
-		<a href= "<?php echo site_url('Login/loadRegistrationComplete')?>">
+		<a href= "<?php echo site_url('User/loadRegistrationComplete')?>">
 			<input type="button"  class="btn" id="endSubmitBtn" value="סיום הרשמה">
 		</a>
 		</br><br>

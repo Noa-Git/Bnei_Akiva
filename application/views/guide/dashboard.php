@@ -320,7 +320,7 @@
 					</div>
 
 					<div class="modal-body">
-						<form id="new-activity" action="/application/views/Instructor/homepage.php" method="post">
+						<form id="new-activity" action="/application/views/guide/dashboard.php" method="post">
 							<div class="input-box">
 								<div class="input-group">
 									<label for="activityType">סוג הפעילות:</label>
@@ -361,7 +361,7 @@
 					</div>
 
 					<div class="modal-body">
-						<form id="new-message" action="/application/views/Instructor/homepage.php" method="post">
+						<form id="new-message" action="/application/views/guide/dashboard.php" method="post">
 							<div class="input-box">
 								<div class="input-group">
 									<label for="MessageHeadline">נושא ההודעה:</label>
@@ -395,7 +395,7 @@
 					</div>
 
 					<div class="modal-body">
-						<form id="new-expanse" action="/application/views/Instructor/homepage.php" method="post">
+						<form id="new-expanse" action="/application/views/guide/dashboard.php" method="post">
 							<div class="input-box">
 								<div class="input-group">
 									<label for="expanseFor">מטרת ההוצאה</label>

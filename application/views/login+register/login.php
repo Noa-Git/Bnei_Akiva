@@ -11,7 +11,7 @@
 	</div>
 
 	<div class="form-div">
-		<?php echo form_open('Login/do_login'); ?>
+		<?php echo form_open('User/do_login'); ?>
 		<div class="login-nocorrect">
 			<?php if ($error): echo $error; ?>
 			<?php endif ?>
@@ -34,7 +34,7 @@
         </span>
 
 	<div id="gotoSignIn">
-		<?php echo anchor('Login/loadRegisterParent', ' חדשים כאן? לחצו כדי להירשם', 'class="link-class"') ?>
+		<?php echo anchor('User/loadRegisterParent', ' חדשים כאן? לחצו כדי להירשם', 'class="link-class"') ?>
 
 
 	</div>

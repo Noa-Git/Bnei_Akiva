@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="form-div">
-		<?php  echo form_open('Login/regitserStudent'); ?>
+		<?php  echo form_open('User/regitserStudent'); ?>
 		<div class="login-nocorrect">
 			<?php if ($mailExists=='yes')
 				echo "כתובת האימייל קיימת במערכת"
