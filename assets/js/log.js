@@ -148,7 +148,7 @@ submitForm.addEventListener("submit", (e) =>  {
 	});
 
 	document.getElementById("endSubmitBtn").addEventListener('click', () => {
-		window.location.href = "/application/views/login+register/registrationComplete.php";
+		window.location.href = "../../application/views/login+register/registrationComplete.php";
 	})
 
 

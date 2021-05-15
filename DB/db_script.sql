@@ -3,168 +3,149 @@ DATABASE bnei_akiva;
 USE
 bnei_akiva;
 
-CREATE TABLE unit
+CREATE TABLE role
 (
-    id           INT AUTO_INCREMENT PRIMARY KEY,
-    uname        VARCHAR(32),
-    phone        VARCHAR(11),
-    email        VARCHAR(30) NOT NULL UNIQUE,
-    city         VARCHAR(30),
-    street       VARCHAR(30),
-    house_number INT,
-    zip_code     INT
+    id   INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(32) NOT NULL
 );
 
-
-CREATE TABLE manager
+CREATE TABLE user
 (
-    id           INT AUTO_INCREMENT PRIMARY KEY,
-    fname        VARCHAR(30),
-    lname        VARCHAR(30),
-    phone        VARCHAR(11),
-    email        VARCHAR(30) NOT NULL UNIQUE,
-    password     VARCHAR(32),
-    city         VARCHAR(30),
-    street       VARCHAR(30),
+    email       VARCHAR(32) PRIMARY KEY,
+    password    VARCHAR(32),
+    fname       VARCHAR(32),
+    lname       VARCHAR(32),
+    phone       VARCHAR(32),
+    role_id     INT,
+    profile_pic LONGBLOB,
+    city         VARCHAR(32),
+    street       VARCHAR(32),
     house_number INT,
     zip_code     INT,
-    birth_date   DATE,
-    unit_id      INT,
-    FOREIGN KEY (unit_id) REFERENCES unit (id) ON DELETE CASCADE
+    FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE ageGrade
 (
     id    INT AUTO_INCREMENT PRIMARY KEY,
-    grade VARCHAR(30),
-    name  VARCHAR(20)
+    grade VARCHAR(8),
+    name  VARCHAR(8)
 );
 
 CREATE TABLE guide
 (
-    id           VARCHAR(9) PRIMARY KEY,
-    fname        VARCHAR(30),
-    lname        VARCHAR(30),
-    phone        VARCHAR(11),
-    email        VARCHAR(30) NOT NULL UNIQUE,
-    password     VARCHAR(32),
-    city         VARCHAR(30),
-    street       VARCHAR(30),
-    house_number INT,
-    zip_code     INT,
-    birth_date   DATE,
-    unit_id      INT,
-    ageGrade_id  INT,
-    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE,
-    FOREIGN KEY (unit_id) REFERENCES unit (id) ON DELETE CASCADE
+    user_email  VARCHAR(32),
+    ageGrade_id INT,
+    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE,
+    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE
 );
 
 CREATE TABLE parent
 (
-    id        INT AUTO_INCREMENT PRIMARY KEY,
-    fname     VARCHAR(30),
-    lname     VARCHAR(30),
-    phone     VARCHAR(11),
-    email     VARCHAR(30) NOT NULL UNIQUE,
-    password  VARCHAR(32),
-    city      VARCHAR(30),
-    street    VARCHAR(30),
-    house     INT,
-    apartment INT
+    user_email VARCHAR(32),
+    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE
 );
+
 
 CREATE TABLE member
 (
-    id          VARCHAR(9) PRIMARY KEY,
-    fname       VARCHAR(30),
-    lname       VARCHAR(30),
-    phone       VARCHAR(11),
-    email       VARCHAR(30),
-    password    VARCHAR(32),
-    gender      VARCHAR(1),
-    birth_day   date,
-    insurance   VARCHAR(2) DEFAULT 'N',
-    unit_id     INT,
-    guide_id    VARCHAR(9),
-    ageGrade_id INT,
-    parent_id   INT,
-    FOREIGN KEY (parent_id) REFERENCES parent (id) ON DELETE CASCADE,
-    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE,
-    FOREIGN KEY (unit_id) REFERENCES unit (id) ON DELETE CASCADE,
-    FOREIGN KEY (guide_id) REFERENCES guide (id) ON DELETE CASCADE
+    user_email   VARCHAR(32),
+    parent_email VARCHAR(32),
+    insurance    BOOLEAN,
+    trips        BOOLEAN,
+    membership   BOOLEAN,
+    ageGrade_id  INT,
+    notes        VARCHAR(100),
+    pending      BOOLEAN,
+    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE,
+    FOREIGN KEY (parent_email) REFERENCES parent (user_email) ON DELETE CASCADE,
+    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE
 );
 
-CREATE TABLE pending_member
-(
-    id          VARCHAR(9) PRIMARY KEY,
-    fname       VARCHAR(30),
-    lname       VARCHAR(30),
-    phone       VARCHAR(11),
-    email       VARCHAR(30) NOT NULL UNIQUE,
-    password    VARCHAR(32),
-    gender      VARCHAR(1),
-    insurance   VARCHAR(2) DEFAULT 'N',
-    unit_id     INT,
-    guide_id    VARCHAR(9),
-    ageGrade_id INT,
-    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE,
-    FOREIGN KEY (unit_id) REFERENCES unit (id) ON DELETE CASCADE,
-    FOREIGN KEY (guide_id) REFERENCES guide (id) ON DELETE CASCADE
-);
 
 CREATE TABLE activity
 (
-    ttime      DATETIME,
-    street     VARCHAR(10),
-    street_num INT,
-    guide_id   VARCHAR(9),
-    FOREIGN KEY (guide_id) REFERENCES guide (id) ON DELETE CASCADE
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    name          VARCHAR(32),
+    description   VARCHAR(100),
+    time          DATETIME,
+    after_summary VARCHAR(100),
+    ageGrade_id   INT,
+    guide_email   VARCHAR(32),
+    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE,
+    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE
+);
+
+CREATE TABLE health_declare
+(
+    activity_id  INT,
+    member_email VARCHAR(32),
+    FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE,
+    FOREIGN KEY (member_email) REFERENCES member (user_email) ON DELETE CASCADE
+);
+
+CREATE TABLE rate
+(
+    rate        INT,
+    activity_id INT,
+    FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE
+);
+
+CREATE TABLE substitute
+(
+    activity_id INT,
+    guide_email VARCHAR(32),
+    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE,
+    FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE
 );
 
 
--- CREATE TABLE meeting(
---     ttime DATETIME,
---     latitude FLOAT,
---     longitude FLOAT,
---     guide_id VARCHAR(9),
---     parent_id INT,
---     member_id VARCHAR(9),
---     manager_id VARCHAR(9),
---     FOREIGN KEY(guide_id) REFERENCES guide(id) ON DELETE CASCADE,
---     FOREIGN KEY(parent_id) REFERENCES parent(id) ON DELETE CASCADE,
---     FOREIGN KEY(member_id) REFERENCES member(id) ON DELETE CASCADE,
---     FOREIGN KEY(manager_id) REFERENCES manager(id) ON DELETE CASCADE
+CREATE TABLE message
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    user_email  VARCHAR(32),
+    sent_from   VARCHAR(32),
+    subject     VARCHAR(32),
+    content     VARCHAR(100),
+    date_sent   DATETIME,
+    is_read     BOOLEAN,
+    guide_email VARCHAR(32),
+    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE,
+    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE
+);
+
+CREATE TABLE meeting
+(
+    id           INT AUTO_INCREMENT PRIMARY KEY,
+    booker_email VARCHAR(32),
+    subject      VARCHAR(32),
+    date         DATETIME,
+    booked       BOOLEAN,
+    FOREIGN KEY (booker_email) REFERENCES user (email) ON DELETE CASCADE
+);
+
+
+-- CREATE TABLE trip
+-- (
+--     id        INT AUTO_INCREMENT PRIMARY KEY,
+--     trip_name VARCHAR(32),
+--     out_date  DATE,
+--     back_date DATE
 -- );
-
-CREATE TABLE trip
-(
-    id        INT AUTO_INCREMENT PRIMARY KEY,
-    trip_name VARCHAR(20),
-    out_date  DATE,
-    back_date DATE,
-    latitude  FLOAT,
-    longitude FLOAT
-);
-
-CREATE TABLE users_in_trip
-(
-    trip_id    INT,
-    manager_id INT,
-    parent_id  INT,
-    guide_id   VARCHAR(9),
-    member_id  VARCHAR(9),
-    FOREIGN KEY (trip_id) REFERENCES trip (id) ON DELETE CASCADE,
-    FOREIGN KEY (manager_id) REFERENCES manager (id) ON DELETE CASCADE,
-    FOREIGN KEY (guide_id) REFERENCES guide (id) ON DELETE CASCADE,
-    FOREIGN KEY (parent_id) REFERENCES parent (id) ON DELETE CASCADE,
-    FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE CASCADE
-);
+--
+-- CREATE TABLE users_in_trip
+-- (
+--     trip_id    INT,
+--     user_email VARCHAR(32),
+--     FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE
+-- );
 
 CREATE TABLE price_list
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(20) NOT NULL UNIQUE,
-    description VARCHAR(20),
+    name        VARCHAR(32) NOT NULL UNIQUE,
+    description VARCHAR(100),
     price       DOUBLE
 );
 
@@ -172,32 +153,33 @@ CREATE TABLE payment
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     pdate        DATETIME,
-    payment_name VARCHAR(20),
-    parent_id    INT,
-    paid         INT DEFAULT 0,
+    payment_name VARCHAR(32),
+    parent_email VARCHAR(32),
+    paid         BOOLEAN,
     FOREIGN KEY (payment_name) REFERENCES price_list (name) ON DELETE CASCADE,
-    FOREIGN KEY (parent_id) REFERENCES parent (id) ON DELETE CASCADE
+    FOREIGN KEY (parent_email) REFERENCES parent (user_email) ON DELETE CASCADE
 );
 
-CREATE TABLE transactions_paypal
-(
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    payment_id INT,
-    parent_id  INT,
-    HASH       VARCHAR(16),
-    complete   INT DEFAULT 0,
-    FOREIGN KEY (payment_id) REFERENCES payment (id) ON DELETE CASCADE,
-    FOREIGN KEY (parent_id) REFERENCES parent (id) ON DELETE CASCADE
-);
+-- CREATE TABLE transactions_paypal
+-- (
+--     id         INT AUTO_INCREMENT PRIMARY KEY,
+--     payment_id INT,
+--     parent_id  INT,
+--     HASH       VARCHAR(16),
+--     complete   INT DEFAULT 0,
+--     FOREIGN KEY (payment_id) REFERENCES payment (id) ON DELETE CASCADE,
+--     FOREIGN KEY (parent_id) REFERENCES parent (id) ON DELETE CASCADE
+-- );
 
 
 CREATE TABLE expanse
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     edate       DATE,
-    ename       VARCHAR(10),
+    ename       VARCHAR(32),
     price       DOUBLE,
-    guide_id    VARCHAR(9),
-    description VARCHAR(30),
-    FOREIGN KEY (guide_id) REFERENCES guide (id) ON DELETE CASCADE
+    pic         LONGBLOB,
+    guide_email VARCHAR(32),
+    description VARCHAR(32),
+    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE
 );
