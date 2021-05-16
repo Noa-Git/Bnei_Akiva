@@ -143,9 +143,6 @@ class User extends CI_Controller {
 				$this->load->view('templates/loginAndRegisterHead');
 				$data=array('parentEmail'=> $this->input->post('parentEmail'));
 				$this->load->view('login+register/endOfRegisteration',$data);
-
-
-
 			}
 		}
 
@@ -161,6 +158,36 @@ class User extends CI_Controller {
 		$this->load->view('templates/loginAndRegisterHead');
 		$this->load->view('login+register/registrationComplete',$data);
 	}
+
+	public function send_members_for_approval(){
+		//get all members from DB
+		$data['members'] = $this->Member_model->get_members();
+
+		foreach ($data['members']  as $member) {
+			if($member->pending == TRUE){
+				$this->load->view();
+			}
+
+		}
+	}
+
+//	public function approve_member($user_email){
+//		$this->load->library('email');
+//		$config['protocol'] = 'sendmail';
+//		$config['mailpath'] = '/usr/sbin/sendmail';
+//		$config['charset'] = 'iso-8859-1';
+//		$config['wordwrap'] = TRUE;
+//		$this->email->initialize($config);
+//
+//		$this->email->from('mta@bnei-akiva.com', 'Bnei-Akiva');
+//		$this->email->to($user_email);
+//		$this->email->subject('ברוך הבא לתנועת בני עקיבא');
+//		$this->email->message('היי, שמחים שהצטרפת אלינו');
+//
+//		$this->email->send();
+//		$data=array('pending'=>FALSE);
+//		$this->Member_model->update($data, $user_email);
+//	}
 
 }
 //$this->form_validation->reset_validation();
