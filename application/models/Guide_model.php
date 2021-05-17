@@ -10,8 +10,8 @@ class Guide_model extends CI_Model
 		$this->db->db_debug = FALSE;
 	}
 
-	//add expanse
-	public function save($data)
+
+	public function save_expense($data)
 	{
 
 		$error = null;
@@ -33,7 +33,6 @@ class Guide_model extends CI_Model
 		$error = $this->db->error();
 		return $error;
 	}
-
 
 
 }

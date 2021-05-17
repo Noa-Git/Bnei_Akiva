@@ -25,16 +25,4 @@ class Parents_model extends CI_Model
 		}
 		return $error;
 	}
-
-	public function save_health_declare($data)
-	{
-
-		$error = null;
-
-		if (!$this->db->insert('health_declare', $data)) {
-			$error = $this->db->error();
-		}
-		return $error;
-	}
-
 }

@@ -10,8 +10,7 @@ class Message_model extends CI_Model
 		$this->db->db_debug = FALSE;
 	}
 
-	//add message
-	public function save($data)
+	public function send($data)
 	{
 
 		$error = null;
@@ -25,6 +24,23 @@ class Message_model extends CI_Model
 	public function get_messages($user_email)
 	{
 		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE user_email= ? ';
+
+		$error = null;
+		$query = $this->db->query($sql, array($user_email));
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+
+	public function update_read_status($user_email){
+		$this->db->update('activity', array('user_email' => $user_email, 'is_read' => 1 ));
+	}
+
+	public function get_unread_messages_by_desc_order($user_email)
+	{
+		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE is_read=0 AND user_email= ? ORDER BY date_sent DESC';
 
 		$error = null;
 		$query = $this->db->query($sql, array($user_email));

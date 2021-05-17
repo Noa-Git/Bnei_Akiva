@@ -52,12 +52,12 @@ CREATE TABLE member
 (
     user_email   VARCHAR(32),
     parent_email VARCHAR(32),
-    insurance    BOOLEAN,
-    trips        BOOLEAN,
-    membership   BOOLEAN,
+    insurance    BOOLEAN default 0,
+    trips        BOOLEAN default 0,
+    membership   BOOLEAN default 0,
     ageGrade_id  INT,
     notes        VARCHAR(100),
-    pending      BOOLEAN,
+    pending      BOOLEAN default 1,
     FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE,
     FOREIGN KEY (parent_email) REFERENCES parent (user_email) ON DELETE CASCADE,
     FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE
@@ -109,7 +109,7 @@ CREATE TABLE message
     subject     VARCHAR(32),
     content     VARCHAR(100),
     date_sent   DATETIME,
-    is_read     BOOLEAN,
+    is_read     BOOLEAN default 0,
     guide_email VARCHAR(32),
     FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE,
     FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE
@@ -121,7 +121,7 @@ CREATE TABLE meeting
     booker_email VARCHAR(32),
     subject      VARCHAR(32),
     date         DATETIME,
-    booked       BOOLEAN,
+    booked       BOOLEAN default 0,
     FOREIGN KEY (booker_email) REFERENCES user (email) ON DELETE CASCADE
 );
 
@@ -155,7 +155,7 @@ CREATE TABLE payment
     pdate        DATETIME,
     payment_name VARCHAR(32),
     parent_email VARCHAR(32),
-    paid         BOOLEAN,
+    paid         BOOLEAN default 0,
     FOREIGN KEY (payment_name) REFERENCES price_list (name) ON DELETE CASCADE,
     FOREIGN KEY (parent_email) REFERENCES parent (user_email) ON DELETE CASCADE
 );
