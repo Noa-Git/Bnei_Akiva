@@ -21,12 +21,12 @@ class Message_model extends CI_Model
 		return $error;
 	}
 
-	public function get_messages($user_email)
+	public function get_messages($users_email)
 	{
-		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE user_email= ? ';
+		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE users_email= ? ';
 
 		$error = null;
-		$query = $this->db->query($sql, array($user_email));
+		$query = $this->db->query($sql, array($users_email));
 		if ($query) {
 			return $query->result();
 		}
@@ -34,16 +34,16 @@ class Message_model extends CI_Model
 		return $error;
 	}
 
-	public function update_read_status($user_email){
-		$this->db->update('activity', array('user_email' => $user_email, 'is_read' => 1 ));
+	public function update_read_status($users_email){
+		$this->db->update('activity', array('users_email' => $users_email, 'is_read' => 1 ));
 	}
 
-	public function get_unread_messages_by_desc_order($user_email)
+	public function get_unread_messages_by_desc_order($users_email)
 	{
-		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE is_read=0 AND user_email= ? ORDER BY date_sent DESC';
+		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE is_read=0 AND users_email= ? ORDER BY date_sent DESC';
 
 		$error = null;
-		$query = $this->db->query($sql, array($user_email));
+		$query = $this->db->query($sql, array($users_email));
 		if ($query) {
 			return $query->result();
 		}
