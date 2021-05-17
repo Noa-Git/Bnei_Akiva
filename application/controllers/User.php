@@ -104,7 +104,7 @@ class User extends CI_Controller {
 	}
 
 	public function clear_field_data() {
-
+            //test
 		$this->_field_data = array();
 		return $this;
 	}
