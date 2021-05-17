@@ -18,38 +18,41 @@
 		<?php echo form_open('User/regitserParent'); ?>
 		<div class="login-nocorrect">
 
-			<?php if (form_error('parentEmail') != NULL)
-				echo "כתובת האימייל כבר קיימת במערכת"; ?>
+              <?php echo validation_errors(); ?>
+			<?php // if (form_error('parentEmail') != NULL)
+//                        echo  "כתובת האימייל כבר קיימת במערכת " ; echo " "; ?>
+
+
 		</div>
 		<!--<form id="formParent" method="POST" action="/application/views/login+register/signup-student.php" ;>-->
 		<div class="parent-panel">
 			<div class="row">
 				<div class="col-6">
-					<input type="text" id="pfName" name="pfName" placeholder="שם פרטי" required
+					<input type="text" id="pfName" name="pfName" placeholder="שם פרטי" 
 						   value="<?php echo set_value('pfName'); ?>">
 				</div>
 				<div class="col-6">
-					<input type="text" id="plName" name="plName" placeholder="שם משפחה" required
+					<input type="text" id="plName" name="plName" placeholder="שם משפחה" 
 						   value="<?php echo set_value('plName'); ?>">
 				</div>
 				<div class="login-error hidden" id="name-error"> יש להזין שם פרטי ושם משפחה</div>
 			</div>
 
-			<input type="tel" id="parentPhone" name="parentPhone" placeholder="טלפון נייד" required
+			<input type="tel" id="parentPhone" name="parentPhone" placeholder="טלפון נייד" 
 				   value="<?php echo set_value('parentPhone'); ?>">
 			<div class="login-error hidden" id="parentPhone-error">יש להזין מספר טלפון נייד</div>
 
-			<input type="email" id="email" name="parentEmail" placeholder="מייל" required
+			<input type="email" id="email" name="parentEmail" placeholder="מייל" 
 				   value="<?php echo set_value('parentEmail'); ?>">
 			<div class="login-error hidden" id="email-error">יש להזין כתובת דואר אלקטרוני</div>
 
 			<div class="row">
 				<div class="col-6">
-					<input type="text" id="city" name="city" placeholder="ישוב" required
+					<input type="text" id="city" name="city" placeholder="ישוב" 
 						   value="<?php echo set_value('city'); ?>">
 				</div>
 				<div class="col-6">
-					<input type="text" id="street" name="street" placeholder="רחוב" required
+					<input type="text" id="street" name="street" placeholder="רחוב" 
 						   value="<?php echo set_value('street'); ?>">
 				</div>
 			</div>
