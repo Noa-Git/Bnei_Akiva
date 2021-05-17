@@ -8,6 +8,7 @@ class Message extends CI_Controller
 		parent::__construct();
 		$this->load->model('Message_model');
 		$this->load->library('session');
+
 	}
 
 	public function send_message()

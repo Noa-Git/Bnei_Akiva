@@ -9,7 +9,7 @@ CREATE TABLE role
     type VARCHAR(32) NOT NULL
 );
 
-CREATE TABLE user
+CREATE TABLE users
 (
     email       VARCHAR(32) PRIMARY KEY,
     password    VARCHAR(32),
@@ -35,31 +35,31 @@ CREATE TABLE ageGrade
 
 CREATE TABLE guide
 (
-    user_email  VARCHAR(32),
+    users_email  VARCHAR(32),
     ageGrade_id INT,
-    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE,
+    FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE,
     FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE
 );
 
 CREATE TABLE parent
 (
-    user_email VARCHAR(32),
-    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE
+    users_email VARCHAR(32),
+    FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE
 );
 
 
 CREATE TABLE member
 (
-    user_email   VARCHAR(32),
+    users_email   VARCHAR(32),
     parent_email VARCHAR(32),
-    insurance    BOOLEAN,
-    trips        BOOLEAN,
-    membership   BOOLEAN,
+    insurance    BOOLEAN default 0,
+    trips        BOOLEAN default 0,
+    membership   BOOLEAN default 0,
     ageGrade_id  INT,
     notes        VARCHAR(100),
-    pending      BOOLEAN,
-    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE,
-    FOREIGN KEY (parent_email) REFERENCES parent (user_email) ON DELETE CASCADE,
+    pending      BOOLEAN default 1,
+    FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE,
+    FOREIGN KEY (parent_email) REFERENCES parent (users_email) ON DELETE CASCADE,
     FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE activity
     ageGrade_id   INT,
     guide_email   VARCHAR(32),
     FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE,
-    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE
+    FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE
 );
 
 CREATE TABLE health_declare
@@ -82,7 +82,7 @@ CREATE TABLE health_declare
     activity_id  INT,
     member_email VARCHAR(32),
     FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE,
-    FOREIGN KEY (member_email) REFERENCES member (user_email) ON DELETE CASCADE
+    FOREIGN KEY (member_email) REFERENCES member (users_email) ON DELETE CASCADE
 );
 
 CREATE TABLE rate
@@ -96,7 +96,7 @@ CREATE TABLE substitute
 (
     activity_id INT,
     guide_email VARCHAR(32),
-    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE,
+    FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE,
     FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE
 );
 
@@ -104,15 +104,15 @@ CREATE TABLE substitute
 CREATE TABLE message
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
-    user_email  VARCHAR(32),
+    users_email  VARCHAR(32),
     sent_from   VARCHAR(32),
     subject     VARCHAR(32),
     content     VARCHAR(100),
     date_sent   DATETIME,
-    is_read     BOOLEAN,
+    is_read     BOOLEAN default 0,
     guide_email VARCHAR(32),
-    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE,
-    FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE
+    FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE,
+    FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE
 );
 
 CREATE TABLE meeting
@@ -121,8 +121,8 @@ CREATE TABLE meeting
     booker_email VARCHAR(32),
     subject      VARCHAR(32),
     date         DATETIME,
-    booked       BOOLEAN,
-    FOREIGN KEY (booker_email) REFERENCES user (email) ON DELETE CASCADE
+    booked       BOOLEAN default 0,
+    FOREIGN KEY (booker_email) REFERENCES users (email) ON DELETE CASCADE
 );
 
 
@@ -137,8 +137,8 @@ CREATE TABLE meeting
 -- CREATE TABLE users_in_trip
 -- (
 --     trip_id    INT,
---     user_email VARCHAR(32),
---     FOREIGN KEY (user_email) REFERENCES user (email) ON DELETE CASCADE
+--     users_email VARCHAR(32),
+--     FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE
 -- );
 
 CREATE TABLE price_list
@@ -155,9 +155,9 @@ CREATE TABLE payment
     pdate        DATETIME,
     payment_name VARCHAR(32),
     parent_email VARCHAR(32),
-    paid         BOOLEAN,
+    paid         BOOLEAN default 0,
     FOREIGN KEY (payment_name) REFERENCES price_list (name) ON DELETE CASCADE,
-    FOREIGN KEY (parent_email) REFERENCES parent (user_email) ON DELETE CASCADE
+    FOREIGN KEY (parent_email) REFERENCES parent (users_email) ON DELETE CASCADE
 );
 
 -- CREATE TABLE transactions_paypal
@@ -181,5 +181,5 @@ CREATE TABLE expanse
     pic         LONGBLOB,
     guide_email VARCHAR(32),
     description VARCHAR(32),
-    FOREIGN KEY (guide_email) REFERENCES guide (user_email) ON DELETE CASCADE
+    FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE
 );
