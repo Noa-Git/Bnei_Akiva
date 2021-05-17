@@ -18,14 +18,14 @@ class Member_model extends CI_Model
 	}
 
 	//??
-	public function update_pending_state($data, $user_email)
+	public function update_pending_state($data, $users_email)
 	{
-		$this->db->update('member', $data, array('user_email' => $user_email));
+		$this->db->update('member', $data, array('user_email' => $users_email));
 	}
 
-	public function get_member($user_email)
+	public function get_member($users_email)
 	{
-		$data = array('user_email' => $user_email);
+		$data = array('users_email' => $users_email);
 		$query = $this->db->get_where('member', $data);
 		return $query->result();
 	}

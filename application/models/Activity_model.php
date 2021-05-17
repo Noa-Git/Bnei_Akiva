@@ -33,9 +33,9 @@ class Activity_model extends CI_Model
 	}
 
 	//update when guide is replaced
-	public function update_guide_for_activity($activity_id, $user_email)
+	public function update_guide_for_activity($activity_id, $users_email)
 	{
-		$this->db->update('activity', array('user_email' => $user_email, 'activity_id' => $activity_id ));
+		$this->db->update('activity', array('users_email' => $users_email, 'activity_id' => $activity_id ));
 	}
 
 	public function get_all_activities_with_rate($ageGrade_id)
