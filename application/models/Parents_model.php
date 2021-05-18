@@ -7,6 +7,7 @@ class Parents_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->db->db_debug = FALSE;
 	}
 
 	public function get_price_list()
@@ -23,6 +24,20 @@ class Parents_model extends CI_Model
 		if (!$this->db->insert('payment', $data)) {
 			$error = $this->db->error();
 		}
+		return $error;
+	}
+
+	public function get_payment($parent_email)
+	{
+
+		$sql = 'SELECT * FROM payment WHERE parent_email=?';
+
+		$error = null;
+		$query = $this->db->query($sql, array($parent_email));
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
 		return $error;
 	}
 }

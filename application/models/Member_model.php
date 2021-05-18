@@ -17,10 +17,10 @@ class Member_model extends CI_Model
 		return $query->result();
 	}
 
-	//??
-	public function update_pending_state($data, $users_email)
+	//update pending state, insurance, trips and membership payments
+	public function update_member($data)
 	{
-		$this->db->update('member', $data, array('user_email' => $users_email));
+		$this->db->update('member', $data);
 	}
 
 	public function get_member($users_email)

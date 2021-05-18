@@ -23,7 +23,7 @@ class Message_model extends CI_Model
 
 	public function get_messages($users_email)
 	{
-		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE users_email= ? ';
+		$sql = 'SELECT * FROM message WHERE users_email= ? ';
 
 		$error = null;
 		$query = $this->db->query($sql, array($users_email));
@@ -35,12 +35,12 @@ class Message_model extends CI_Model
 	}
 
 	public function update_read_status($users_email){
-		$this->db->update('activity', array('users_email' => $users_email, 'is_read' => 1 ));
+		$this->db->update('message', array('users_email' => $users_email, 'is_read' => 1 ));
 	}
 
 	public function get_unread_messages_by_desc_order($users_email)
 	{
-		$sql = 'SELECT sent_from, subject, content, date_sent FROM message WHERE is_read=0 AND users_email= ? ORDER BY date_sent DESC';
+		$sql = 'SELECT * FROM message WHERE is_read=0 AND users_email= ? ORDER BY date_sent DESC';
 
 		$error = null;
 		$query = $this->db->query($sql, array($users_email));
