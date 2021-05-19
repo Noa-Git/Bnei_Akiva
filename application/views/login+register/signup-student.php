@@ -14,18 +14,16 @@
 	<div class="form-div">
 		<?php  echo form_open('User/regitserStudent'); ?>
 		<div class="login-nocorrect">
-			<?php if ($mailExists=='yes')
-				echo "כתובת האימייל קיימת במערכת"
-				;?>
-			<?php // if  (form_error('studEmail')!=NULL)
-			//              echo "כתובת המייל של החניך כבר קיימת במערכת" ; ?>
-		</div>
+              <?php // echo validation_errors(); ?>
 
+                </div>
 
-		<input  type="hidden" name="parentEmail" readonly value="<?php echo set_value('parentEmail'); ?>">
-		<input  type="hidden" name="password" value="<?php echo set_value('password'); ?>">
-
-		<form id="formStudent" method="POST" action="/application/views/login+register/registartionCompelete.php" ;>
+<!--		<form id="formStudent" method="POST" action="/application/views/login+register/registartionCompelete.php" ;>-->
+		<input  type="hidden" name="parentEmail" readonly value="<?php echo ($parentEmail) ;?>">
+		<input  type="hidden" name="house_number" readonly value="<?php echo ($house_number) ;?>">
+		<input  type="hidden" name="city" readonly value="<?php echo ($city) ;?>">
+		<input  type="hidden" name="street" readonly value="<?php echo ($street) ;?>">
+		<input  type="hidden" name="zip_code" readonly value="<?php echo ($zip_code) ;?>">
 
 			<div class="student-sex-radio">
 				<input type="radio" id="male" name="studentSex" value="male" class="radio-input">
@@ -38,44 +36,43 @@
 			<div class="row">
 				<div class="col-6">
 					<input type="text" id="sfName" name="sfName" placeholder="שם פרטי"
-						   value="<?php if (form_error('studEmail')!=NULL): echo set_value('sfName'); endif;?>">
+						   value="<?php echo set_value('sfName')?>">
+                                             <?php echo form_error('sfName', '<div class="login-nocorrect">', '</div>'); ?>
+
 
 				</div>
 				<div class="col-6">
 					<input type="text" id="slName" name="slName" placeholder="שם משפחה"
-						   value="<?php if (form_error('studEmail')!=NULL): echo set_value('slName'); endif;?>">
+						   value="<?php echo set_value('slName');?>">
+                                             <?php echo form_error('slName', '<div class="login-nocorrect">', '</div>'); ?>
 
 				</div>
 			</div>
 
 			<input type="email" name="studEmail" placeholder="אימייל"
-				   value="<?php if (form_error('studEmail')!=NULL): echo set_value('studEmail'); endif;?>">
+				   value="<?php echo set_value('studEmail');?>">
+                                             <?php echo form_error('studEmail', '<div class="login-nocorrect">', '</div>'); ?>
 
-
-			<input type="text" id="studID" name="studID" placeholder="מספר זהות"
-				   value="<?php if (form_error('studEmail')!=NULL): echo set_value('studID'); endif;?>">
-
-			<input type="text" id="bday" name="bday" placeholder="תאריך לידה" class="textbox-n"
-				   onfocus="(this.type='date')" id="date"
-				   value="<?php if (form_error('studEmail')!=NULL): echo set_value('bday'); endif;?>">
 
 			<input type="tel" id="studentPhone" name="studentPhone" placeholder="טלפון נייד"
-				   value="<?php if (form_error('studEmail')!=NULL): echo set_value('studentPhone'); endif;?>">
+				   value="<?php echo set_value('studentPhone'); ?>">
+                                             <?php echo form_error('studentPhone', '<div class="login-nocorrect">', '</div>'); ?>
 
 
 			<div class="row">
-				<select id="select" name="shevet">
-					<option>שבט</option>
-					<option value="הכנה" selected>הכנה (כיתה ג') </option>
-					<option value="נבטים"> נבטים (כיתה ד') </option>
-					<option value="ניצנים">ניצנים (כיתה ה') </option>
-					<option value="מעלות">מעלות (כיתה ו') </option>
-					<option value="מעפילים">מעפילים (כיתה ז') </option>
-					<option value="הראה">הראה (כיתה ח') </option>
-					<option value="השבט העולה">השבט העולה (כיתה ט') </option>
+				<select id="select" name="shevet" >
+                                    	<option value="" <?php echo  set_select('shevet', '', TRUE); ?>>בחר שם שבט </option>
+					<option value="הכנה" <?php echo  set_select('shevet', 'הכנה'); ?> >הכנה (כיתה ג') </option>
+					<option value="נבטים"  <?php echo  set_select('shevet', 'נבטים'); ?>> נבטים (כיתה ד') </option>
+					<option value="ניצנים"  <?php echo  set_select('shevet', 'ניצנים'); ?>>ניצנים (כיתה ה') </option>
+					<option value="מעלות"  <?php echo  set_select('shevet', 'מעלות'); ?>>מעלות (כיתה ו') </option>
+					<option value="מעפילים"  <?php echo  set_select('shevet', 'מעפילים'); ?>>מעפילים (כיתה ז') </option>
+					<option value="הראה"  <?php echo  set_select('shevet', 'הראה'); ?>>הראה (כיתה ח') </option>
+					<option value="השבט העולה"  <?php echo  set_select('shevet', 'השבט העולה'); ?>>השבט העולה (כיתה ט') </option>
 				</select>
-			</div>
+                                          <?php echo form_error('shevet', '<div class="login-nocorrect">', '</div>'); ?>
 
+			</div>
 
 
 			<div class="buttons">

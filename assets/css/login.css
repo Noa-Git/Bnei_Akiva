@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 body {
-	background-image: url("/assets/pics/background/blue.jpg");
+	background-image: url('../pics/background/blue.jpg');
 	display:flex;
 	justify-content: center;
 	align-items: center;
@@ -22,7 +22,7 @@ body {
 	max-height: 100%;
 	display: flex;
 	flex-direction: column;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 h1 {
@@ -90,6 +90,10 @@ form input:focus {
 	color: rgb(44, 51, 148);
 }
 
+#confirmPassword{
+    	text-align: center;
+
+}
 
 .btn {
 	margin-top: 0.5em;

@@ -9,13 +9,23 @@
 	<div class="regImage"></div>
 
 	<div class=row-3>
-		<h1>תודה רבה!</h1>
-		<h2>פרטיכם נקלטו במערכת בהצלחה.</h2>
-		<p style="text-align: center;">בקרוב ניצור עמכם קשר עם השלמת תהליך הרישום.</p>
+		<h1>תודה!</h1>
+		<h2>פרטיכם נקלטו  בהצלחה.</h2>
+                <p style="text-align: center;">
+                    פרטיכם הועברו לבדיקה על ידי מדריכי הסניף.
+                    
+                     לאחר האישור תוכלו להכנס למערכת.
+                    
+                </p>
 	</div>
 
 	<div class=row-3>
-		<p style="text-align: center;">התשובה תוחזר למייל:</p>
+		<p style="text-align: center;">
+                    נתראה בקרוב! 
+                    <br><b>
+                    סניף בני עקיבא בת-ים.
+                    </b> </p>
+                
 		<h2 style="text-align: center;">
 			<!--			--><?php
 			//			echo $_POST['email'];

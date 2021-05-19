@@ -21,9 +21,7 @@ class User_model extends CI_Model {
 
 	}
 
-
-
-	public function saveParent($data){
+	public function saveUser($data){
 		//set flag in order to avoid showing php errors
 		$this->db->db_debug = FALSE;
 
@@ -32,13 +30,27 @@ class User_model extends CI_Model {
 		if (!$this->db->insert('users', $data)){
 			$error=$this->db->error();
 		}
-
 		return $error;
 
 	}
 
-	public function saveStudent($data){
+	public function saveParent($data){
 		//set flag in order to avoid showing php errors
+		$this->db->db_debug = FALSE;
+
+		$error=null;
+
+                $users_email=array('users_email'=>$data['email']);
+		if (!$this->db->insert('parent', $users_email)){
+			$error=$this->db->error();
+		}
+		return $error;
+
+	}
+
+
+
+        	public function saveMember($data){
 		$this->db->db_debug = FALSE;
 
 		$error=null;
@@ -46,11 +58,10 @@ class User_model extends CI_Model {
 		if (!$this->db->insert('member', $data)){
 			$error=$this->db->error();
 		}
-
 		return $error;
 
 	}
-
+       
 
 	public function valid_Email($email) {
 		$query = $this->db->get_where('users', array('email' => $email));
@@ -60,5 +71,13 @@ class User_model extends CI_Model {
 		return TRUE;
 	}
 
+        public function find_name_ageGrade($name)
+        {
+            $this->db->select('id');
+            $this->db->from('agegrade');
+            $this->db->where('name', $name);
+            $query = $this->db->get();
+             return $query->row();
 
+        }
 }
