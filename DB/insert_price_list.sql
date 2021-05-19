@@ -1,3 +1,5 @@
+USE bnei_akiva;
+
 INSERT INTO `price_list` (`id`, `name`, `description`, `price`)
 VALUES (1, 'first_trip', 'opening trip in Sukkot, one day long', '200'),
        (2, 'second_trip', 'middle year trip in Passover, 3 days long', '550'),

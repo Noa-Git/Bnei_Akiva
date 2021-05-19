@@ -8,7 +8,7 @@
 
 	<div>
 
-		<h1>:חדשים כאן? הירשמו</h1>
+		<h1>חדשים כאן? הרשמו:</h1>
 
 
 		<h2>פרטי ההורה</h2>
@@ -18,50 +18,61 @@
 		<?php echo form_open('User/regitserParent'); ?>
 		<div class="login-nocorrect">
 
-			<?php if (form_error('parentEmail') != NULL)
-				echo "כתובת האימייל כבר קיימת במערכת"; ?>
+              <?php // echo validation_errors(); ?>
+
+
 		</div>
 		<!--<form id="formParent" method="POST" action="/application/views/login+register/signup-student.php" ;>-->
 		<div class="parent-panel">
 			<div class="row">
 				<div class="col-6">
-					<input type="text" id="pfName" name="pfName" placeholder="שם פרטי" required
+					<input type="text" id="pfName" name="pfName" placeholder="שם פרטי" 
 						   value="<?php echo set_value('pfName'); ?>">
+                    <?php echo form_error('pfName', '<div class="login-nocorrect">', '</div>'); ?>
+
 				</div>
 				<div class="col-6">
-					<input type="text" id="plName" name="plName" placeholder="שם משפחה" required
+					<input type="text" id="plName" name="plName" placeholder="שם משפחה" 
 						   value="<?php echo set_value('plName'); ?>">
 				</div>
-				<div class="login-error hidden" id="name-error"> יש להזין שם פרטי ושם משפחה</div>
-			</div>
+			<?php echo form_error('plName', '<div class="login-nocorrect">', '</div>'); ?>
 
-			<input type="tel" id="parentPhone" name="parentPhone" placeholder="טלפון נייד" required
+                        </div>
+
+			<input type="tel" id="parentPhone" name="parentPhone" placeholder="טלפון נייד" 
 				   value="<?php echo set_value('parentPhone'); ?>">
-			<div class="login-error hidden" id="parentPhone-error">יש להזין מספר טלפון נייד</div>
+			<?php echo form_error('parentPhone', '<div class="login-nocorrect">', '</div>'); ?>
 
-			<input type="email" id="email" name="parentEmail" placeholder="מייל" required
+			<input type="text" id="email" name="parentEmail" placeholder="מייל" 
 				   value="<?php echo set_value('parentEmail'); ?>">
-			<div class="login-error hidden" id="email-error">יש להזין כתובת דואר אלקטרוני</div>
+			<?php echo form_error('parentEmail', '<div class="login-nocorrect">', '</div>'); ?>
 
 			<div class="row">
 				<div class="col-6">
-					<input type="text" id="city" name="city" placeholder="ישוב" required
+					<input type="text" id="city" name="city" placeholder="ישוב" 
 						   value="<?php echo set_value('city'); ?>">
-				</div>
+						<?php echo form_error('city', '<div class="login-nocorrect">', '</div>'); ?>
+                                </div>
 				<div class="col-6">
-					<input type="text" id="street" name="street" placeholder="רחוב" required
+					<input type="text" id="street" name="street" placeholder="רחוב" 
 						   value="<?php echo set_value('street'); ?>">
+                                       						<?php echo form_error('street', '<div class="login-nocorrect">', '</div>'); ?>
+ 
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-6">
-					<input type="number" id="house" name="house" placeholder="בית"
-						   value="<?php echo set_value('house'); ?>">
+					<input type="number" id="house" name="house_number" placeholder="בית"
+						   value="<?php echo set_value('house_number'); ?>">
+                                                     <?php echo form_error('house_number', '<div class="login-nocorrect">', '</div>'); ?>
+
 				</div>
 				<div class="col-6">
-					<input type="number" id="apartment" name="apartment" placeholder="דירה"
-						   value="<?php echo set_value('apartment'); ?>">
+					<input type="number" id="apartment" name="zip_code" placeholder="מיקוד"
+						   value="<?php echo set_value('zip_code'); ?>">
+                                            <?php echo form_error('zip_code', '<div class="login-nocorrect">', '</div>'); ?>
+
 				</div>
 			</div>
 			<div class="login-error" id="address-error"></div>
@@ -69,9 +80,12 @@
 			<div style="margin-top:5px; text-align:center; font-weight:bold;">נא לבחור סיסמת כניסה למערכת:</div>
 			<input type="password" id="password" name="password" placeholder="סיסמה לכניסה למערכת"
 				   value="<?php echo set_value('password'); ?>">
+                                         <?php echo form_error('password', '<div class="login-nocorrect">', '</div>'); ?>
+
 			<input type="password" id="confirmPassword" name="confirmPassword" placeholder="אימות סיסמה"
 				   value="<?php echo set_value('confirmPassword'); ?>">
-			<div class="login-error hidden" id="password-error">יש לבחור סיסמת כניסה</div>
+                                       <?php echo form_error('confirmPassword', '<div class="login-nocorrect">', '</div>'); ?>
+
 		</div>
 
 		<input type="submit" class="btn" id="submitParentBtn" value="המשך">
