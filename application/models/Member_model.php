@@ -10,11 +10,16 @@ class Member_model extends CI_Model
 		$this->db->db_debug = FALSE;
 	}
 
-	public function get_members($ageGrade_id)
+	public function get_members_list($guide_email)
 	{
-		$data = array('ageGrade_id' => $ageGrade_id);
-		$query = $this->db->get_where('member', $data);
-		return $query->result();
+		$error = null;
+		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where guide_email = ?');
+
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
 	}
 
 	//update pending state, insurance, trips and membership payments
@@ -25,9 +30,14 @@ class Member_model extends CI_Model
 
 	public function get_member($users_email)
 	{
-		$data = array('users_email' => $users_email);
-		$query = $this->db->get_where('member', $data);
-		return $query->result();
+		$error = null;
+		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where users_email = ?');
+
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
 	}
 
 }

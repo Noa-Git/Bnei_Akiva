@@ -33,9 +33,15 @@ class Activity_model extends CI_Model
 	}
 
 	//update when guide is replaced or when after_summary is updated
-	public function update_activity($data)
+	public function update($data)
 	{
-		$this->db->update('activity', $data);
+		$error = null;
+
+		if ($this->db->update('activity', $data)) {
+			$error = $this->db->error();
+		}
+		return $error;
+
 	}
 
 	public function get_all_activities_with_rate($guide_email)
