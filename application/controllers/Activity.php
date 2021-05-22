@@ -14,29 +14,32 @@ class Activity extends CI_Controller
 	//display_next_activities_and_its_rate
 	public function activities()
 	{
-		$guide_email=$this->session->users_email;
-
-//		$data=$this->input->post();
-//		if($data['all']=='TRUE'){
+		$guide_email=$this->session->user->email;
+		//echo "console.log(".print_r($guide_email).")";
+		$data=$this->input->post();
+		if($data['all']=='true'){
 			$out=$this->Activity_model->get_all_activities_with_rate($guide_email);
-			print_r($out);
-//		}
-//		else{
-//			$out=$this->Activity_model->get_top_3_activities_by_desc_order($guide_email);
-//		}
-//
+			
+		}
+		else{
+			$out=$this->Activity_model->get_top_3_activities_by_desc_order($guide_email);
+		}
+		
+		echo json_encode($out);
 //		return $out;
 	}
 
 	public function add_activity()
 	{
 		$type = $this->session->type;
-		$users_email = $this->session->users_email;
+		$users_email = $this->session->user->email;
+		$time = $this->input->post('date').' '.$this->input->post('time').':00';
+		// $time = date_create_from_format("Y-M-j H:i", $this->input->post('date').' '.$this->input->post('time') );
 		$data = array(
 			'name' => $this->input->post('name'),
 			'description' => $this->input->post('description'),
-			'time' => $this->input->post('time'),
-			'guide_email' => $this->session->users_email
+			'time' => $time ,
+			'guide_email' => $this->session->user->email
 		);
 
 		$error = $this->Activity_model->save_activity($data);
@@ -44,6 +47,7 @@ class Activity extends CI_Controller
 			echo json_encode(array('error' => true,'db_error' => $error['message']));
 			return;
 		}
+		echo json_encode(array('success' => true));
 	}
 
 	public function save_form()

@@ -342,21 +342,24 @@
                         </div>
 
                         <div class="modal-body">
-                            <form id="new-activity" action="/application/views/Instructor/homepage.php" method="post">
+                            <form id="new-activity">
                                 <div class="input-box">
                                     <div class="input-group">
-                                        <label for="activityType">סוג הפעילות:</label>
-                                        <input type="text" name="activityType" id="activityType">
+                                        <label for="activityName">שם הפעילות:</label>
+                                        <input type="text" name="name" id="activityName">
                                     </div>
-
+                                    <div class="input-group">
+                                        <label for="activityDesc">תאור הפעילות:</label>
+                                        <input type="textarea" name="description" id="activityDesc">
+                                    </div>
                                     <div class="input-group">
                                         <label for="activityDate">תאריך הפעילות:</label>
-                                        <input type="date" name="activityDate">
+                                        <input type="date" name="date">
                                     </div>
 
                                     <div class="input-group">
                                         <label for="activityTime">שעת הפעילות:</label>
-                                        <input type="time" name="activityTime">
+                                        <input type="time" name="time">
                                     </div>
                                 </div>
 
@@ -623,8 +626,8 @@
 
         </footer>
 
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
         </script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
