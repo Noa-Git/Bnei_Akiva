@@ -12,7 +12,19 @@ class Calender_model extends CI_Model
 
 	public function get_meetings_by_guide_email($guide_email)
 	{
-		$sql = 'SELECT * FROM meeting WHERE guide_email= ?';
+		$sql = 'SELECT * FROM meeting WHERE guide_email= ? ORDER BY date DESC';
+		$error = null;
+		$query = $this->db->query($sql, array($guide_email));
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+
+	public function get_top3_meetings_by_guide_email($guide_email)
+	{
+		$sql = 'SELECT * FROM meeting WHERE guide_email= ? ORDER BY date DESC LIMIT 3';
 		$error = null;
 		$query = $this->db->query($sql, array($guide_email));
 		if ($query) {

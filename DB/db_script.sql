@@ -67,7 +67,7 @@ CREATE TABLE member
 CREATE TABLE activity
 (
     id               INT AUTO_INCREMENT PRIMARY KEY,
-    name             VARCHAR(32) UNIQUE,
+    name             VARCHAR(32),
     description      VARCHAR(100),
     time             DATETIME,
     after_summary    VARCHAR(100),
@@ -108,13 +108,13 @@ CREATE TABLE substitute
 CREATE TABLE message
 (
     id             INT AUTO_INCREMENT PRIMARY KEY,
-    receiver_email VARCHAR(32),
+    recipient_email VARCHAR(32),
     sent_from      VARCHAR(32),
     subject        VARCHAR(32),
     content        VARCHAR(100),
-    date_sent      DATETIME,
+    date_sent      DATETIME DEFAULT NOW(),
     is_read        BOOLEAN default 0,
-    FOREIGN KEY (receiver_email) REFERENCES users (email) ON DELETE CASCADE
+    FOREIGN KEY (recipient_email) REFERENCES users (email) ON DELETE CASCADE
 );
 
 CREATE TABLE meeting
@@ -156,12 +156,12 @@ CREATE TABLE price_list
 CREATE TABLE payment
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
-    pdate        DATETIME,
+    pdate        DATETIME DEFAULT NOW(),
     payment_name VARCHAR(32),
     parent_email VARCHAR(32),
     member_email VARCHAR(32),
     paid         BOOLEAN default 0,
-    FOREIGN KEY (member_email) REFERENCES member (users_email) ON DELETE CASCADE
+    FOREIGN KEY (member_email) REFERENCES member (users_email) ON DELETE CASCADE,
     FOREIGN KEY (payment_name) REFERENCES price_list (name) ON DELETE CASCADE,
     FOREIGN KEY (parent_email) REFERENCES parent (users_email) ON DELETE CASCADE
 );
