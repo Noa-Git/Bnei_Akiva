@@ -10,13 +10,17 @@ class Member extends CI_Controller
 		$this->load->library('session');
 	}
 
-	public function display_members_list()
+	public function members_list()
 	{
+		$guide_email=$this->session->users_email;
+		$this->Member_model->get_members_list($guide_email);
 
 	}
 
-	public function display_member_details()
+	public function member_details()
 	{
+		$users_email=$this->input->post();
+		$this->Member_model->get_member($users_email);
 
 	}
 }

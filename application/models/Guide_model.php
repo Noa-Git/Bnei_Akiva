@@ -34,5 +34,14 @@ class Guide_model extends CI_Model
 		return $error;
 	}
 
-
+	public function get_expanses_by_time_DESC($guide_email)
+	{
+		$error = null;
+		$query = $this->db->query('SELECT * FROM expanse WHERE guide_email = ? ORDER BY edate DESC');
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
 }
