@@ -71,7 +71,7 @@ class User_model extends CI_Model {
 		return TRUE;
 	}
 
-        public function find_name_ageGrade($name)
+        public function find_name_agegrade($name)
         {
             $this->db->select('id');
             $this->db->from('agegrade');

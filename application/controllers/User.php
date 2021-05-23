@@ -174,13 +174,13 @@ class User extends CI_Controller {
 
             $error = $this->User_model->saveUser($data);
 
-            $ageGrade_id=$this->User_model->find_name_ageGrade($this->input->post('shevet'));
+            $agegrade_id=$this->User_model->find_name_agegrade($this->input->post('shevet'));
             
             $data2 = array(
                 'users_email' => $this->input->post('studEmail'),
                 //'gender' => $this->input->post('studentSex'),
                 'parent_email' => $this->input->post('parentEmail'),
-                'ageGrade_id' => $ageGrade_id->id,
+                'agegrade_id' => $agegrade_id->id,
             );
              $error = $this->User_model->saveMember($data2);
 
