@@ -31,4 +31,9 @@ class Guide extends CI_Controller
 		$guide_email=$this->session->users_email;
 		$this->Guide_model->get_expanses_by_time_DESC($guide_email);
 	}
+
+	public function dashboard()
+	{
+		$this->load->view('Instructor/homepage.php');
+	}
 }

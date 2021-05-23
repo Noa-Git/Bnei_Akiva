@@ -46,7 +46,7 @@ class Activity_model extends CI_Model
 
 	public function get_all_activities_with_rate($guide_email)
 	{
-		$sql = 'SELECT *, AVG(rate.rate) AS rates_avg FROM activity INNER JOIN rate ON activity.id=rate.activity_id WHERE activity.guide_email= ? ';
+		$sql = 'SELECT *,  (select AVG(rate.rate) from activity INNER JOIN rate ON activity.id = rate.activity_id) AS rates_avg FROM activity WHERE activity.guide_email= ? ';
 		$error = null;
 		$query = $this->db->query($sql, array($guide_email));
 		if ($query) {
@@ -71,7 +71,7 @@ class Activity_model extends CI_Model
 
 	public function get_top_3_activities_by_desc_order($guide_email)
 	{
-		$sql = 'SELECT * FROM activity WHERE guide_email= ? ORDER BY time DESC LIMIT 3';
+		$sql = 'SELECT * FROM activity WHERE guide_email= ? AND time >= CURRENT_DATE ORDER BY time ASC LIMIT 3';
 		$error = null;
 		$query = $this->db->query($sql, array($guide_email));
 		if ($query) {

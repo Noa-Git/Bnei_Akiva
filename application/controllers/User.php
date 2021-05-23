@@ -41,7 +41,7 @@ class User extends CI_Controller {
                 echo 'Parent Dashboard';
             }
             if ($data['role'] == 2) {
-                echo 'Guide Dashboard';
+                redirect("Guide/dashboard");
             }
         }
     }
