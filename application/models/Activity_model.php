@@ -136,7 +136,7 @@ class Activity_model extends CI_Model
 		return $error;
 	}
 
-	public function get_substitute_by_ageGrade_order_by_activity_time_DESC_top3($guide_email)
+	public function get_substitute_by_agegrade_order_by_activity_time_DESC_top3($guide_email)
 	{
 		$error = null;
 		$query = $this->db->query('SELECT * FROM substitute INNER JOIN activity ON substitute.activityid=activity.id where guide_email = ? ORDER BY activity.time DESC LIMIT 3');
@@ -148,7 +148,7 @@ class Activity_model extends CI_Model
 		return $error;
 	}
 
-	public function get_substitute_by_ageGrade_order_by_activity_time_DESC($guide_email)
+	public function get_substitute_by_agegrade_order_by_activity_time_DESC($guide_email)
 	{
 		$error = null;
 		$query = $this->db->query('SELECT * FROM substitute INNER JOIN activity ON substitute.activityid=activity.id where guide_email = ? ORDER BY activity.time DESC');
