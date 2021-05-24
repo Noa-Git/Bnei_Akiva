@@ -30,7 +30,7 @@ CREATE TABLE agegrade
 (
     id    INT AUTO_INCREMENT PRIMARY KEY,
     grade VARCHAR(8),
-    name  VARCHAR(8)
+    name  VARCHAR(15)
 );
 
 CREATE TABLE guide
