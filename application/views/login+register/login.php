@@ -30,7 +30,7 @@
 	</div>
 
 	<span id="forgotPassword">
-            <a href='user/forgot_password/'>שכחת את הסיסמה?</a>
+            <a href="#">שכחת את הסיסמה?</a>
         </span>
 
 	<div id="gotoSignIn">
