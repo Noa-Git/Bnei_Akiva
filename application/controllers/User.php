@@ -216,17 +216,6 @@ class User extends CI_Controller {
         $this->load->view('login+register/registrationComplete', $data);
     }
 
-    public function send_members_for_approval() {
-        //get all members from DB
-        $data['members'] = $this->Member_model->get_members();
-
-        foreach ($data['members'] as $member) {
-            if ($member->pending == TRUE) {
-                $this->load->view();
-            }
-        }
-    }
-
     public function validate_alpha_input($names) {
 
 //        if ($names == NULL) {
@@ -255,4 +244,93 @@ class User extends CI_Controller {
         return TRUE;
     }
 
+<<<<<<< Updated upstream
 }
+=======
+    public function forgot_password($data = array('error' => null)){
+		$this->load->view("login+register/forgot_password", $data);
+		$this->load->view('templates/loginAndRegisterHead');
+	}
+
+    public function send_password(){
+		$data = array(
+			'email' => $this->input->post('email'),
+		);
+		//validation
+
+		$check = $this->User_model->auth($data);
+		if ($check == null) {
+			$data['error'] = 'משתמש לא קיים. נסה שנית';
+			$this->forgot_password($data);
+		}
+		else{
+			$config = [
+				'protocol' => 'smtp',
+				'smtp_host' => 'smtp.office365.com',
+				'smtp_user' => 'mta-bnei-akiva@outlook.com',
+				'smtp_pass' => 'bneiakiva123',
+				'smtp_crypto' => 'tls',
+				'newline' => "\r\n",
+				'smtp_port' => 587,
+				'mailtype' => 'html'
+			];
+			$this->load->library('email', $config);
+
+			$this->email->from('mta-bnei-akiva@outlook.com', 'bnei-akiva');
+			$this->email->to('');
+			$this->email->subject('איפוס סיסמה');
+			$message="<a href='".base_url()."user/do_login/'>לחץ כאן</a> סיסמתך החדשה: 1234";
+			$this->email->message($message);
+
+			$sent = $this->email->send();
+			redirect('User/login');
+		}
+	}
+
+	public function send_members_for_approval() {
+		//get all members from DB
+		$data['members'] = $this->Member_model->get_members();
+
+		foreach ($data['members'] as $member) {
+			if ($member->pending == 0) {
+				$this->load->view();
+			}
+		}
+	}
+
+	public function send_mail_approval(){
+		$data = array(
+			'email' => $this->input->post('email'),
+		);
+		//validation
+
+		$check = $this->User_model->auth($data);
+		if ($check == null) {
+			$data['error'] = 'משתמש לא קיים. נסה שנית';
+			$this->forgot_password($data);
+		}
+		else{
+			$config = [
+				'protocol' => 'smtp',
+				'smtp_host' => 'smtp.office365.com',
+				'smtp_user' => 'mta-bnei-akiva@outlook.com',
+				'smtp_pass' => 'bneiakiva123',
+				'smtp_crypto' => 'tls',
+				'newline' => "\r\n",
+				'smtp_port' => 587,
+				'mailtype' => 'html'
+			];
+			$this->load->library('email', $config);
+
+			$this->email->from('mta-bnei-akiva@outlook.com', 'bnei-akiva');
+			$this->email->to('');
+			$this->email->subject('אישור הצטרפותך כחבר תנועת הנוער בני עקיבא');
+			$message="<a href='".base_url()."user/do_login/'>לחץ כאן</a> בקשתך התקבלה, ברוכה הבאה לבני עקיבא:)";
+			$this->email->message($message);
+
+			$sent = $this->email->send();
+			redirect('');
+		}
+	}
+}
+>>>>>>> Stashed changes

@@ -11,32 +11,19 @@
 	</div>
 
 	<div class="form-div">
-		<?php echo form_open('User/do_login'); ?>
-		<div class="login-nocorrect">
+		<?php echo form_open('User/send_password'); ?>
+		<div class="NotExist">
 			<?php if ($error): echo $error; ?>
 			<?php endif ?>
 		</div>
-
-		<form id="logInForm" method="POST" action="" ;>
+		<form id="forgotPassForm" method="POST" action="" ;>
+			<br>
+			<h6>הזן כתובת מייל לאיפוס סיסמה</h6>
 			<input type="email" id="login-phone" name="email" placeholder="אימייל" required
 				   value="<?php echo set_value('email'); ?>">
-			<div class="login-error hidden" id="phone-error">יש להזין את האימייל שלכם</div>
-
-			<input type="password" id="login-password" name="password" placeholder="סיסמה" required>
-			<div class="login-error hidden" id="password-error">יש להזין את ססמת הכניסה שלכם</div>
-
-			<input type="submit" class="btn" id="loginBtn" value="כניסה">
+			<div class="NotExist-error hidden">יש להזין את האימייל שלכם</div>
+			<input type="submit" class="btn" id="loginBtn" value="שלח">
 		</form>
-	</div>
-
-	<span id="forgotPassword">
-            <a href='user/forgot_password/'>שכחת את הסיסמה?</a>
-        </span>
-
-	<div id="gotoSignIn">
-		<?php echo anchor('User/loadRegisterParent', ' חדשים כאן? לחצו כדי להירשם', 'class="link-class"') ?>
-
-
 	</div>
 
 	<div class="img-div">
