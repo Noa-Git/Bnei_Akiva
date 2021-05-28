@@ -82,10 +82,10 @@ class Activity extends CI_Controller
 
 		$data=$this->input->post();
 		if($data['all']=='TRUE'){
-			$out=$this->Activity_model->get_substitute_by_ageGrade_order_by_activity_time_DESC($guide_email);
+			$out=$this->Activity_model->get_substitute_by_agegrade_order_by_activity_time_DESC($guide_email);
 		}
 		else{
-			$out=$this->Activity_model->get_substitute_by_ageGrade_order_by_activity_time_DESC_top3($guide_email);
+			$out=$this->Activity_model->get_substitute_by_agegrade_order_by_activity_time_DESC_top3($guide_email);
 		}
 		return $out;
 	}
