@@ -40,4 +40,16 @@ class Member_model extends CI_Model
 		return $error;
 	}
 
+	public function get_members_by_agegrade($agegrade_id)
+	{
+		$error = null;
+		$query = $this->db->query("SELECT * FROM member where agegrade_id = '$agegrade_id'");
+
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+
 }

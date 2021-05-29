@@ -21,12 +21,14 @@ class Message_model extends CI_Model
 		return $error;
 	}
 
-	public function get_messages($users_email)
+	public function get_messages_with_user_details($recipient_email, $all=true)
 	{
-		$sql = 'SELECT * FROM message WHERE users_email= ? ';
-
-		$error = null;
-		$query = $this->db->query($sql, array($users_email));
+		if($all==true){
+			$query = $this->db->query("SELECT * FROM message INNER JOIN users ON message.recipient_email=users.email WHERE recipient_email = '$recipient_email' ORDER BY date_sent DESC");
+		}
+		else{
+			$query = $query = $this->db->query("SELECT * FROM message INNER JOIN users ON message.recipient_email=users.email WHERE is_read = 0 AND recipient_email = '$recipient_email' ORDER BY date_sent DESC");
+		}
 		if ($query) {
 			return $query->result();
 		}
@@ -34,21 +36,9 @@ class Message_model extends CI_Model
 		return $error;
 	}
 
+	//?
 	public function update_read_status($users_email){
 		$this->db->update('message', array('users_email' => $users_email, 'is_read' => 1 ));
-	}
-
-	public function get_unread_messages_by_desc_order($users_email)
-	{
-		$sql = 'SELECT * FROM message WHERE is_read=0 AND users_email= ? ORDER BY date_sent DESC';
-
-		$error = null;
-		$query = $this->db->query($sql, array($users_email));
-		if ($query) {
-			return $query->result();
-		}
-		$error = $this->db->error();
-		return $error;
 	}
 
 }

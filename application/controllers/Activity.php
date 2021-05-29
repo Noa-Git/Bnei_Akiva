@@ -7,8 +7,9 @@ class Activity extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Activity_model');
+		$this->load->model('Member_model');
+		$this->load->model('Message_model');
 		$this->load->library('session');
-		$this->load->helper('form');
 	}
 
 	//display_next_activities_and_its_rate
@@ -26,7 +27,6 @@ class Activity extends CI_Controller
 		}
 		
 		echo json_encode($out);
-//		return $out;
 	}
 
 	public function add_activity()
@@ -50,21 +50,41 @@ class Activity extends CI_Controller
 		echo json_encode(array('success' => true));
 	}
 
-	public function save_form()
-	{
-		$this->load->view('form');
-	}
-
 	//add_after_summary_and_send_notifications
 	public function add_summary()
 	{
-		$data=array(
-			'id'=>$this->input->post('id'),
-			'after_summary'=>$this->input->post('after_summary'),
-			'num_participates'=>$this->input->post('num_participates')
+		$counter = 0;
+		$members_arr=$this->input->post("members");
+		$data = array(
+			'id' => $this->input->post('id'),
+			'after_summary' => $this->input->post('after_summary'),
+		);
+		foreach ($members_arr as $member) {
+			if ($member->attendant = 1) {
+				$counter++;
+				$subject='החניך הגיע';
+			}
+			else{
+				$subject='החניך לא הגיע';
+			}
+			$email=$member->email;
+			$get_parent= $this->Member_model->get_member($email);
+			$parent=$get_parent[0]->parent_email;
+			$message= array(
+				'sent_from' => $this->session->users_email,
+				'subject' => $subject,
+				'recipient_email'=> $parent
+			);
+			$this->Message_model->send($message);
+		}
+
+		$newdata=array(
+			'id' => $this->input->post('id'),
+			'after_summary' => $this->input->post('after_summary'),
+			'num_participants'=>$counter
 		);
 
-		$error = $this->Activity_model->update($data);
+		$error = $this->Activity_model->update($newdata);
 		if ($error) {
 			$errors = array('error' => true,'db_error' => $error);
 			echo json_encode($errors);
@@ -72,13 +92,11 @@ class Activity extends CI_Controller
 		}
 
 		echo json_encode(array('success' => true));
-
-		//send_notifications ???
 	}
 
 	public function substitutes()
 	{
-		$guide_email=$this->session->users_email;
+		$guide_email=$this->session->users->email;
 
 		$data=$this->input->post();
 		if($data['all']=='TRUE'){
@@ -93,7 +111,7 @@ class Activity extends CI_Controller
 	public function substitute_request()
 	{
 		$type = $this->session->type;
-		$users_email = $this->session->users_email;
+		$users_email = $this->session->users->email;
 		$data = array(
 			'id' => $this->input->post('id'),
 			'guide_email' => $this->session->users_email
@@ -108,7 +126,7 @@ class Activity extends CI_Controller
 
 	public function change_guide()
 	{
-		$data=array('guide_email'=>$this->session->users_email);
+		$data=array('guide_email'=>$this->session->users->email);
 		$this->Activity_model->update_activity($data);
 
 		$id=$this->input->post('id');
@@ -133,4 +151,26 @@ class Activity extends CI_Controller
 		echo json_encode(array('success' => true));
 
 	}
+
+	public function get_activity_details(){
+		$activity_id=$this->input->post('activity_id');
+		$agegrade = $this->Activity_model->get_agegrade_by_activity_id($activity_id);
+		$agegrade_id=$agegrade[0]->agegrade_id;
+		$members=$this->Member_model->get_members_by_agegrade($agegrade_id);
+		$members_declare= $this->Activity_model->get_health_declare_by_activity($activity_id);
+		$members_with_health_declare=[];
+		foreach($members as $row1)
+		{
+			foreach($members_declare as $row2)
+			{
+				if ($row1->users_email==$row2->member_email)
+				{
+					$members_with_health_declare['email']=$row2->member_email;
+					$members_with_health_declare['attendant']=0;
+				}
+			}
+		}
+		json_encode($members_with_health_declare);
+	}
+
 }
