@@ -9,6 +9,7 @@ class Activity extends CI_Controller
 		$this->load->model('Activity_model');
 		$this->load->model('Member_model');
 		$this->load->model('Message_model');
+		$this->load->model('Guide_model');
 		$this->load->library('session');
 	}
 
@@ -34,12 +35,14 @@ class Activity extends CI_Controller
 		$type = $this->session->type;
 		$users_email = $this->session->user->email;
 		$time = $this->input->post('date').' '.$this->input->post('time').':00';
+		$agegrade_id=$this->Guide_model->get_agegrade_by_email($users_email);
 		// $time = date_create_from_format("Y-M-j H:i", $this->input->post('date').' '.$this->input->post('time') );
 		$data = array(
 			'name' => $this->input->post('name'),
 			'description' => $this->input->post('description'),
 			'time' => $time ,
-			'guide_email' => $this->session->user->email
+			'guide_email' => $this->session->user->email,
+			'agegrade_id' => $agegrade_id
 		);
 
 		$error = $this->Activity_model->save_activity($data);
@@ -55,36 +58,32 @@ class Activity extends CI_Controller
 	{
 		$counter = 0;
 		$members_arr=$this->input->post("members");
-		$data = array(
-			'id' => $this->input->post('id'),
-			'after_summary' => $this->input->post('after_summary'),
-		);
+		
 		foreach ($members_arr as $member) {
-			if ($member->attendant = 1) {
+			if ($member['attendant'] == 1) {
 				$counter++;
 				$subject='החניך הגיע';
 			}
 			else{
 				$subject='החניך לא הגיע';
 			}
-			$email=$member->email;
+			$email=$member['email'];
 			$get_parent= $this->Member_model->get_member($email);
 			$parent=$get_parent[0]->parent_email;
 			$message= array(
-				'sent_from' => $this->session->users_email,
+				'sent_from' => $this->session->user->fname.' '.$this->session->user->lname,
 				'subject' => $subject,
 				'recipient_email'=> $parent
 			);
 			$this->Message_model->send($message);
 		}
-
+		$id = $this->input->post('id');
 		$newdata=array(
-			'id' => $this->input->post('id'),
+			
 			'after_summary' => $this->input->post('after_summary'),
 			'num_participants'=>$counter
 		);
-
-		$error = $this->Activity_model->update($newdata);
+		$error = $this->Activity_model->update($id,$newdata);
 		if ($error) {
 			$errors = array('error' => true,'db_error' => $error);
 			echo json_encode($errors);
@@ -158,19 +157,30 @@ class Activity extends CI_Controller
 		$agegrade_id=$agegrade[0]->agegrade_id;
 		$members=$this->Member_model->get_members_by_agegrade($agegrade_id);
 		$members_declare= $this->Activity_model->get_health_declare_by_activity($activity_id);
-		$members_with_health_declare=[];
+		$members_to_send=array();
 		foreach($members as $row1)
 		{
-			foreach($members_declare as $row2)
+			$member = array();
+			$member['email']=$row1->users_email;
+			$member['attendant']=0;
+			$member['health_declare']=0;
+			$member['member_name']=$row1->fname.' '.$row1->lname;
+
+			if (!empty($members_declare) )
 			{
-				if ($row1->users_email==$row2->member_email)
+				foreach($members_declare as $row2)
 				{
-					$members_with_health_declare['email']=$row2->member_email;
-					$members_with_health_declare['attendant']=0;
+					if ($row1->users_email==$row2->member_email)
+					{
+						$member['health_declare']=1;
+						break;
+					}
 				}
+				
 			}
+			array_push($members_to_send, $member);
 		}
-		json_encode($members_with_health_declare);
+		echo json_encode($members_to_send);
 	}
 
 }

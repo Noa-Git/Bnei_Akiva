@@ -33,14 +33,12 @@ class Activity_model extends CI_Model
 	}
 
 	//update when guide is replaced or when after_summary is updated
-	public function update($data)
+	public function update($id,$data)
 	{
+		
 		$error = null;
-
-		if ($this->db->update('activity', $data)) {
-			$error = $this->db->error();
-		}
-		return $error;
+		
+		$this->db->set($data)->where('id', $id)->update('activity');
 
 	}
 

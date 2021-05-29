@@ -1,3 +1,33 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@IliaShifrin 
+Noa-Git
+/
+bnei-akiva
+2
+02
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+bnei-akiva/DB/db_script.sql
+@Noa-Git
+Noa-Git agegrade name extended
+Latest commit 689342b 3 days ago
+ History
+ 1 contributor
+191 lines (168 sloc)  5.03 KB
+  
 CREATE
 DATABASE bnei_akiva;
 USE
@@ -189,3 +219,16 @@ CREATE TABLE expanse
     description VARCHAR(32),
     FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE
 );
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete

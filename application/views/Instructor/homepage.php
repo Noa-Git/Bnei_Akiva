@@ -91,16 +91,19 @@
     <!---------------------------------- End Header -------------------------------------->
     <div class="container-fluid-reverse horizontal-scrollable">
 
-        <h2>שלום מור!</h2>
+        <h2>
+            <!--<?php echo $fname ?>--> שלום
+        </h2>
+        <div class="orientation-bar"></div>
+
+        <!-----------------------------Submition Notes & Alerts-------------------------------------->
+        <span class="submition-alert"></span>
 
         <!-----------------------------Dashboard data-------------------------------------->
         <div class="row flex-row-reverse flex-nowrap align-items-top" id="row-dashboard">
 
-
-
-
             <!----------------------- Activities --------------------->
-            <div class="col-sm-12 col-md-6 col-lg-3 text-center text-center" id="activity">
+            <div class="col-sm-12 col-md-6 col-xl-3 text-center text-center" id="activity">
                 <div class="dashboard-bar" id="activity-status">
                     <h3>הפעילויות הקרובות שלי</h3>
                     <table class="table" id="activityTable">
@@ -128,27 +131,32 @@
                 </div>
 
                 <div id="expandedActivityBar" class="collapse">
-                    <button type="button" data-toggle="modal" data-target="#newActivityModal" class="modalOpenBtns">
-                        צור פעילות
-                        חדשה</button>
+                    <div class="expanded-content">
+                        <button type="button" data-toggle="modal" data-target="#newActivityModal" class="modalOpenBtns">
+                            צור פעילות
+                            חדשה</button>
 
-                    <button type="button" data-toggle="modal" data-target="#watchAllActivitiesModal"
-                        class="modalOpenBtns">
-                        צפה בכל הפעילויות</button>
+                        <button type="button" data-toggle="modal" data-target="#watchAllActivitiesModal"
+                            class="modalOpenBtns">
+                            צפה בכל הפעילויות</button>
 
-                    <button type="button" data-toggle="modal" data-target="#newExpanseModal" class="modalOpenBtns">הוספת
-                        הוצאה</button>
+                        <button type="button" data-toggle="modal" data-target="#newExpanseModal"
+                            class="modalOpenBtns">הוספת
+                            הוצאה</button>
 
-                    <button type="button" data-toggle="modal" data-target="#ExpansesModal" class="modalOpenBtns">שליפת
-                        דו"ח
-                        הוצאות</button>
+                        <button type="button" data-toggle="modal" data-target="#ExpansesModal"
+                            class="modalOpenBtns">שליפת
+                            דו"ח
+                            הוצאות
+                        </button>
+                    </div>
                 </div>
 
                 <img src="/assets/pics/bnei-akiva/13.jpg">
             </div>
 
             <!----------------------- Meetings --------------------->
-            <div class="col-sm-12 col-md-6 col-lg-3 text-center text-center" id="meetings">
+            <div class="col-sm-12 col-md-6 col-xl-3 text-center text-center" id="meetings">
                 <div class="dashboard-bar" id="class-status">
                     <h3>הפגישות הקרובות שלי</h3>
                     <table class="table" id="meetingsTable">
@@ -175,13 +183,12 @@
                 </div>
 
                 <div id="expandedMeetingsBar" class="collapse">
-
-                    <button type="button" data-toggle="modal" data-target="#" class="modalOpenBtns">
-                        הגדר מופעי פגישות</button>
-
-                    <button type="button" data-toggle="modal" data-target="#watchAllMeetingsModal"
-                        class="modalOpenBtns">
-                        צפה בכל הפגישות</button>
+                    <div class="expanded-content">
+                        <button type="button" data-toggle="modal" data-target="#watchAllMeetingsModal"
+                            class="modalOpenBtns">
+                            צפה בכל הפגישות
+                        </button>
+                    </div>
                 </div>
 
                 <img src="/assets/pics/bnei-akiva/12.jpg">
@@ -189,7 +196,7 @@
 
 
             <!----------------------- the Movement --------------------->
-            <div class="col-sm-12 col-md-6 col-lg-3 text-center" id="movement">
+            <div class="col-sm-12 col-md-6 col-xl-3 text-center" id="movement">
                 <div class="dashboard-bar" id="next-activity">
                     <h3>בקשות להחלפת משמרת</h3>
                     <table class="table">
@@ -265,10 +272,12 @@
                 </div>
 
                 <div id="expandedMovementBar" class="collapse">
-                    <div class="activity-bar" id="new-activity">
-                        <button type="button" data-toggle="modal" data-target="#newActivityModal"
-                            class="modalOpenBtns">בקשה לחילוף בפעילות</button>
-
+                    <div class="expanded-content">
+                        <div class="activity-bar" id="new-activity">
+                            <button type="button" data-toggle="modal" data-target="#newActivityModal"
+                                class="modalOpenBtns">בקשה לחילוף בפעילות
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -278,7 +287,7 @@
 
 
             <!----------------------- Students --------------------->
-            <div class="col-sm-12 col-md-6 col-lg-3 text-center" id="d2">
+            <div class="col-sm-12 col-md-6 col-xl-3 text-center" id="d2">
                 <div class="dashboard-bar" id="next-meeting">
                     <h3>סטאטוס החניכים שלי</h3>
                     <table class="table">
@@ -314,11 +323,14 @@
                 </div>
 
                 <div id="expandedStudentsBar" class="collapse">
-                    <div class="activity-bar" id="new-activity">
+                    <div class="expanded-content">
                         <button type="button" data-toggle="modal" data-target=#newMessageModal class="modalOpenBtns">
                             שליחת הודעה</button>
                         <button type="button" data-toggle="modal" data-target="#newActivityModal"
                             class="modalOpenBtns">צפייה בפרטי החניכים</button>
+                        <button type="button" data-toggle="modal" data-target="#pendingStudentsModal"
+                            class="modalOpenBtns">חניכים ממתינים לאישור
+                        </button>
                     </div>
                 </div>
 
@@ -328,315 +340,371 @@
 
         </div>
 
+    </div>
 
-        <!-----------------------------modal: new activity -------------------------------------->
-        <div class="modal fade" id="newActivityModal">
-            <div class="modal-container">
-                <div class="modal-dialog vertical-align-center">
-                    <div class="modal-content">
 
-                        <div class="modal-header">
-                            <button class="close" type="button" data-dismiss="modal">X</button>
-                            <h3>יצירת פעילות חדשה</h3>
-                            <p>הזינו את פרטי הפעילות החדשה:</p>
-                        </div>
+    <footer>
 
-                        <div class="modal-body">
-                            <form id="new-activity">
-                                <div class="input-box">
-                                    <div class="input-group">
-                                        <label for="activityName">שם הפעילות:</label>
-                                        <input type="text" name="name" id="activityName">
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="activityDesc">תאור הפעילות:</label>
-                                        <input type="textarea" name="description" id="activityDesc">
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="activityDate">תאריך הפעילות:</label>
-                                        <input type="date" name="date">
-                                    </div>
+    </footer>
 
-                                    <div class="input-group">
-                                        <label for="activityTime">שעת הפעילות:</label>
-                                        <input type="time" name="time">
-                                    </div>
-                                </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
 
-                                <button type="sumbit">בצע</button>
-                            </form>
-                        </div>
+    <script src="/assets/js/instructor-homepage.js"></script>
+</body>
 
-                    </div>
+
+<!-----------------------------modal: watch all activities -------------------------------------->
+<div class="modal fade" id="watchAllActivitiesModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3>הפעילויות של שבט אפריים</h3>
                 </div>
+
+                <div class="modal-body">
+                    <table class="table" id="activityTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">תאריך</th>
+                                <th scope="col">שעה</th>
+                                <th scope="col">פעילות</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+
             </div>
         </div>
+    </div>
+</div>
 
-        <!-----------------------------END modol new activity -------------------------------------->
+<!-----------------------------END modol watch all activities -------------------------------------->
 
-        <!-----------------------------modal: watch all activities -------------------------------------->
-        <div class="modal fade" id="watchAllActivitiesModal">
-            <div class="modal-container">
-                <div class="modal-dialog vertical-align-center">
-                    <div class="modal-content">
 
-                        <div class="modal-header">
-                            <button class="close" type="button" data-dismiss="modal">X</button>
-                            <h3>הפעילויות של שבט אפריים</h3>
-                        </div>
+<!-----------------------------modal: Start activity -------------------------------------->
+<div class="modal fade" id="startActivityModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
 
-                        <div class="modal-body">
-                            <table class="table" id="activityTable">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3><span id="activityHeader">התחלת הפעילות</span></h3>
+                </div>
+
+                <div class="modal-body">
+                    <form id="manage-activity" data-target="#startActivityModal">
+                        <input type="text" id="manage_activity_id" hidden>
+                        <div class="input-box">
+
+                            <table class="table" id="membersTable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">תאריך</th>
-                                        <th scope="col">שעה</th>
-                                        <th scope="col">פעילות</th>
-                                        <th scope="col"></th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-----------------------------END modol watch all activities -------------------------------------->
-
-        <!-----------------------------modal: new expanse -------------------------------------->
-        <div class="modal fade" id="newExpanseModal">
-            <div class="modal-container">
-                <div class="modal-dialog vertical-align-center">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button class="close" type="button" data-dismiss="modal">X</button>
-                            <h3>הוספת הוצאה חדשה</h3>
-                            <p>הזינו את פרטי ההוצאה, ולא לשכוח להעלות צילום חשבונית:</p>
-                        </div>
-
-                        <div class="modal-body">
-                            <form id="new-expanse" action="/application/views/Instructor/homepage.php" method="post">
-                                <div class="input-box">
-                                    <div class="input-group">
-                                        <label for="expanseFor">מטרת ההוצאה</label>
-                                        <input type="text" name="expanseFor">
-                                    </div>
-
-                                    <div class="input-group">
-                                        <label for="expanseDate">תאריך ההוצאה:</label>
-                                        <input type="date" name="expanseDate">
-                                    </div>
-
-                                    <div class="input-group">
-                                        <label for="expanseSum">סכום ההוצאה:</label>
-                                        <input type="time" name="expanseSum">
-                                    </div>
-
-                                    <div class="input-group">
-                                        <label for="reciept">צילום קבלה/חשבונית:</label>
-                                        <input type="file" name="reciept">
-                                    </div>
-                                </div>
-
-                                <button type="sumbit">בצע</button>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-----------------------------END modal: new expanse -------------------------------------->
-
-
-
-
-
-
-        <!-----------------------------modal: send message -------------------------------------->
-        <div class="modal fade" id="newMessageModal">
-            <div class="modal-container">
-                <div class="modal-dialog vertical-align-center">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button class="close" type="button" data-dismiss="modal">X</button>
-                            <h3>שליחת הודעה לחניכים</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <form id="new-message" action="/application/views/Instructor/homepage.php" method="post">
-                                <div class="input-box">
-                                    <div class="input-group">
-                                        <label for="MessageHeadline">נושא ההודעה:</label>
-                                        <input type="text" name="MessageHeadline">
-                                    </div>
-                                    <textarea name="message" form="new-message" rows="4"
-                                        cols="50">הקלידו כאן את הודעתכם...</textarea>
-                                </div>
-                                <button type="sumbit">שלח</button>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-----------------------------END modal: send message -------------------------------------->
-
-
-
-        <!-----------------------------modal: expanses -------------------------------------->
-        <div class="modal fade" id="ExpansesModal">
-            <div class="modal-container">
-                <div class="modal-dialog vertical-align-center">
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button class="close" type="button" data-dismiss="modal">X</button>
-                            <h3>הוצאות</h3>
-                        </div>
-
-                        <div class="modal-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">תאריך</th>
-                                        <th scope="col">סכום</th>
-                                        <th scope="col">קבלה</th>
+                                        <th scope="col">שם החניך</th>
+                                        <th scope="col">הצהרה</th>
+                                        <th scope="col">נוכחות</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td class="align-middle">14.05.21</td>
-                                        <td class="align-middle">140 ש"ח </td>
-                                        <td class="align-middle">קיימת</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td class="align-middle">28.05.21</td>
-                                        <td class="align-middle">252 ש"ח </td>
-                                        <td class="align-middle">קיימת</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td class="align-middle">10.06.21</td>
-                                        <td class="align-middle">78 ש"ח </td>
-                                        <td class="align-middle">חסר</td>
-                                    </tr>
-
                                 </tbody>
                             </table>
 
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <!-----------------------------END modal: new expanse -------------------------------------->
-
-            <!-----------------------------modal: watch all meetings -------------------------------------->
-            <div class="modal fade" id="watchAllMeetingsModal">
-                <div class="modal-container">
-                    <div class="modal-dialog vertical-align-center">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <button class="close" type="button" data-dismiss="modal">X</button>
-                                <h3>כל הפגישות שלי</h3>
+                            <div>
+                                <textarea id="after_summary" placeholder="הוסף סיכום קצר לפגישה"></textarea>
                             </div>
-
-                            <div class="modal-body">
-                                <table class="table" id="meetingsTable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">תאריך</th>
-                                            <th scope="col">שעה</th>
-                                            <th scope="col">שם ההורה</th>
-                                            <th scope="col"></th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-
+                            <div>
+                                <button onclick="sendSummery(event)">בצע</button>
                             </div>
 
                         </div>
-                    </div>
+
+                    </form>
                 </div>
             </div>
-
-            <!-----------------------------END modol watch all meetings -------------------------------------->
-
-
-
-
-
-
-            <!-----------------------------modal: read notifications -------------------------------------->
-            <div class="modal fade" id="notificationsModal">
-                <div class="modal-container">
-                    <div class="modal-dialog vertical-align-center">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <button class="close" type="button" data-dismiss="modal">X</button>
-                                <h3>הודעות</h3>
-                            </div>
-
-                            <div class="modal-body">
-                                <span id="no-new-notifications">אין הודעות חדשות.</span>
-                                <div> <button type="button">צפה בכל ההודעות</button></div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-----------------------------END modal: read notifications -------------------------------------->
-
-
-
-
-
-
-
-
-
 
         </div>
+    </div>
+</div>
 
-        <footer>
+<!-----------------------------END modol start activity -------------------------------------->
 
-        </footer>
+<!-----------------------------modal: new expanse -------------------------------------->
+<div class="modal fade" id="newExpanseModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-        </script>
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3>הוספת הוצאה חדשה</h3>
+                    <p>הזינו את פרטי ההוצאה, ולא לשכוח להעלות צילום חשבונית:</p>
+                </div>
 
-        <script src="/assets/js/instructor-homepage.js"></script>
-</body>
+                <div class="modal-body">
+                    <form id="new-expanse" action="/application/views/Instructor/homepage.php" method="post">
+                        <div class="input-box">
+                            <div class="input-group">
+                                <label for="expanseFor">מטרת ההוצאה</label>
+                                <input type="text" name="expanseFor">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="expanseDate">תאריך ההוצאה:</label>
+                                <input type="date" name="expanseDate">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="expanseSum">סכום ההוצאה:</label>
+                                <input type="time" name="expanseSum">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="reciept">צילום קבלה/חשבונית:</label>
+                                <input type="file" name="reciept">
+                            </div>
+                        </div>
+
+                        <button type="sumbit">בצע</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-----------------------------modal: new activity -------------------------------------->
+<div class="modal fade" id="newActivityModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3>יצירת פעילות חדשה</h3>
+                    <p>הזינו את פרטי הפעילות החדשה:</p>
+                </div>
+
+                <div class="modal-body">
+                    <form id="new-activity">
+                        <div class="input-box">
+                            <div class="input-group">
+                                <label for="activityName">שם הפעילות:</label>
+                                <input type="text" name="name" id="activityName" maxlength="32">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="activityDesc">תיאור הפעילות:</label>
+                                <textarea rows="3" cols="24" maxlength="100"
+                                    placeholder="הזינו פרטים נוספים לגבי הפעילות..." name="description"
+                                    id="activityDesc"></textarea>
+
+                                <div class="input-group">
+                                    <label for="activityDate">תאריך הפעילות:</label>
+                                    <input type="date" name="date">
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="activityTime">שעת הפעילות:</label>
+                                    <input type="time" name="time">
+                                </div>
+                            </div>
+
+                            <button type="sumbit">בצע</button>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-----------------------------END modol new activity -------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----------------------------modal: send message -------------------------------------->
+<div class="modal fade" id="newMessageModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3>שליחת הודעה לחניכים</h3>
+                </div>
+
+                <div class="modal-body">
+                    <form id="new-message" action="/application/views/Instructor/homepage.php" method="post">
+                        <div class="input-box">
+                            <div class="input-group">
+                                <label for="MessageHeadline">נושא ההודעה:</label>
+                                <input type="text" name="MessageHeadline">
+                            </div>
+                            <textarea name="message" form="new-message" rows="4"
+                                cols="50">הקלידו כאן את הודעתכם...</textarea>
+                        </div>
+                        <button type="sumbit">שלח</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-----------------------------END modal: send message -------------------------------------->
+
+
+
+<!-----------------------------modal: expanses -------------------------------------->
+<div class="modal fade" id="ExpansesModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3>הוצאות</h3>
+                </div>
+
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">תאריך</th>
+                                <th scope="col">סכום</th>
+                                <th scope="col">קבלה</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td class="align-middle">14.05.21</td>
+                                <td class="align-middle">140 ש"ח </td>
+                                <td class="align-middle">קיימת</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td class="align-middle">28.05.21</td>
+                                <td class="align-middle">252 ש"ח </td>
+                                <td class="align-middle">קיימת</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td class="align-middle">10.06.21</td>
+                                <td class="align-middle">78 ש"ח </td>
+                                <td class="align-middle">חסר</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-----------------------------END modal: new expanse -------------------------------------->
+
+    <!-----------------------------modal: watch all meetings -------------------------------------->
+    <div class="modal fade" id="watchAllMeetingsModal">
+        <div class="modal-container">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">X</button>
+                        <h3>כל הפגישות שלי</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table" id="meetingsTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">תאריך</th>
+                                    <th scope="col">שעה</th>
+                                    <th scope="col">שם ההורה</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----------------------------END modol watch all meetings -------------------------------------->
+
+
+
+
+
+
+    <!-----------------------------modal: read notifications -------------------------------------->
+    <div class="modal fade" id="notificationsModal">
+        <div class="modal-container">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">X</button>
+                        <h3>הודעות</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <span id="no-new-notifications">אין הודעות חדשות.</span>
+                        <div> <button type="button">צפה בכל ההודעות</button></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----------------------------END modal: read notifications -------------------------------------->
+
+
+
+
+
 
 </html>

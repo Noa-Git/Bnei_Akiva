@@ -14,7 +14,6 @@ body {
 	margin-top: 6em;
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
 		0 10px 10px rgba(0, 0, 0, 0.22);
-
 	width: 100%;
 	max-width: 100%;
 }
@@ -59,6 +58,17 @@ input:focus {
 	color: rgb(34, 91, 165);
 }
 
+textarea {
+	border-radius: 10px;
+	border: 1px solid rgb(161, 161, 161);
+	resize: inherit;
+
+}
+
+textarea::placeholder {
+	font-size: 12px;
+}
+
 button {
 	margin-top: 0.5em;
 	border-radius: 10px;
@@ -92,7 +102,7 @@ button.icon-edit {
 button.icon-edit:hover {
 	background-color: rgb(49, 132, 241);
 	border: 1px solid rgb(49, 132, 241);
-	
+
 }
 
 button.icon-start {
@@ -138,7 +148,6 @@ button:hover {
 }
 
 
-
 /* Tables */
 .table {
 	margin-bottom: 2em;
@@ -171,7 +180,6 @@ form {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-
 }
 
 .expansion-bar {
@@ -201,7 +209,7 @@ form {
 	padding: 0.5em;
 	display: flexbox;
 	justify-content: center;
-	align-items:baseline;
+	align-items: baseline;
 }
 
 
@@ -213,6 +221,7 @@ form {
 .table {
 	direction: rtl;
 }
+
 /* End: Grid */
 
 /* Navbar */
@@ -221,30 +230,32 @@ form {
 	color: rgb(255, 255, 255);
 }
 
-.navbar-nav > li{
+.navbar-nav>li {
 	color: rgb(255, 255, 255);
-	padding-left:2em;
-	padding-right:2em;
+	padding-left: 2em;
+	padding-right: 2em;
 	font-size: 1vw;
 }
 
-.navbar-nav > li :hover {
+.navbar-nav>li :hover {
 	font-weight: bold;
 	text-decoration: none;
 	color: rgb(216, 216, 216);
 }
+
 /* End: avbar */
 
 /* Modal */
+
 .modal-container {
-	display:table;
+	display: table;
 	height: 100%;
 	width: 100%;
-	pointer-events:none;
+	pointer-events: none;
 }
 
 .modal-dialog {
-	display:inline-flex;
+	display: inline-flex;
 	vertical-align: middle;
 	text-align: center;
 	justify-content: center;
@@ -254,6 +265,10 @@ form {
 	display: table-cell;
 	vertical-align: middle;
 	pointer-events: none;
+}
+
+.modal-header {
+	background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(142, 158, 177, 0.888) 100%);
 }
 
 .modal-content {
@@ -308,7 +323,7 @@ form {
 	padding: 0.2em;
 }
 
-.modal-body > button {
+.modal-body>button {
 	justify-content: baseline;
 	align-items: center;
 }
@@ -328,6 +343,12 @@ img {
 }
 
 /* Bars */
+
+.expanded-content {
+	display: flex;
+	flex-direction: column;
+}
+
 #activity {
 	border-left: 1px solid rgb(150, 150, 150);
 }
@@ -344,7 +365,6 @@ img {
 #expandedMeetingsBar {
 	background: rgb(255, 255, 255);
 	background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(250, 218, 118, 0.8883928571428571) 100%);
-
 }
 
 #movement {
@@ -436,6 +456,10 @@ img {
 		font-size: 14px;
 	}
 
+	.expandBtn i {
+		font-size: 20px;
+	}
+
 
 
 
@@ -448,23 +472,24 @@ img {
 
 @media (max-width: 576px) {
 
+
 	.flex-row {
-		flex-direction:row-reverse;
+		flex-direction: row-reverse;
 	}
 
 	.activity-bar {
-		display:flex;
+		display: flex;
 		align-items: center;
-		background-color: red;
 	}
 
 	.navbar-nav {
 		position: sticky;
-		top:0;
+		top: 0;
 	}
 
 	.horizontal-scrollable {
 		display: inline-block;
+		min-width: 400px;
 	}
 
 
@@ -473,14 +498,14 @@ img {
 		margin-right: 0;
 	}
 
-	.horizontal-scrollable > .row {
+	.horizontal-scrollable>.row {
 
 		display: flex;
 		overflow-x: auto;
 		white-space: nowrap;
 	}
 
-	.horizontal-scrollable > .row > .col-sm-3 {
+	.horizontal-scrollable>.row>.col-sm-3 {
 		display: inline-block;
 		float: none;
 	}
@@ -492,7 +517,7 @@ img {
 
 	h2 {
 		font-size: 20px;
-		font-weight: 600;	
+		font-weight: 600;
 	}
 
 	h3 {
@@ -501,7 +526,7 @@ img {
 	}
 
 	.table tr th {
-	font-size: 14px;
+		font-size: 14px;
 	}
 
 	.table tr td {
@@ -529,12 +554,11 @@ img {
 		font-size: 20px;
 	}
 
-	
+	.expandBtn i {
+		font-size: 20px;
+	}
+
+
 
 
 }
-
-
-
-
-
