@@ -94,9 +94,7 @@ class Activity_model extends CI_Model
 
 	public function get_health_declare_by_activity($activity_id)
 	{
-		$sql = 'SELECT * FROM health_declare WHERE activity_id= ?';
-		$error = null;
-		$query = $this->db->query($sql, array($activity_id));
+		$query = $this->db->query("SELECT * FROM health_declare WHERE activity_id='$activity_id'");
 		if ($query) {
 			return $query->result();
 		}
@@ -163,6 +161,17 @@ class Activity_model extends CI_Model
 	public function delete_substitute_by_id($id)
 	{
 		$this->db->delete('substitute', array('id' => $id));
+	}
+
+	public function get_agegrade_by_activity_id($activity_id)
+	{
+		$error = null;
+		$query = $this->db->query("SELECT agegrade_id FROM activity WHERE id = '$activity_id'");
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
 	}
 
 }
