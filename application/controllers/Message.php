@@ -7,13 +7,14 @@ class Message extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Message_model');
+		$this->load->model('User_model');
 		$this->load->library('session');
 
 	}
 
 	public function send_message()
 	{
-		$users_email = $this->session->users_email;
+		$users_email=$this->session->users->email;
 		$data = array(
 			'recipient_email' => $this->input->post('recipient_email'),
 			'sent_from' => $this->input->post($users_email),
@@ -28,10 +29,17 @@ class Message extends CI_Controller
 		}
 	}
 
-	public function display_message()
+	public function get_message()
 	{
-		$users_email=$this->session->users_email;
-		$out=$this->Message_model->get_messages($users_email);
-		return $out;
+		$recipient_email=$this->session->users->email;
+		$is_read=$this->input->post('is_read');
+		if ($is_read==1){
+			$all= true;
+		}
+		else{
+			$all=false;
+		}
+		$out=$this->Message_model->get_messages_with_user_details($recipient_email, $all);
+		json_encode($out);
 	}
 }

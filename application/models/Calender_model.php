@@ -24,7 +24,7 @@ class Calender_model extends CI_Model
 
 	public function get_top3_meetings_by_guide_email($guide_email)
 	{
-		$sql = 'SELECT * FROM meeting WHERE guide_email= ? ORDER BY date DESC LIMIT 3';
+		$sql = 'SELECT * FROM meeting WHERE guide_email= ? AND date >= CURRENT_DATE ORDER BY date ASC LIMIT 3';
 		$error = null;
 		$query = $this->db->query($sql, array($guide_email));
 		if ($query) {

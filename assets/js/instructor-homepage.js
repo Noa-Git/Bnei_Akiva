@@ -1,24 +1,101 @@
 /* This function is activated with the start activity button */
-function startActivity(id) {
-	alert("starting activity id: " + id);
-}
+
 
 /* This function is activated with the edit activity button */
 function editActivity(id) {
 	alert("editing id: " + id);
 }
 
-function compareDates(actDate) {
-	var realDate = new date();
-	var actDate = actDate();
+/******************************************** Start activity *******************************************/
 
-	if (realDate.getTime() <= actDate.getTime()) {
-		$("#start_" + activity.id).hide();
-	}
+function showStudents(id) {
+	$.ajax({
+		url: "http://" +
+			window.location.hostname +
+			":" +
+			window.location.port +
+			"/activity/get_activity_details",
+		method: "POST",
+		data: {
+			activity_id: id
+		},
+		dataType: "json",
+
+		success: function (data) {
+			$("#membersTable tbody").empty();
+
+			console.log(data);
+			$("#manage_activity_id").val(id);
+			data.forEach(function (member) {
+				$("#membersTable tbody").append(
+					'<tr><td class="align-middle">' +
+					member.member_name + '</td>' +
+					'<td class="align-middle">' +
+					(member.health_declare == 0 ? "אין" : "קיים") + '</td>' +
+					'<td class="align-middle">' +
+					'<input type="checkbox" name="members" value="' + member.email + '"></td>' +
+					'</tr>'
+				)
+			})
+		}
+	})
+}
+
+/******************************************** Send activity summery ***********************************************/
+
+// $('#startActivityModal').on("submit", '#manage-activity', function (e) {
+// 	e.preventDefault();
+function sendSummery(e) {
+	e.preventDefault();
+
+	const activity = {};
+	activity.id = $("#manage_activity_id").val();
+	const members = [];
+	$("input:checkbox[name=members]").each(function () {
+		const member = {};
+		member.email = $(this).val();
+		member.attendant = $(this).is(":checked") ? 1 : 0;
+		members.push(member);
+	});
+
+	activity.members = members;
+	activity.after_summary = $("#after_summary").val();
+	console.log(activity);
+
+	$.ajax({
+		url: "http://" +
+			window.location.hostname +
+			":" +
+			window.location.port +
+			"/activity/add_summary",
+		method: "POST",
+		data: activity,
+		dataType: "json",
+		success: function (data) {
+			if (data.success) {
+				$('#startActivityModal').modal('hide'); //Hides the modal
+				$('#startActivityModal').on('hidden.bs.modal', function (e) {
+					$(this)
+						.find("textarea")
+						.val('')
+						.end()
+				}) //Clears the input fields
+			}
+		}
+	});
 }
 
 
+
+
+
+
+
 $(document).ready(function () {
+
+	refreshActivity();
+	refreshMeeting();
+
 	/* the time interval in which the activity dashboard is refreshed */
 	setInterval(() => {
 		refreshActivity();
@@ -26,7 +103,10 @@ $(document).ready(function () {
 	}, 60000);
 
 	var i = 0;
-	/******************************************** Activities ***********************************************/
+	var j = 0;
+
+	/******************************************** Show Activities ***********************************************/
+
 	function refreshActivity() {
 		$.ajax({
 			url: "http://" +
@@ -39,7 +119,9 @@ $(document).ready(function () {
 				all: "false"
 			},
 			dataType: "json",
+
 			success: function (data) {
+
 				$("#activityTable tbody").empty(); /* empties the table before each refresh */
 				console.log(data);
 				if (data.length > 0) {
@@ -56,17 +138,14 @@ $(document).ready(function () {
 								}.${time.getFullYear()}` +
 							"</td>" +
 							'<td class="align-middle">' +
-							`${time.getHours()}:${time.getMinutes()}` +
+							`${time.getHours()}:${('0'+time.getMinutes()).slice(-2)}` +
 							"</td>" +
 							'<td class="align-middle">' +
 							activity.name +
 							"</td>" +
 							'<td class="align-middle"><button class="icon-start"  type="button" data-toggle="modal"' +
-							'data-target="#editActivityModal" title="התחל פעילות" id="start_' +
-							activity.id +
-							'" onclick="startActivity(' +
-							activity.id +
-							')">' +
+							'data-target="#startActivityModal" title="התחל פעילות" id="start_' +
+							activity.id + '" onclick="showStudents(' + activity.id + ')">' +
 							'<i class="material-icons" id="editActivityIcon"' +
 							'title="התחל פעילות">play_arrow</i></button></td>' +
 							'<td class="align-middle"><button class="icon-edit" type="button" data-toggle="modal"' +
@@ -93,9 +172,12 @@ $(document).ready(function () {
 						"</td></tr>"
 					);
 				}
-			},
+			}
 		});
 	}
+
+
+
 
 	/******************************************** Add new activity ***********************************************/
 
@@ -123,74 +205,100 @@ $(document).ready(function () {
 			success: function (data) {
 				if (data.success) {
 					$('#new-activity').find('input[type="text"]').val('');
-					//$('#newActivityModal #new-activity').reset();
-					$('#newActivityModal').modal('hide');
+					$('#newActivityModal').modal('hide'); //Hides the modal
+					$('#newActivityModal').on('hidden.bs.modal', function (e) {
+						$(this)
+							.find("input,textarea,date,time")
+							.val('')
+							.end()
+					}) //Clears the input fields
+					refreshActivity(); //Refreshes the activity dashboard to present the new modal
 				}
 			}
 		});
 	});
-	/******************************************** Meetings ***********************************************/
-	var j = 0;
 
+
+
+
+
+
+
+
+
+	/******************************************** Edit activity *******************************************/
+
+
+	/******************************************** Show Meetings ***********************************************/
 	function refreshMeeting() {
-		var data2 = [{
-				id: j + 1,
-				date: "2021-05-22",
-				time: "10-50",
-				parent: "רבקה קליין"
-			},
-			{
-				id: j + 2,
-				date: "2021-05-25",
-				time: "11-50",
-				parent: "אריה אברמוב"
-			},
-			{
-				id: j + 3,
-				date: "2021-05-28",
-				time: "12-50",
-				parent: "הלל סבג"
-			},
-		];
-		j += 3;
 
-		$("#meetingsTable tbody").empty(); /* empties the table before each refresh */
+		$.ajax({
+			url: "http://" +
+				window.location.hostname +
+				":" +
+				window.location.port +
+				"/Calendar/calendar",
+			method: "POST",
+			data: {
+				all: "false"
+			},
+			dataType: "json",
 
-		data2.forEach(function (meeting) {
-			/* complete structure of the table */
-			$("#meetingsTable tbody").append(
-				'<tr><th scope="row" class="align-middle">' +
-				meeting.id +
-				'</th><td class="align-middle">' +
-				meeting.date +
-				"</td>" +
-				'<td class="align-middle">' +
-				meeting.time +
-				"</td>" +
-				'<td class="align-middle">' +
-				meeting.parent +
-				"</td>" +
-				'<td class="align-middle"><button class="icon-edit"  type="button" data-toggle="modal"' +
-				'data-target="#editActivityModal" title="אשר פגישה" id="start_' +
-				activity.id +
-				'" onclick="startActivity(' +
-				activity.id +
-				')">' +
-				'<i class="material-icons" id="editActivityIcon"' +
-				'title="אשר פגישה">check</i></button></td>' +
-				'<td class="align-middle"><button class="icon-start" type="button" data-toggle="modal"' +
-				'data-target="#editActivityModal" title="דחה פגישה" id="edit_' +
-				activity.id +
-				'" onclick="editActivity(' +
-				activity.id +
-				')">' +
-				'<i class="material-icons" id="editActivityIcon" title="דחה פגישה">clear</i></button></td></tr>'
-			);
+			success: function (data) {
 
-			/*compareDates(activity.date);*/
+				$("#meetingsTable tbody").empty(); /* empties the table before each refresh */
+				console.log(data);
+				if (data.length > 0) {
+					data.forEach(function (meeting) {
+						/* complete structure of the table */
+						const time = new Date(meeting.date);
+
+						$("#meetingsTable tbody").append(
+							'<tr><th scope="row" class="align-middle">' +
+							meeting.id +
+							'</th><td class="align-middle">' +
+							`${time.getDate()}.${
+									time.getMonth() + 1
+								}.${time.getFullYear()}` +
+							"</td>" +
+							'<td class="align-middle">' +
+							`${time.getHours()}:${('0'+time.getMinutes()).slice(-2)}` +
+							"</td>" +
+							'<td class="align-middle">' +
+							meeting.booker_email +
+							"</td>" +
+							'<td class="align-middle"><button class="icon-edit" type="button" data-toggle="modal"' +
+							'data-target="#editActivityModal" title="אשר פגישה" id="approve_' +
+							meeting.id +
+							'" onclick="startActivity(' +
+							meeting.id +
+							')">' +
+							'<i class="material-icons" id="editActivityIcon"' +
+							'title="אשר פגישה">check</i></button></td>' +
+							'<td class="align-middle"><button class="icon-start" type="button" data-toggle="modal"' +
+							'data-target="#editActivityModal" title="דחה פגישה" id="cancel_' +
+							meeting.id +
+							'" onclick="editActivity(' +
+							meeting.id +
+							')">' +
+							'<i class="material-icons" id="editActivityIcon" title="דחה' +
+							'פגישה">clear</i></button></td></tr>'
+						);
+
+					});
+				} else {
+					$("#meetingsTable tbody").append(
+						'<tr><th scope="row" class="align-middle">' +
+						'</th><td class="align-middle">' +
+						"</td>" +
+						'<td class="align-middle">' +
+						"</td>" +
+						'<td class="align-middle">' +
+						"אין פגישות מתוכננות" +
+						"</td></tr>"
+					);
+				}
+			},
 		});
 	}
-
-	refreshActivity();
-	refreshMeeting();
 });

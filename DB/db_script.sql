@@ -1,3 +1,33 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@IliaShifrin 
+Noa-Git
+/
+bnei-akiva
+2
+02
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+bnei-akiva/DB/db_script.sql
+@Noa-Git
+Noa-Git agegrade name extended
+Latest commit 689342b 3 days ago
+ History
+ 1 contributor
+191 lines (168 sloc)  5.03 KB
+  
 CREATE
 DATABASE bnei_akiva;
 USE
@@ -26,19 +56,19 @@ CREATE TABLE users
 );
 
 
-CREATE TABLE ageGrade
+CREATE TABLE agegrade
 (
     id    INT AUTO_INCREMENT PRIMARY KEY,
     grade VARCHAR(8),
-    name  VARCHAR(8)
+    name  VARCHAR(15)
 );
 
 CREATE TABLE guide
 (
     users_email VARCHAR(32),
-    ageGrade_id INT,
+    agegrade_id INT,
     FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE,
-    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE
+    FOREIGN KEY (agegrade_id) REFERENCES agegrade (id) ON DELETE CASCADE
 );
 
 CREATE TABLE parent
@@ -55,12 +85,12 @@ CREATE TABLE member
     insurance    BOOLEAN default 0,
     trips        BOOLEAN default 0,
     membership   BOOLEAN default 0,
-    ageGrade_id  INT,
+    agegrade_id  INT,
     notes        VARCHAR(300),
     pending      BOOLEAN default 1,
     FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE,
     FOREIGN KEY (parent_email) REFERENCES parent (users_email) ON DELETE CASCADE,
-    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE
+    FOREIGN KEY (agegrade_id) REFERENCES agegrade (id) ON DELETE CASCADE
 );
 
 
@@ -71,10 +101,10 @@ CREATE TABLE activity
     description      VARCHAR(100),
     time             DATETIME,
     after_summary    VARCHAR(100),
-    ageGrade_id      INT,
+    agegrade_id      INT,
     guide_email      VARCHAR(32),
     num_participants INT,
-    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE,
+    FOREIGN KEY (agegrade_id) REFERENCES agegrade (id) ON DELETE CASCADE,
     FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE
 );
 
@@ -98,8 +128,8 @@ CREATE TABLE substitute
     id          INT AUTO_INCREMENT PRIMARY KEY,
     activity_id INT,
     guide_email VARCHAR(32),
-    ageGrade_id INT,
-    FOREIGN KEY (ageGrade_id) REFERENCES ageGrade (id) ON DELETE CASCADE,
+    agegrade_id INT,
+    FOREIGN KEY (agegrade_id) REFERENCES agegrade (id) ON DELETE CASCADE,
     FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE,
     FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE
 );
@@ -189,3 +219,16 @@ CREATE TABLE expanse
     description VARCHAR(32),
     FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE
 );
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete

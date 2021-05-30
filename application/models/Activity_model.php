@@ -33,14 +33,12 @@ class Activity_model extends CI_Model
 	}
 
 	//update when guide is replaced or when after_summary is updated
-	public function update($data)
+	public function update($id,$data)
 	{
+		
 		$error = null;
-
-		if ($this->db->update('activity', $data)) {
-			$error = $this->db->error();
-		}
-		return $error;
+		
+		$this->db->set($data)->where('id', $id)->update('activity');
 
 	}
 
@@ -94,9 +92,7 @@ class Activity_model extends CI_Model
 
 	public function get_health_declare_by_activity($activity_id)
 	{
-		$sql = 'SELECT * FROM health_declare WHERE activity_id= ?';
-		$error = null;
-		$query = $this->db->query($sql, array($activity_id));
+		$query = $this->db->query("SELECT * FROM health_declare WHERE activity_id='$activity_id'");
 		if ($query) {
 			return $query->result();
 		}
@@ -136,7 +132,7 @@ class Activity_model extends CI_Model
 		return $error;
 	}
 
-	public function get_substitute_by_ageGrade_order_by_activity_time_DESC_top3($guide_email)
+	public function get_substitute_by_agegrade_order_by_activity_time_DESC_top3($guide_email)
 	{
 		$error = null;
 		$query = $this->db->query('SELECT * FROM substitute INNER JOIN activity ON substitute.activityid=activity.id where guide_email = ? ORDER BY activity.time DESC LIMIT 3');
@@ -148,7 +144,7 @@ class Activity_model extends CI_Model
 		return $error;
 	}
 
-	public function get_substitute_by_ageGrade_order_by_activity_time_DESC($guide_email)
+	public function get_substitute_by_agegrade_order_by_activity_time_DESC($guide_email)
 	{
 		$error = null;
 		$query = $this->db->query('SELECT * FROM substitute INNER JOIN activity ON substitute.activityid=activity.id where guide_email = ? ORDER BY activity.time DESC');
@@ -163,6 +159,17 @@ class Activity_model extends CI_Model
 	public function delete_substitute_by_id($id)
 	{
 		$this->db->delete('substitute', array('id' => $id));
+	}
+
+	public function get_agegrade_by_activity_id($activity_id)
+	{
+		$error = null;
+		$query = $this->db->query("SELECT agegrade_id FROM activity WHERE id = '$activity_id'");
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
 	}
 
 }

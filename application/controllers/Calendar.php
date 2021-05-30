@@ -6,28 +6,31 @@ class Calendar extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Activity_model');
+		$this->load->model('Calender_model');
 		$this->load->library('session');
+		$this->load->helper('form');
 	}
 
 	public function calendar()
 	{
-		$guide_email=$this->session->users_email;
+		$guide_email=$this->session->user->email;
 
 		$data=$this->input->post();
-		if($data['all']=='TRUE'){
+		
+		if($data['all']=='true'){
 			$out=$this->Calender_model->get_meetings_by_guide_email($guide_email);
 		}
+		
 		else{
 			$out=$this->Calender_model->get_top3_meetings_by_guide_email($guide_email);
 		}
-		return $out;
 
+		echo json_encode($out);
 	}
 
 	public function insert_time_slots()
 	{
-		$guide_email=$this->session->users_email;
+		$guide_email=$this->session->user->email;
 		$data=array(
 			$this->input->post($guide_email),
 			'guide_email' => $this->input->post('guide_email'),

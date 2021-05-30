@@ -13,7 +13,7 @@ class Member_model extends CI_Model
 	public function get_members_list($guide_email)
 	{
 		$error = null;
-		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where guide_email = ?');
+		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where guide_email = ?',array($guide_email));
 
 		if ($query) {
 			return $query->result();
@@ -31,7 +31,19 @@ class Member_model extends CI_Model
 	public function get_member($users_email)
 	{
 		$error = null;
-		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where users_email = ?');
+		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where users_email = ?',array($users_email));
+
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+
+	public function get_members_by_agegrade($agegrade_id)
+	{
+		$error = null;
+		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where agegrade_id = ?', array($agegrade_id));
 
 		if ($query) {
 			return $query->result();
