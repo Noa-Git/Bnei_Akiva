@@ -380,6 +380,7 @@
                 <div class="modal-dialog vertical-align-center">
                     <div class="modal-content">
 
+<<<<<<< Updated upstream
                         <div class="modal-header">
                             <button class="close" type="button" data-dismiss="modal">X</button>
                             <h3>הפעילויות של שבט אפריים</h3>
@@ -387,6 +388,25 @@
 
                         <div class="modal-body">
                             <table class="table" id="activityTable">
+=======
+<!-----------------------------modal: Start activity -------------------------------------->
+<div class="modal fade" id="startActivityModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3><span id="activityHeader">התחלת הפעילות</span></h3>
+                </div>
+
+                <div class="modal-body">
+                    <form id="manage-activity" data-target="#startActivityModal">
+                        <input type="text" id="manage_activity_id" hidden>
+                        <div class="input-box">
+                            <label>סימון נוכחות:</label>
+                            <table class="table" id="membersTable">
+>>>>>>> Stashed changes
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -400,6 +420,18 @@
                                 <tbody></tbody>
                             </table>
 
+<<<<<<< Updated upstream
+=======
+                            <div>
+                                <label>סיכום הפגישה:</label>
+                                <textarea id="after_summary" rows="4" cols="50" maxlength="100"
+                                    placeholder="הוסיפו סיכום קצר לפגישה..."></textarea>
+                            </div>
+                            <div>
+                                <button onclick="sendSummery(event)">בצע</button>
+                            </div>
+
+>>>>>>> Stashed changes
                         </div>
 
                     </div>
