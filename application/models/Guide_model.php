@@ -44,4 +44,19 @@ class Guide_model extends CI_Model
 		$error = $this->db->error();
 		return $error;
 	}
+
+	public function get_agegrade_by_email($email) {
+
+		$query=$this->db->get_where('guide', array('users_email'=>$email));
+
+		if ($query) {
+			return $query->result()[0]->agegrade_id;
+		}
+		$error = $this->db->error();
+		return $error;
+		
+	}
+
+
+
 }
