@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 body {
-	background-image: url("/assets/pics/background/blue.jpg");
+	background-image: url("../pics/background/blue.jpg");
 	display:flex;
 	justify-content: center;
 	align-items: center;
