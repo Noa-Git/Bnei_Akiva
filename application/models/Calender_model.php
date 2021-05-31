@@ -72,4 +72,34 @@ class Calender_model extends CI_Model
 	{
 		$this->db->update('meeting', $data);
 	}
+        
+
+        
+        //By Mor
+        public function update($id, $data)
+        {
+            $error = null;
+
+            if ($data['booked']==1)
+            {
+  
+		$this->db->set($data)->where('id', $id)->update('meeting');
+            }
+            else
+            {
+                $this->db->delete('meeting', array('id' => $id));
+            }
+        }
+        
+         //By Mor
+	public function save_meeting($data)
+	{
+
+		$error = null;
+
+		if (!$this->db->insert('meeting', $data)) {
+			$error = $this->db->error();
+		}
+		return $error;
+	}
 }

@@ -12,6 +12,7 @@ class User extends CI_Controller
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->library('session');
+
 	}
 
 	public function login($data = array('error' => null))
@@ -22,9 +23,10 @@ class User extends CI_Controller
 
 	public function do_login()
 	{
+
 		$data = array(
 			'email' => $this->input->post('email'),
-			'password' => $this->input->post('password')
+			'password' => md5($this->input->post('password'))
 		);
 
 		$check = $this->User_model->auth($data);
@@ -75,9 +77,6 @@ class User extends CI_Controller
 	public function regitserParent()
 	{
 
-		$this->load->model('User_model');
-		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
 
 		$this->form_validation->reset_validation();
 		$this->form_validation->set_rules('pfName', 'שם פרטי', 'required|callback_validate_alpha_input');
@@ -94,7 +93,10 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('street', 'רחוב', 'required|callback_validate_alpha_input');
 		$this->form_validation->set_rules('house_number', 'מספר בית', 'required|numeric');
 		$this->form_validation->set_rules('zip_code', 'מיקוד', 'required|numeric');
-		$this->form_validation->set_rules('password', 'סיסמה', 'required');
+		$this->form_validation->set_rules('password', 'סיסמה', 'required|min_length[4]',
+                   array(
+                                'min_length' => 'אנא הזינו סיסמא בעלת 4 תווים לפחות'			)    
+                );
 		$this->form_validation->set_rules('confirmPassword', 'אימות סיסמה', 'required|matches[password]',
 			array(
 				'matches' => 'הסיסמאות שהקלדת אינן תואמות זו לזו',
@@ -115,7 +117,7 @@ class User extends CI_Controller
 				'lname' => $this->input->post('plName'),
 				'phone' => $this->input->post('parentPhone'),
 				'email' => $this->input->post('parentEmail'),
-				'password' => $this->input->post('password'),
+				'password' => md5($this->input->post('password')),
 				'city' => $this->input->post('city'),
 				'street' => $this->input->post('street'),
 				'zip_code' => $this->input->post('zip_code'),
@@ -160,8 +162,6 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->loadRegisterStudent();
 
-//            $data = array('mailExists' => 'yes');
-//            $this->loadRegisterStudent($data);
 		} else {
 
 			$data = array(
@@ -200,7 +200,6 @@ class User extends CI_Controller
 				// echo "register complete";
 				//print_r($data);
 				$this->load->view('templates/loginAndRegisterHead');
-//                $data = array('parentEmail' => $this->input->post('parentEmail'));
 
 				$data = array(
 					'parentEmail' => $this->input->post('parentEmail'),
@@ -215,9 +214,6 @@ class User extends CI_Controller
 		}
 	}
 
-//    public function regitserOneMoreStudent($data = array()) {
-//        $this->loadRegisterStudent($data);
-//    }
 
 	public function loadRegistrationComplete($data = array())
 	{
@@ -240,10 +236,6 @@ class User extends CI_Controller
 	public function validate_alpha_input($names)
 	{
 
-//        if ($names == NULL) {
-//            $this->form_validation->set_message('validate_alpha_input', 'יש למלא את שדה {field}');
-//            return FALSE;
-//        }
 		$names = str_replace(' ', '', $names);
 		if (!preg_match('/[^א-ת]/', $names)) { // '/[^a-z\d]/i' should also work.
 			return TRUE;
@@ -256,8 +248,6 @@ class User extends CI_Controller
 	public function validate_EmailExists($email)
 	{
 
-//        $this->form_validation->set_rules('parentEmail', 'parentEmail',
-//                array('required', array($this->User_model, 'valid_Email')));
 
 		$emailExists = $this->User_model->valid_Email($email);
 		if ($emailExists == FALSE) {
