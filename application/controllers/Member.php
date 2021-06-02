@@ -15,7 +15,7 @@ class Member extends CI_Controller
 
 	public function members_list()
 	{
-		$guide_email=$this->session->users->email;
+		$guide_email=$this->session->user->email;
 		$agegrade_id=$this->Guide_model->get_agegrade_by_email($guide_email);
 		$members=$this->Member_model->get_members_by_agegrade($agegrade_id);
 		echo json_encode($members);
@@ -23,7 +23,7 @@ class Member extends CI_Controller
 
 	public function pending_members()
 	{
-		$guide_email=$this->session->users->email;
+		$guide_email=$this->session->user->email;
 		$agegrade_id=$this->Guide_model->get_agegrade_by_email($guide_email);
 		$pending_members=$this->Member_model->get_pending_members($agegrade_id);
 		echo json_encode($pending_members);
@@ -50,8 +50,7 @@ class Member extends CI_Controller
 			'smtp_crypto' => 'tls',
 			'newline' => "\r\n",
 			'smtp_port' => 587,
-			'mailtype' => 'html',
-			'charset' =>  'iso-8859-1'
+			'mailtype' => 'html'
 		];
 		$this->load->library('email', $config);
 
@@ -59,7 +58,7 @@ class Member extends CI_Controller
 		$this->email->to($data);
 		$this->email->subject('אישור הצטרפותך כחבר תנועת הנוער בני עקיבא');
 		$message = "<a href='" . base_url() . "user/do_login/'>לחץ כאן</a> בקשתך התקבלה, ברוכה הבאה לבני עקיבא:)";
-		$this->email->message($message);
+		$this->email->message(($message));
 
 		$sent = $this->email->send();
 //		echo $this->email->print_debugger();
