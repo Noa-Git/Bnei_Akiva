@@ -2,13 +2,14 @@
 
 </head>
 
-<body>
-
+<body class="white_block">
+    
 <div class="container" id="container">
 
 	<div class="regImage"></div>
 
 	<div class=row-3>
+            
 		<h1>תודה!</h1>
 		<h2>פרטיכם נקלטו  בהצלחה.</h2>
                 <p style="text-align: center;">

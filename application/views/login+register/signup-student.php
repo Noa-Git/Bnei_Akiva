@@ -70,7 +70,7 @@
 					<option value="הראה"  <?php echo  set_select('shevet', 'הראה'); ?>>הראה (כיתה ח') </option>
 					<option value="השבט העולה"  <?php echo  set_select('shevet', 'השבט העולה'); ?>>השבט העולה (כיתה ט') </option>
 				</select>
-                                          <?php echo form_error('shevet', '<div class="login-nocorrect">', '</div>'); ?>
+                            <center><?php echo form_error('shevet', '<div class="login-nocorrect">', '</div>'); ?></center>
 
 			</div>
 
