@@ -1,4 +1,5 @@
-<body>
+<body class="white_block">
+
 
 <div class="container">
 

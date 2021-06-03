@@ -15,7 +15,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
-    <link rel="stylesheet" href="/assets/css/instructor-homepage.css">
+    <link rel="stylesheet" href="../../assets/css/instructor-homepage.css">
 
     <title>Instructor Homepage</title>
 </head>
@@ -28,7 +28,7 @@
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="/application/views/Instructor/homepage.php">
-                    <img style="max-width:40%" src="/assets/pics/logo/white_logo.png" class="img-responsive" /></a>
+                    <img style="max-width:40%" src="../../assets/pics/logo/white_logo.png" class="img-responsive" /></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -152,7 +152,7 @@
                     </div>
                 </div>
 
-                <img src="/assets/pics/bnei-akiva/13.jpg">
+                <img src="../../assets/pics/bnei-akiva/13.jpg">
             </div>
 
             <!----------------------- Meetings --------------------->
@@ -191,7 +191,7 @@
                     </div>
                 </div>
 
-                <img src="/assets/pics/bnei-akiva/12.jpg">
+                <img src="../../assets/pics/bnei-akiva/12.jpg">
             </div>
 
 
@@ -281,7 +281,7 @@
                     </div>
                 </div>
 
-                <img src="/assets/pics/bnei-akiva/1.png">
+                <img src="../../assets/pics/bnei-akiva/1.png">
 
             </div>
 
