@@ -8,6 +8,7 @@ class User extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('User_model');
+		$this->load->model('Message_model');
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -209,6 +210,18 @@ class User extends CI_Controller
 					'zip_code' => $this->input->post('zip_code'),
 					'house_number' => $this->input->post('house_number'),
 				);
+				$this->load->model('Guide_model');
+				$agegrade=$data2['agegrade_id'];
+				$recipient_email=$this->Guide_model->get_guide_by_agegrade($agegrade);
+				foreach ($recipient_email as $agegrade_guide)
+				{
+					$message=array(
+						'recipient_email'=>$agegrade_guide->users_email,
+						'sent_from'=>'מערכת',
+						'subject'=>'נוסף חניך חדש לאישור'
+					);
+					$this->Message_model->send($message);
+				}
 				$this->load->view('login+register/endOfRegistration', $data);
 			}
 		}
@@ -295,41 +308,6 @@ class User extends CI_Controller
 
 			$sent = $this->email->send();
 			redirect('User/login');
-		}
-	}
-
-	public function send_mail_approval()
-	{
-		$data = array(
-			'email' => $this->input->post('email'),
-		);
-		//validation
-
-		$check = $this->User_model->auth($data);
-		if ($check == null) {
-			$data['error'] = 'משתמש לא קיים. נסה שנית';
-			$this->forgot_password($data);
-		} else {
-			$config = [
-				'protocol' => 'smtp',
-				'smtp_host' => 'smtp.office365.com',
-				'smtp_user' => 'mta-bnei-akiva@outlook.com',
-				'smtp_pass' => 'bneiakiva123',
-				'smtp_crypto' => 'tls',
-				'newline' => "\r\n",
-				'smtp_port' => 587,
-				'mailtype' => 'html'
-			];
-			$this->load->library('email', $config);
-
-			$this->email->from('mta-bnei-akiva@outlook.com', 'bnei-akiva');
-			$this->email->to('');
-			$this->email->subject('אישור הצטרפותך כחבר תנועת הנוער בני עקיבא');
-			$message = "<a href='" . base_url() . "user/do_login/'>לחץ כאן</a> בקשתך התקבלה, ברוכה הבאה לבני עקיבא:)";
-			$this->email->message($message);
-
-			$sent = $this->email->send();
-			redirect('');
 		}
 	}
 }

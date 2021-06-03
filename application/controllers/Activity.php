@@ -104,7 +104,7 @@ class Activity extends CI_Controller
 		else{
 			$out=$this->Activity_model->get_substitute_by_agegrade_order_by_activity_time_DESC_top3($guide_email);
 		}
-		return $out;
+		echo json_encode($out);
 	}
 
 	public function substitute_request()

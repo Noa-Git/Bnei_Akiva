@@ -14,7 +14,7 @@ class Message extends CI_Controller
 
 	public function send_message()
 	{
-		$users_email=$this->session->users->email;
+		$users_email=$this->session->user->email;
 		$data = array(
 			'recipient_email' => $this->input->post('recipient_email'),
 			'sent_from' => $this->input->post($users_email),
@@ -31,7 +31,7 @@ class Message extends CI_Controller
 
 	public function get_message()
 	{
-		$recipient_email=$this->session->users->email;
+		$recipient_email=$this->session->user->email;
 		$is_read=$this->input->post('is_read');
 		if ($is_read==1){
 			$all= true;

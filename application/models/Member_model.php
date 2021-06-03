@@ -22,9 +22,10 @@ class Member_model extends CI_Model
 		return $error;
 	}
 
-	//update pending state, insurance, trips and membership payments
-	public function update_member($data)
+	//update pending state
+	public function update_member_status($data)
 	{
+		$this->db->where('users_email', $data['users_email']);
 		$this->db->update('member', $data);
 	}
 
@@ -44,6 +45,17 @@ class Member_model extends CI_Model
 	{
 		$error = null;
 		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where agegrade_id = ?', array($agegrade_id));
+
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+
+	public function get_pending_members($agegrade_id){
+		$error = null;
+		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email where pending = 1 AND agegrade_id = ?', array($agegrade_id) );
 
 		if ($query) {
 			return $query->result();
