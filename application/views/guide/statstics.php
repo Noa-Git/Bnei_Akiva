@@ -1,6 +1,5 @@
 <?php
 ?>
-<h1 dir="rtl">היי <?php echo $name ?></h1>
 <h4 dir="rtl">חשבנו שיעניין אותך לדעת:</h4>
 <html>
 <head>
@@ -15,7 +14,8 @@
 			['Month, 'Total Expanse'],
 				<?php
 				foreach ($monthly_expanses as $row) {
-					echo "['" . $row->service_name . "', " . $row->number1 . "],";
+					print_r($row->expanse);
+//					echo "['" . $row->months_name . "', " . $row->expanse . "],";
 				}
 				?>
 			]);

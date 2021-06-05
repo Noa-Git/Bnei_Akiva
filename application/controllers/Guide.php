@@ -17,20 +17,21 @@ class Guide extends CI_Controller {
             'ename' => $this->input->post('ename'),
             'price' => $this->input->post('price'),
             'pic' => $this->input->post('pic'), //??
-            '$guide_email' => $this->input->post($guide_email),
             'description' => $this->input->post('description')
         );
         $this->Guide_model->save_expense($data);
     }
 
     public function expanse_report() {
-        $guide_email = $this->session->users_email;
-        $this->Guide_model->get_expanses_by_time_DESC($guide_email);
+        $guide_email = $this->session->user->email;
+		$data['monthly_expanses'] =$this->Guide_model->get_expanses_per_month($guide_email);
+//		print_r($data);
+		$this->load->view('guide/statstics.php', $data);
     }
 
-    public function dashboard() {
-        $this->load->view('Instructor/homepage.php');
-    }
+//    public function dashboard() {
+//        $this->load->view('Instructor/homepage.php');
+//    }
 
     //By Mor
     //return fname, lname, email for the Guides of his children
