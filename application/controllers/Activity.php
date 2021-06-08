@@ -30,6 +30,24 @@ class Activity extends CI_Controller
 		echo json_encode($out);
 	}
 
+	///////////////////////////New/////////////////////////////////////////////////
+	public function activitiesForParent()
+	{
+		$parent_email=$this->session->user->email;
+		$data=$this->input->post();
+		if($data['all']=='true'){
+			$out=$this->Activity_model->get_activity_for_kids_by_parent_mail_top_3($parent_email);
+			
+		}
+		else{
+			$out=$this->Activity_model->get_activity_for_kids_by_parent_mail_top_all($parent_email);
+		}
+		
+		echo json_encode($out);
+	}
+	///////////////////////////New/////////////////////////////////////////////////
+
+
 	public function add_activity()
 	{
 		$type = $this->session->type;
@@ -95,41 +113,47 @@ class Activity extends CI_Controller
 
 	public function substitutes()
 	{
-		$guide_email=$this->session->users->email;
+		$guide_email=$this->session->user->email;
+		
+		$agegrade_id=$this->Guide_model->get_agegrade_by_email($guide_email);
 
 		$data=$this->input->post();
-		if($data['all']=='TRUE'){
-			$out=$this->Activity_model->get_substitute_by_agegrade_order_by_activity_time_DESC($guide_email);
-		}
-		else{
-			$out=$this->Activity_model->get_substitute_by_agegrade_order_by_activity_time_DESC_top3($guide_email);
-		}
+		$out=$this->Activity_model->get_substitute_by_agegrade_order_by_activity_time_DESC($agegrade_id);
 		echo json_encode($out);
 	}
 
 	public function substitute_request()
 	{
-		$type = $this->session->type;
-		$users_email = $this->session->users->email;
+		$activity_id=$this->input->post('activity_id');
+		$guide_email=$this->session->user->email;
 		$data = array(
-			'id' => $this->input->post('id'),
-			'guide_email' => $this->session->users_email
+			'activity_id' => $activity_id,
+			'guide_email' => $guide_email,
+			'agegrade_id' => $this->Guide_model->get_agegrade_by_email($guide_email)
 		);
+
+		$this->Activity_model->update($activity_id,array('sub_req'=>1));
 
 		$error = $this->Activity_model->add_substitute($data);
 		if ($error) {
 			echo json_encode(array('error' => true,'db_error' => $error['message']));
 			return;
 		}
+
+		echo json_encode(array('success' => true));
+
 	}
 
 	public function change_guide()
 	{
-		$data=array('guide_email'=>$this->session->users->email);
-		$this->Activity_model->update_activity($data);
-
 		$id=$this->input->post('id');
+		$data=array('guide_email'=>$this->session->user->email, 'sub_req'=>0);
+		$activity_id=$this->input->post('activity_id');
+		$this->Activity_model->update($activity_id,$data);
+
+		
 		$this->Activity_model->delete_substitute_by_id($id);
+		echo json_encode(array('success' => true));
 	}
 
 	public function add_rate()
@@ -157,6 +181,9 @@ class Activity extends CI_Controller
 		$agegrade_id=$agegrade[0]->agegrade_id;
 		$members=$this->Member_model->get_members_by_agegrade($agegrade_id);
 		$members_declare= $this->Activity_model->get_health_declare_by_activity($activity_id);
+
+		$data=$this->Activity_model->get_activity_with_rate_by_id($activity_id);
+
 		$members_to_send=array();
 		foreach($members as $row1)
 		{
@@ -180,7 +207,25 @@ class Activity extends CI_Controller
 			}
 			array_push($members_to_send, $member);
 		}
-		echo json_encode($members_to_send);
+		$data['members']=$members_to_send;
+		echo json_encode($data);
+	}
+
+	public function update_activity() {
+
+		$time = $this->input->post('date').' '.$this->input->post('time').':00';
+		
+
+		$activity_id = $this->input->post("id");
+		$data=$this->input->post();
+
+		$data["time"]=$time;
+
+		unset($data["id"]);
+		unset($data["date"]);
+		$this->Activity_model->update($activity_id,$data);
+
+		echo json_encode(array('success' => true));
 	}
 
 }

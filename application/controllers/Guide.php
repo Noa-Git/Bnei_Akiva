@@ -10,26 +10,32 @@ class Guide extends CI_Controller {
     }
 
     public function add_expanse() {
-        $guide_email = $this->session->users_email;
+        $guide_email = $this->session->user->email;
+
         $data = array(
-            $this->input->post($guide_email),
             'edate' => $this->input->post('edate'),
             'ename' => $this->input->post('ename'),
             'price' => $this->input->post('price'),
-            'pic' => $this->input->post('pic'), //??
-            '$guide_email' => $this->input->post($guide_email),
+            'guide_email' => $guide_email,
             'description' => $this->input->post('description')
         );
         $this->Guide_model->save_expense($data);
+
+        echo json_encode(array('success' => true));
     }
 
     public function expanse_report() {
-        $guide_email = $this->session->users_email;
-        $this->Guide_model->get_expanses_by_time_DESC($guide_email);
+        $guide_email = $this->session->user->email;
+        $data=$this->input->post();
+        
+        $out=$this->Guide_model->get_expanses_by_time_DESC($guide_email);
+
+        echo json_encode($out);
     }
 
     public function dashboard() {
-        $this->load->view('Instructor/homepage.php');
+        $data['greeting_name']=$this->session->user->fname;
+        $this->load->view('Instructor/homepage.php', $data);
     }
 
     //By Mor
@@ -65,5 +71,3 @@ class Guide extends CI_Controller {
         
  
     }
-
-

@@ -1,6 +1,5 @@
 <?php
 
-
 class Calendar extends CI_Controller
 {
 	public function __construct()
@@ -15,12 +14,41 @@ class Calendar extends CI_Controller
 
 	public function calendar()
 	{
+		$email=$this->session->user->email;
+
+		$data=$this->input->post();
+
+		$type=$this->session->role;
+		switch($type) {
+			case '2':
+				if($data['all']=='true'){
+					$out=$this->Calender_model->get_meetings_by_guide_email($email);
+				}
+			
+				else{
+					$out=$this->Calender_model->get_top3_meetings_by_guide_email($email);
+				}
+			break;
+
+			case '3':
+				$out=$this->Calender_model->get_meetings_by_booker_email($email, $data['all']);
+			break;		
+		}
+		
+		
+
+		echo json_encode($out);
+	}
+
+	//////////////////////////New/////////////////////////////////////////
+	public function parent_meeting()
+	{
 		$guide_email=$this->session->user->email;
 
 		$data=$this->input->post();
 		
 		if($data['all']=='true'){
-			$out=$this->Calender_model->get_meetings_by_guide_email($guide_email);
+			$out=$this->Calender_model->get_meetings_by_booker_email($booker_email);
 		}
 		
 		else{
@@ -29,6 +57,8 @@ class Calendar extends CI_Controller
 
 		echo json_encode($out);
 	}
+	//////////////////////////New/////////////////////////////////////////
+
 
 	public function insert_time_slots()
 	{
@@ -91,14 +121,12 @@ class Calendar extends CI_Controller
 	}
         
         //By mor
-           public function approve_meeting()
-        {
-               $id = $this->input->post('id');
-               $newdata=array(
-			'booked' => $this->input->post('booked'),
-		);
-               
-               $error = $this->Calender_model->update($id, $newdata);
+    public function approve_meeting()
+    {
+        $id = $this->input->post('id');
+        $newdata=array('booked' => $this->input->post('booked'));
+
+        $error = $this->Calender_model->update($id, $newdata);
 		if ($error) {
 			$errors = array('error' => true,'db_error' => $error);
 			echo json_encode($errors);

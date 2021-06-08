@@ -13,15 +13,7 @@ class Parents_model extends CI_Model {
         return $query->result();
     }
 
-    public function save_payment($data) {
 
-        $error = null;
-
-        if (!$this->db->insert('payment', $data)) {
-            $error = $this->db->error();
-        }
-        return $error;
-    }
 
     public function get_payment($parent_email) {
 

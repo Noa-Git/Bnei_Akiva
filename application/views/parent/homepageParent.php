@@ -15,9 +15,9 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-    <link rel="stylesheet" href="/assets/css/instructor-homepage.css">
+    <link rel="stylesheet" href="/assets/css/Parent-homepage.css">
 
-    <title>Instructor Homepage</title>
+    <title>Parent Homepage</title>
 </head>
 
 <body>
@@ -70,24 +70,51 @@
         <!-----------------------------Dashboard data-------------------------------------->
         <div class="row flex-row-reverse flex-nowrap align-items-top" id="row-dashboard">
 
-            <!----------------------- Activities --------------------->
-            <div class="col-sm-12 col-md-6 col-xl-3 text-center text-center" id="activity">
-                <div class="dashboard-bar" id="activity-status">
-                    <h3>הפעילויות הקרובות שלי</h3>
-                    <table class="table" id="activityTable">
+
+            <!----------------------- My Kids --------------------->
+            <div class="col-sm-12 col-md-6 col-xl-3 text-center" id="movement">
+                <div class="dashboard-bar" id="next-activity">
+                    <h3>הילדים שלי בתנועה</h3>
+                    <table class="table" id="myKidsTable">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">תאריך</th>
-                                <th scope="col">שעה</th>
-                                <th scope="col">פעילות</th>
-                                <th scope="col"></th>
+                                <th scope="col">שם</th>
+                                <th scope="col">כיתה</th>
+                                <th scope="col">שבט</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-
                         </tbody>
+                    </table>
+
+                </div>
+
+                <div class="expansion-bar">
+                    <botton type="button" class="expandBtn" data-toggle="collapse" data-target="#expandedMovementBar">
+                        <i class="material-icons" id="expandIcon">keyboard_arrow_up</i>
+                    </botton>
+                </div>
+
+                <img src="/assets/pics/bnei-akiva/1.png">
+
+            </div>
+
+            <!----------------------- Activities --------------------->
+            <div class="col-sm-12 col-md-6 col-xl-3 text-center text-center" id="activity">
+                <div class="dashboard-bar" id="activity-status">
+                    <h3>הפעילויות הקרובות</h3>
+                    <table class="table" id="activityTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">תאריך</th>
+                                <th scope="col">שעה</th>
+                                <th scope="col">פעילות</th>
+                                <th scope="col">שם הילד/ה</th>
+                                <th scope="col">הצהרת בריאות</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
                     </table>
                 </div>
 
@@ -100,23 +127,12 @@
 
                 <div id="expandedActivityBar" class="collapse">
                     <div class="expanded-content">
-                        <button type="button" data-toggle="modal" data-target="#newActivityModal" class="modalOpenBtns">
-                            צור פעילות
-                            חדשה</button>
 
                         <button type="button" data-toggle="modal" data-target="#watchAllActivitiesModal"
                             class="modalOpenBtns" onclick="showAllActivities()">
-                            צפה בכל הפעילויות</button>
-
-                        <button type="button" data-toggle="modal" data-target="#newExpanseModal"
-                            class="modalOpenBtns">הוספת
-                            הוצאה</button>
-
-                        <button type="button" data-toggle="modal" data-target="#ExpansesModal" class="modalOpenBtns"
-                            onclick="showExpanses()">שליפת
-                            דו"ח
-                            הוצאות
+                            צפה בכל הפעילויות
                         </button>
+
                     </div>
                 </div>
 
@@ -133,7 +149,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">תאריך</th>
                                 <th scope="col">שעה</th>
-                                <th scope="col">שם ההורה</th>
+                                <th scope="col">שם המדריך</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
@@ -154,8 +170,18 @@
                     <div class="expanded-content">
                         <button type="button" data-toggle="modal" data-target="#watchAllMeetingsModal"
                             class="modalOpenBtns" onclick="ShowAllMeeting()">
+                            זימון פגישה חדשה
+                        </button>
+
+                        <button type="button" data-toggle="modal" data-target="#watchAllMeetingsModal"
+                            class="modalOpenBtns" onclick="ShowAllMeeting()">
                             צפה בכל הפגישות
                         </button>
+
+                        <button type="button" data-toggle="modal" data-target=#newMessageModal class="modalOpenBtns">
+                            שליחת הודעה למדריך
+                        </button>
+
                     </div>
                 </div>
 
@@ -163,94 +189,31 @@
             </div>
 
 
-            <!----------------------- the Movement --------------------->
-            <div class="col-sm-12 col-md-6 col-xl-3 text-center" id="movement">
-                <div class="dashboard-bar" id="next-activity">
-                    <h3>בקשות להחלפת משמרת</h3>
-                    <table class="table" id="substituteTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">תאריך</th>
-                                <th scope="col">שעה</th>
-                                <th scope="col">מבקש</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
 
-                </div>
-
-                <div class="expansion-bar">
-                    <botton type="button" class="expandBtn" data-toggle="collapse" data-target="#expandedMovementBar">
-                        ניהול משמרות <i class="material-icons" title="הרחב" id="expandIcon">keyboard_arrow_down</i>
-                    </botton>
-                </div>
-
-                <div id="expandedMovementBar" class="collapse">
-                    <div class="expanded-content">
-                        <div class="activity-bar" id="new-activity">
-                            <button type="button" data-toggle="modal" data-target="#askSubModal" class="modalOpenBtns"
-                                onclick="askSub()">בקשה לחילוף בפעילות
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <img src="/assets/pics/bnei-akiva/1.png">
-
-            </div>
-
-
-            <!----------------------- Students --------------------->
+            <!----------------------- Payments --------------------->
             <div class="col-sm-12 col-md-6 col-xl-3 text-center" id="d2">
                 <div class="dashboard-bar" id="next-meeting">
-                    <h3>סטאטוס החניכים שלי</h3>
-                    <table class="table">
+                    <h3>תשלומים</h3>
+                    <table class="table" id="kidsPaymentsTable">
                         <thead>
                             <tr>
-                                <th scope="col"></th>
+                                <th scope="col">שם החניך</th>
                                 <th scope="col">דמי חבר</th>
-                                <th scope="col">תשלום לטיול</th>
                                 <th scope="col">ביטוח</th>
+                                <th scope="col">תשלום לטיול</th>
+                                <th scope="col">תשלום</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">התקבלו</th>
-                                <td class="align-middle" id="memberY"></td>
-                                <td class="align-middle" id="tripY"></td>
-                                <td class="align-middle" id="insuranceY"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">לא התקבלו</th>
-                                <td class="align-middle" id="memberN"></td>
-                                <td class="align-middle" id="tripN"></td>
-                                <td class="align-middle" id="insuranceN"></td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
 
                 <div class="expansion-bar">
                     <botton type="button" class="expandBtn" data-toggle="collapse" data-target="#expandedStudentsBar">
-                        ניהול חניכים<i class="material-icons" title="הרחב" id="expandIcon">keyboard_arrow_down</i>
+                        <i class="material-icons" title="הרחב" id="expandIcon">keyboard_arrow_up</i>
                     </botton>
-                </div>
-
-                <div id="expandedStudentsBar" class="collapse">
-                    <div class="expanded-content">
-                        <button type="button" data-toggle="modal" data-target=#newMessageModal class="modalOpenBtns">
-                            שליחת הודעה</button>
-                        <button type="button" data-toggle="modal" data-target="#showAllStudentsModal"
-                            class="modalOpenBtns" onclick="showAllMembers()">צפייה בפרטי החניכים</button>
-                        <button type="button" data-toggle="modal" data-target="#showPendingMembersModal"
-                            class="modalOpenBtns" onclick="showPendingMembers()">חניכים ממתינים לאישור
-                        </button>
-                    </div>
                 </div>
 
                 <img src="/assets/pics/bnei-akiva/4.jpg">
@@ -276,7 +239,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
 
-    <script src="/assets/js/instructor-homepage.js"></script>
+    <script src="/assets/js/Parent-homepage.js"></script>
 </body>
 
 
@@ -530,198 +493,147 @@
 <!-----------------------------END modal: send message -------------------------------------->
 
 <!-----------------------------modal: show pending members -------------------------------------->
-<div class="modal fade" id="showPendingMembersModal">
+<div class="modal fade" id="payModal">
     <div class="modal-container">
         <div class="modal-dialog vertical-align-center">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3>חניכים שממתינים לאישור</h3>
+                    <h3>בצע תשלום</h3>
                 </div>
 
                 <div class="modal-body">
-                    <table class="table" id="pendingMembersTable">
-                        <thead>
+                    <h3>ביצוע תשלום עבור: <span id="payTitle"></span></h3>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                        <input type="hidden" name="cmd" value="_xclick">
+                        <input type="hidden" name="business" value="iliashifrin@gmail.com">
+                        <input type="hidden" name="lc" value="IL">
+                        <input type="hidden" name="button_subtype" value="services">
+                        <input type="hidden" name="no_note" value="0">
+                        <input type="hidden" name="currency_code" value="ILS">
+                        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest">
+                        <table>
                             <tr>
-                                <th scope="col">שם</th>
-                                <th scope="col">משפחה</th>
-                                <th scope="col">טלפון</th>
-                                <th scope="col">כתובת</th>
-                                <th scope="col">אישור</th>
+                                <td><input type="hidden" name="on0" value="pay for">תשלום עבור:</td>
                             </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-----------------------------modal: show all members -------------------------------------->
-<div class="modal fade" id="showAllStudentsModal">
-    <div class="modal-container">
-        <div class="modal-dialog vertical-align-center">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3>החניכים שלי</h3>
-                </div>
-
-                <div class="modal-body">
-                    <table class="table" id="allStudentsTable">
-                        <thead>
                             <tr>
-                                <th scope="col">שם</th>
-                                <th scope="col">משפחה</th>
-                                <th scope="col">טלפון</th>
-                                <th scope="col">דמי חבר</th>
-                                <th scope="col">תשלום טיול</th>
-                                <th scope="col">דמי ביטוח</th>
-                                <th scope="col">כתובת</th>
+                                <td><select name="os0" id="paymentSelector">
+
+                                    </select> </td>
                             </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-----------------------------modal: Start activity -------------------------------------->
-<div class="modal fade" id="startActivityModal">
-    <div class="modal-container">
-        <div class="modal-dialog vertical-align-center">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3><span id="activityHeader">התחלת הפעילות</span></h3>
-                </div>
-
-                <div class="modal-body">
-                    <form id="manage-activity" data-target="#startActivityModal">
-                        <input type="text" id="manage_activity_id" hidden>
-                        <div class="input-box">
-                            <label>סימון נוכחות:</label>
-                            <table class="table" id="membersTable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">שם החניך</th>
-                                        <th scope="col">הצהרה</th>
-                                        <th scope="col">נוכחות</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-
-                            <div>
-                                <label>סיכום הפגישה:</label>
-                                <textarea id="after_summary" rows="4" cols="50" maxlength="100"
-                                    placeholder="הוסיפו סיכום קצר לפגישה..."></textarea>
-                            </div>
-                            <div>
-                                <button onclick="sendSummery(event)">בצע</button>
-                            </div>
-
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-----------------------------END modol start activity -------------------------------------->
-
-<!-----------------------------modal: new activity -------------------------------------->
-<div class="modal fade" id="newActivityModal">
-    <div class="modal-container">
-        <div class="modal-dialog vertical-align-center">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3>יצירת פעילות חדשה</h3>
-                    <p>הזינו את פרטי הפעילות החדשה:</p>
-                </div>
-
-                <div class="modal-body">
-                    <form id="new-activity">
-                        <div class="input-box">
-                            <div class="input-group">
-                                <label for="activityName">שם הפעילות:</label>
-                                <input type="text" name="name" id="activityName" maxlength="32">
-                            </div>
-
-                            <div class="input-group">
-                                <label for="activityDesc">תיאור הפעילות:</label>
-                                <textarea rows="3" cols="24" maxlength="100"
-                                    placeholder="הזינו פרטים נוספים לגבי הפעילות..." name="description"
-                                    id="activityDesc">
-                                    </textarea>
-
-                                <div class="input-group">
-                                    <label for="activityDate">תאריך הפעילות:</label>
-                                    <input type="date" name="date">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="activityTime">שעת הפעילות:</label>
-                                    <input type="time" name="time">
-                                </div>
-                            </div>
-
-                            <button type="sumbit">בצע</button>
-
+                        </table>
+                        <input type="hidden" name="option_select0" value="membership">
+                        <input type="hidden" name="option_amount0" value="0.10">
+                        <input type="hidden" name="option_select1" value="insurance">
+                        <input type="hidden" name="option_amount1" value="0.20">
+                        <input type="hidden" name="option_select2" value="trips">
+                        <input type="hidden" name="option_amount2" value="0.30">
+                        <input type="hidden" name="option_index" value="0">
+                        <input type="hidden" name="email" id="kidEmail">
+                        <div id="payBtnDiv">
+                            <input type="image" src="https://www.paypalobjects.com/he_IL/IL/i/btn/btn_paynowCC_LG.gif"
+                                name="submit" alt="PayPal - הדרך הקלה והבטוחה יותר לשלם באינטרנט!"
+                                onclick="paypalClick()">
+                            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                         </div>
                     </form>
+                    <p>שימו לב: ביצוע התשלום בפאיפל מתבצע דרך סביבת אמת! קרי תשלום שיושלם יחוייב באמת. על כן - הסכום בדף
+                        פייפל עומד על 10 אגורות ואינו משקף את גובה התשלום המוצג בדף ולמניעת אי נעימויות.</p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-----------------------------modal: show all members -------------------------------------->
+    <div class="modal fade" id="showAllStudentsModal">
+        <div class="modal-container">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">X</button>
+                        <h3>החניכים שלי</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table" id="allStudentsTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">שם</th>
+                                    <th scope="col">משפחה</th>
+                                    <th scope="col">טלפון</th>
+                                    <th scope="col">דמי חבר</th>
+                                    <th scope="col">תשלום טיול</th>
+                                    <th scope="col">דמי ביטוח</th>
+                                    <th scope="col">כתובת</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-----------------------------modal: Start activity -------------------------------------->
+    <div class="modal fade" id="startActivityModal">
+        <div class="modal-container">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">X</button>
+                        <h3><span id="activityHeader">התחלת הפעילות</span></h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="manage-activity" data-target="#startActivityModal">
+                            <input type="text" id="manage_activity_id" hidden>
+                            <div class="input-box">
+                                <label>סימון נוכחות:</label>
+                                <table class="table" id="membersTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">שם החניך</th>
+                                            <th scope="col">הצהרה</th>
+                                            <th scope="col">נוכחות</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+
+                                <div>
+                                    <label>סיכום הפגישה:</label>
+                                    <textarea id="after_summary" rows="4" cols="50" maxlength="100"
+                                        placeholder="הוסיפו סיכום קצר לפגישה..."></textarea>
+                                </div>
+                                <div>
+                                    <button onclick="sendSummery(event)">בצע</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
-</div>
 
-<!-----------------------------modal: EDIT activity -------------------------------------->
-<div class="modal fade" id="editActivityModal">
-    <div class="modal-container">
-        <div class="modal-dialog vertical-align-center">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3><span id="activityHeader">עריכת פעילות</span></h3>
-                </div>
-
-                <div class="modal-body">
-
-                    <form id="edit-activity" data-target="#startActivityModal">
-
-
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-----------------------------END modol EDIT activity -------------------------------------->
+    <!-----------------------------END modol start activity -------------------------------------->
 
     <!-----------------------------modal: new activity -------------------------------------->
-    <div class="modal fade" id="thisGoesNowhere">
+    <div class="modal fade" id="newActivityModal">
         <div class="modal-container">
             <div class="modal-dialog vertical-align-center">
                 <div class="modal-content">
@@ -768,6 +680,80 @@
             </div>
         </div>
     </div>
+
+    <!-----------------------------modal: EDIT activity -------------------------------------->
+    <div class="modal fade" id="editActivityModal">
+        <div class="modal-container">
+            <div class="modal-dialog vertical-align-center">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">X</button>
+                        <h3><span id="activityHeader">עריכת פעילות</span></h3>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form id="edit-activity" data-target="#startActivityModal">
+
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-----------------------------END modol EDIT activity -------------------------------------->
+
+        <!-----------------------------modal: new activity -------------------------------------->
+        <div class="modal fade" id="thisGoesNowhere">
+            <div class="modal-container">
+                <div class="modal-dialog vertical-align-center">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button class="close" type="button" data-dismiss="modal">X</button>
+                            <h3>יצירת פעילות חדשה</h3>
+                            <p>הזינו את פרטי הפעילות החדשה:</p>
+                        </div>
+
+                        <div class="modal-body">
+                            <form id="new-activity">
+                                <div class="input-box">
+                                    <div class="input-group">
+                                        <label for="activityName">שם הפעילות:</label>
+                                        <input type="text" name="name" id="activityName" maxlength="32">
+                                    </div>
+
+                                    <div class="input-group">
+                                        <label for="activityDesc">תיאור הפעילות:</label>
+                                        <textarea rows="3" cols="24" maxlength="100"
+                                            placeholder="הזינו פרטים נוספים לגבי הפעילות..." name="description"
+                                            id="activityDesc">
+                                    </textarea>
+
+                                        <div class="input-group">
+                                            <label for="activityDate">תאריך הפעילות:</label>
+                                            <input type="date" name="date">
+                                        </div>
+
+                                        <div class="input-group">
+                                            <label for="activityTime">שעת הפעילות:</label>
+                                            <input type="time" name="time">
+                                        </div>
+                                    </div>
+
+                                    <button type="sumbit">בצע</button>
+
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

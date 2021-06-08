@@ -38,7 +38,8 @@ class Message_model extends CI_Model
 
 	//?
 	public function update_read_status($users_email){
-		$this->db->update('message', array('users_email' => $users_email, 'is_read' => 1 ));
+		//$this->db->update('message', array('users_email' => $users_email, 'is_read' => 1 ));
+		$this->db->set(array('is_read' => 1))->where('recipient_email',$users_email)->update('message');
 	}
 
 }

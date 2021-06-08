@@ -15,9 +15,21 @@ class Member extends CI_Controller
 
 	public function members_list()
 	{
-		$guide_email=$this->session->user->email;
-		$agegrade_id=$this->Guide_model->get_agegrade_by_email($guide_email);
-		$members=$this->Member_model->get_members_by_agegrade($agegrade_id);
+		$type=$this->session->role;
+		$email=$this->session->user->email;
+
+		switch($type) {
+			case '2': // Guide
+				$agegrade_id=$this->Guide_model->get_agegrade_by_email($email);
+				$members=$this->Member_model->get_members_by_agegrade($agegrade_id);		
+				break;
+
+			case '3': // Parent
+				$members=$this->Member_model->get_members_by_parent($email);
+				break;		
+		}
+		
+		
 		echo json_encode($members);
 	}
 
@@ -61,6 +73,7 @@ class Member extends CI_Controller
 		$this->email->message(($message));
 
 		$sent = $this->email->send();
+		echo json_encode(array('success' => true));
 //		echo $this->email->print_debugger();
 //		if($sent){
 //			echo 'yay';

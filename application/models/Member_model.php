@@ -22,6 +22,19 @@ class Member_model extends CI_Model
 		return $error;
 	}
 
+
+	public function update($email,$data)
+	{
+		
+		$error = null;
+		
+		$this->db->set($data)->where('users_email', $email)->update('member');
+
+	}
+
+
+
+
 	//update pending state
 	public function update_member_status($data)
 	{
@@ -52,6 +65,23 @@ class Member_model extends CI_Model
 		$error = $this->db->error();
 		return $error;
 	}
+
+
+	public function get_members_by_parent($email)
+	{
+		$error = null;
+		$query = $this->db->query('SELECT * FROM member INNER JOIN users ON member.users_email=users.email INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN agegrade ON member.agegrade_id=agegrade.id where member.parent_email = ?', array($email));
+
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+
+
+
+
 
 	public function get_pending_members($agegrade_id){
 		$error = null;
