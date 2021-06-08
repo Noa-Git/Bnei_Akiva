@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 body {
-	background-image: url("../pics/background/blue.jpg");
-	display:flex;
+	background-image: url("/assets/pics/background/blue.jpg");
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
@@ -10,8 +10,8 @@ body {
 	/*height: 100vh;*/
 }
 
-.white_block{
-    margin-top: 7%;
+.white_block {
+	margin-top: 7%;
 }
 
 .container {
@@ -19,7 +19,7 @@ body {
 	border-radius: 10px;
 	padding: 1em;
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-	0 10px 10px rgba(0, 0, 0, 0.22);
+		0 10px 10px rgba(0, 0, 0, 0.22);
 	width: 50%;
 	height: auto;
 	max-height: 100%;
@@ -93,8 +93,8 @@ form input:focus {
 	color: rgb(44, 51, 148);
 }
 
-#confirmPassword{
-    	text-align: center;
+#confirmPassword {
+	text-align: center;
 
 }
 
@@ -136,15 +136,15 @@ form input:focus {
 
 #forgotPassword {
 	margin-top: 0.5em;
-	position:relative;
+	position: relative;
 	justify-content: center;
-	display:flex;
+	display: flex;
 }
 
 #gotoSignIn {
-	position:relative;
+	position: relative;
 	justify-content: center;
-	display:flex;
+	display: flex;
 }
 
 .login-error {
@@ -221,7 +221,7 @@ form input:focus {
 	align-items: center;
 }
 
-.icon-btn{
+.icon-btn {
 	margin-right: 0.25em;
 }
 

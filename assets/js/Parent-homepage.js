@@ -6,10 +6,10 @@ function showAllActivities() {
 			window.location.hostname +
 			":" +
 			window.location.port +
-			"/activity/activities",
+			"/activity/activitiesForParent",
 		method: "POST",
 		data: {
-			all: "true"
+			all: "false"
 		},
 		dataType: "json",
 
@@ -21,11 +21,9 @@ function showAllActivities() {
 				data.forEach(function (activity) {
 					/* complete structure of the table */
 					const time = new Date(activity.time);
-					const summary = activity.after_summary == null ? "ללא סיכום" : activity.after_summary;
-					const rate = activity.rates_avg == null ? "ללא דירוג" : activity.rates_avg;
 
 					$("#allActivitiesTable tbody").append(
-						'<tr><th class="align-middle" hidden>' +
+						'<tr><th scope="row" class="align-middle" hidden>' +
 						activity.id +
 						'</th><td class="align-middle">' +
 						`${time.getDate()}.${
@@ -39,11 +37,13 @@ function showAllActivities() {
 						activity.name +
 						"</td>" +
 						'<td class="align-middle">' +
-						summary +
+						activity.fname +
 						"</td>" +
-						'<td class="align-middle">' +
-						rate +
-						"</td>"
+						'<td class="align-middle"><button class="icon-start"  type="button" data-toggle="modal"' +
+						'data-target="#startActivityModal" title="מלא הצהרת בריאות" id="start_' +
+						activity.id + '" onclick="showStudents(' + activity.id + ')">' +
+						'<i class="material-icons" id="editActivityIcon"' +
+						'title="מלא הצהרת בריאות">assignment</i></button></td></tr>'
 					);
 
 					/*compareDates(activity.date);*/
@@ -355,9 +355,9 @@ function showPendingMembers() {
 }
 
 
-/******************************************** Show All Students ***********************************************/
+/******************************************** Show my kids ***********************************************/
 
-function showAllMembers() {
+function showMyKids() {
 	$.ajax({
 		url: "http://" +
 			window.location.hostname +
@@ -369,7 +369,7 @@ function showAllMembers() {
 
 		success: function (data) {
 
-			$("#allStudentsTable tbody").empty(); /* empties the table before each refresh */
+			$("#myKidsTable tbody").empty(); /* empties the table before each refresh */
 			console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (member) {
@@ -379,41 +379,138 @@ function showAllMembers() {
 					const trip = member.trips == 0 ? "X" : "V";
 					const insurance = member.insurance == 0 ? "X" : "V";
 
-					$("#allStudentsTable tbody").append(
-						'<tr><td class="align-middle">' +
-						member.fname + '</td>' +
-						'<td class="align-middle">' +
-						member.lname + '</td>' +
-						'<td class="align-middle">' +
-						'<a href="tel:' + member.phone + '">' + member.phone + '</a></td>' +
-						'<td class="align-middle">' +
-						membership + '</td>' +
-						'<td class="align-middle">' +
-						trip + '</td>' +
-						'<td class="align-middle">' +
-						insurance + '</td>' +
-						'<td class="align-middle">' +
-						member.city + ' ' + member.street + ' ' + member.house_number + '</td>' +
+					$("#myKidsTable tbody").append(
+						'<tr><td class="align-middle">' + member.fname + '</td>' +
+						'<td class = "align-middle" > ' + member.grade + '</td>' +
+						'<td class = "align-middle" > ' + member.name + '</td>' +
+
 						'</tr> '
 					);
 
-					/*compareDates(activity.date);*/
+
 				});
 			} else {
-				$("#allStudentsTable tbody").append(
+				$("#myKidsTable tbody").append(
 					'<tr><th scope="row" class="align-middle">' +
 					'</th><td class="align-middle">' +
 					"</td>" +
 					'<td class="align-middle">' +
 					"</td>" +
 					'<td class="align-middle">' +
-					"אין חניכים בקבוצה" +
+					"אין ילדים רשומים" +
 					"</td></tr>"
 				);
 			}
 		}
 	});
 }
+
+
+
+/******************************************** KIDS payment status ***********************************************/
+
+function showKidsPayments() {
+	$.ajax({
+		url: "http://" +
+			window.location.hostname +
+			":" +
+			window.location.port +
+			"/member/members_list",
+		method: "POST",
+		dataType: "json",
+
+		success: function (data) {
+
+			$("#kidsPaymentsTable tbody").empty(); /* empties the table before each refresh */
+			console.log("kids payment:  ");
+			console.log(data);
+			if (data.length > 0) {
+				data.forEach(function (member) {
+					/* complete structure of the table */
+
+					const membership = member.membership == 0 ? "X" : "V";
+					const trip = member.trips == 0 ? "X" : "V";
+					const insurance = member.insurance == 0 ? "X" : "V";
+
+					const showBtn = (parseInt(member.trips) + parseInt(member.membership) + parseInt(member.insurance)) < 3 ? "" : "hidden";
+
+					$("#kidsPaymentsTable tbody").append(
+						'<tr><td class="align-middle">' + member.fname + '</td>' +
+						'<td class = "align-middle" > ' + membership + '</td>' +
+						'<td class = "align-middle" > ' + insurance + '</td>' +
+						'<td class = "align-middle" > ' + trip + '</td>' +
+						'<td class="align-middle"><button class="icon-edit" type="button" ' +
+						'title="בצע תשלום" id="approve_' + member.users_email +
+						'" onclick="payMember(\'' + member.email + '\',\'' + member.fname + '\', ' + member.membership + ',' + member.insurance + ',' + member.trips + ') "  ' + showBtn + '>' +
+						'<i class="material-icons" id="editActivityIcon"' +
+						'title="בצע תשלום" data-toggle="modal" data-target="#payModal">payment</i></button></td>' +
+						'</tr> '
+					);
+
+				});
+			} else {
+				$("#kidsPaymentsTable tbody").append(
+					'<tr><th scope="row" class="align-middle">' +
+					'</th><td class="align-middle">' +
+					"</td>" +
+					'<td class="align-middle">' +
+					"</td>" +
+					'<td class="align-middle">' +
+					"אין ילדים רשומים" +
+					"</td></tr>"
+				);
+			}
+		}
+	});
+}
+
+/******************************************** Pay for members ***********************************************/
+function payMember(email, name, membership, insurance, trips) {
+
+	const membervar = membership == 0 ? "" : "hidden";
+	const insurancevar = insurance == 0 ? "" : "hidden";
+	const tripsvar = trips == 0 ? "" : "hidden";
+
+
+
+	$('#payTitle').html(name);
+	$('#kidEmail').val(email);
+	$("#paymentSelector").empty();
+	$("#paymentSelector").append(
+		'<option value="membership" ' + membervar + '>דמי חברות - ₪150</option>' +
+		'<option value= "insurance" ' + insurancevar + '>דמי ביטוח - ₪110</option>' +
+		'<option value= "trips" ' + tripsvar + '>טיול - ₪200</option>'
+	);
+
+
+}
+
+/******************************************** Click on pay via paypal ***********************************************/
+
+function paypalClick(email, payment) {
+
+	console.log("email: " + email + " payment: " + payment);
+
+	$.ajax({
+		url: "http://" +
+			window.location.hostname +
+			":" +
+			window.location.port +
+			"/Parents/pay",
+		method: "POST",
+		data: {
+			member_email: email,
+			payment: payment
+		},
+		dataType: "json",
+
+		success: function (data) {
+			showKidsPayments();
+			$('#payModal').modal('hide');
+		}
+	})
+}
+
 
 /******************************************** Show ALL Meetings ***********************************************/
 function ShowAllMeeting() {
@@ -459,13 +556,6 @@ function ShowAllMeeting() {
 						'<td class="align-middle">' +
 						meeting.fname + ' ' + meeting.lname +
 						"</td>" +
-						'<td class="align-middle"><button class="icon-edit" type="button" ' +
-						'title="אשר פגישה" id="approve_' +
-						meeting.id +
-						'onclick="setMeeting(' + meeting.id + ', 1)" ' + btnShow + '>' +
-						'<i class="material-icons" id="editActivityIcon"' +
-						'title="אשר פגישה">check</i></button></td>' +
-
 						'<td class="align-middle"><button class="icon-start" type="button" ' +
 						' title="דחה פגישה" id="cancel_' +
 						meeting.id +
@@ -536,11 +626,6 @@ function refreshMeeting() {
 						'<td class="align-middle">' +
 						meeting.fname + ' ' + meeting.lname +
 						"</td>" +
-						'<td class="align-middle"><button class="icon-edit" type="button"' +
-						'title="אשר פגישה" id="approve_' + meeting.id + '" ' +
-						'onclick="setMeeting(' + meeting.id + ', 1)" ' + btnShow + '>' +
-						'<i class="material-icons" id="editActivityIcon"' +
-						'title="אשר פגישה">check</i></button></td>' +
 						'<td class="align-middle"><button class="icon-start" type="button"' +
 						'title="דחה פגישה" id="cancel_' + meeting.id +
 						'" onclick="setMeeting(' + meeting.id + ', 0)">' +
@@ -1010,6 +1095,8 @@ function sendSummery(e) {
 $(document).ready(function () {
 
 	refreshActivity();
+	showMyKids();
+	showKidsPayments();
 	refreshMeeting();
 	refreshSubs();
 	checkNewMessages();
@@ -1019,12 +1106,25 @@ $(document).ready(function () {
 	setInterval(() => {
 		refreshActivity();
 		refreshMeeting();
+		showKidsPayments();
 		checkNewMessages();
 		updateMemberStats();
+		showMyKids();
 	}, 60000);
 
 	var i = 0;
 	var j = 0;
+
+	/******************************************** Change payment status ***********************************************/
+	$("#paymentSelector").change(function () {
+		var selected = $('option:selected', this).val();
+		var email = $('#kidEmail').val();
+		$('#payBtnDiv').html('<input type="image" src="https://www.paypalobjects.com/he_IL/IL/i/btn/btn_paynowCC_LG.gif"' +
+			'name = "submit" alt = "PayPal - הדרך הקלה והבטוחה יותר לשלם באינטרנט!" onclick = "paypalClick(\'' + email + '\', \'' + selected + '\')" >' +
+			'<img alt = "" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width = "1" height = "1" > ');
+
+	})
+
 
 	/******************************************** Show Activities ***********************************************/
 
@@ -1034,10 +1134,10 @@ $(document).ready(function () {
 				window.location.hostname +
 				":" +
 				window.location.port +
-				"/activity/activities",
+				"/activity/activitiesForParent",
 			method: "POST",
 			data: {
-				all: "false"
+				all: "true"
 			},
 			dataType: "json",
 
@@ -1051,7 +1151,7 @@ $(document).ready(function () {
 						const time = new Date(activity.time);
 
 						$("#activityTable tbody").append(
-							'<tr><th scope="row" class="align-middle">' +
+							'<tr><th scope="row" class="align-middle" hidden>' +
 							activity.id +
 							'</th><td class="align-middle">' +
 							`${time.getDate()}.${
@@ -1064,19 +1164,14 @@ $(document).ready(function () {
 							'<td class="align-middle">' +
 							activity.name +
 							"</td>" +
+							'<td class="align-middle">' +
+							activity.fname +
+							"</td>" +
 							'<td class="align-middle"><button class="icon-start"  type="button" data-toggle="modal"' +
-							'data-target="#startActivityModal" title="התחל פעילות" id="start_' +
+							'data-target="#startActivityModal" title="מלא הצהרת בריאות" id="start_' +
 							activity.id + '" onclick="showStudents(' + activity.id + ')">' +
 							'<i class="material-icons" id="editActivityIcon"' +
-							'title="התחל פעילות">play_arrow</i></button></td>' +
-							'<td class="align-middle"><button class="icon-edit" type="button" data-toggle="modal"' +
-							'data-target="#editActivityModal" title="ערוך פעילות" id="edit_' +
-							activity.id +
-							'" onclick="editActivity(' +
-							activity.id +
-							')">' +
-							'<i class="material-icons" id="editActivityIcon" title="ערוך' +
-							'פעילות">edit</i></button></td></tr>'
+							'title="מלא הצהרת בריאות">assignment</i></button></td></tr>'
 						);
 
 						/*compareDates(activity.date);*/

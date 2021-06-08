@@ -27,7 +27,7 @@ class User extends CI_Controller
 
 		$data = array(
 			'email' => $this->input->post('email'),
-			'password' => md5($this->input->post('password'))
+			'password' => $this->input->post('password')
 		);
 
 		$check = $this->User_model->auth($data);
@@ -45,7 +45,7 @@ class User extends CI_Controller
 				echo 'Member Dashboard';
 			}
 			if ($data['role'] == 3) {
-				echo 'Parent Dashboard';
+				redirect("Parents/dashboard");
 			}
 			if ($data['role'] == 2) {
 				redirect("Guide/dashboard");

@@ -7,8 +7,15 @@ class Parents extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Message_model');
+		$this->load->model('Parents_model');
+		$this->load->model('Member_model');
 		$this->load->library('session');
 	}
+
+	public function dashboard() {
+		$data['greeting_name']=$this->session->user->fname;
+        $this->load->view('parent/homepageParent.php', $data);
+    }
 
 	public function display_price_list()
 	{
@@ -19,17 +26,14 @@ class Parents extends CI_Controller
 	//paypal api???
 	public function pay()
 	{
-		$parent_email = $this->session->users_email;
+		$member_email=$this->input->post('member_email');
+
 		$data = array(
-			'payment_name' => $this->input->post($parent_email),
-			'member_email' => $this->input->post('member_email'),
+			$this->input->post("payment") => 1
 		);
 
-		$error = $this->Activity_model->save_payment($data);
-		if ($error) {
-			echo json_encode(array('error' => true,'db_error' => $error['message']));
-			return;
-		}
+		$this->Member_model->update($member_email, $data);
+		echo json_encode(array('success' => true));
 	}
 
 	public function fill_health_declare()
