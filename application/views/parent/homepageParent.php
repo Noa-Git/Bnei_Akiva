@@ -27,7 +27,7 @@
         <nav class="navbar navbar-expand fixed-top navbar-expand-lg navbar-dark bg-dark navbar-custom">
             <div class="container-fluid">
 
-                <a class="navbar-brand" href="/application/views/Instructor/homepage.php">
+                <a class="navbar-brand">
                     <img style="max-width:40%" src="/assets/pics/logo/white_logo.png" class="img-responsive" /></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -168,8 +168,8 @@
 
                 <div id="expandedMeetingsBar" class="collapse">
                     <div class="expanded-content">
-                        <button type="button" data-toggle="modal" data-target="#watchAllMeetingsModal"
-                            class="modalOpenBtns" onclick="ShowAllMeeting()">
+                        <button type="button" data-toggle="modal" data-target="#newMeetingModal" class="modalOpenBtns"
+                            onclick="getInstructors('guidesSelector')">
                             זימון פגישה חדשה
                         </button>
 
@@ -178,10 +178,10 @@
                             צפה בכל הפגישות
                         </button>
 
-                        <button type="button" data-toggle="modal" data-target=#newMessageModal class="modalOpenBtns">
+                        <button type="button" data-toggle="modal" data-target=#newMessageModal class="modalOpenBtns"
+                            onclick="getInstructors('instructors')">
                             שליחת הודעה למדריך
                         </button>
-
                     </div>
                 </div>
 
@@ -217,7 +217,6 @@
                 </div>
 
                 <img src="/assets/pics/bnei-akiva/4.jpg">
-
             </div>
 
         </div>
@@ -278,6 +277,64 @@
 </div>
 
 <!-----------------------------END modol watch all activities -------------------------------------->
+
+<div class="modal fade" id="payModal">
+    <div class="modal-container">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">X</button>
+                    <h3>בצע תשלום</h3>
+                </div>
+
+                <div class="modal-body">
+                    <h3>ביצוע תשלום עבור: <span id="payTitle"></span></h3>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" id="paypalForm">
+                        <input type="hidden" name="cmd" value="_xclick">
+                        <input type="hidden" name="business" value="iliashifrin@gmail.com">
+                        <input type="hidden" name="lc" value="IL">
+                        <input type="hidden" name="button_subtype" value="services">
+                        <input type="hidden" name="no_note" value="0">
+                        <input type="hidden" name="currency_code" value="ILS">
+                        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest">
+                        <table>
+                            <tr>
+                                <td><input type="hidden" name="on0" value="pay for">תשלום עבור:</td>
+                            </tr>
+                            <tr>
+                                <td><select name="os0" id="paymentSelector">
+
+                                    </select> </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="option_select0" value="membership">
+                        <input type="hidden" name="option_amount0" value="0.10">
+                        <input type="hidden" name="option_select1" value="insurance">
+                        <input type="hidden" name="option_amount1" value="0.20">
+                        <input type="hidden" name="option_select2" value="trips">
+                        <input type="hidden" name="option_amount2" value="0.30">
+                        <input type="hidden" name="option_index" value="0">
+                        <input type="hidden" name="email" id="kidEmail">
+                        <div id="payBtnDiv">
+                            <input type="image" src="https://www.paypalobjects.com/he_IL/IL/i/btn/btn_paynowCC_LG.gif"
+                                name="submit" alt="PayPal - הדרך הקלה והבטוחה יותר לשלם באינטרנט!"
+                                onclick="paypalClick()">
+                            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        </div>
+                    </form>
+                    <p>שימו לב: ביצוע התשלום בפאיפל מתבצע דרך סביבת אמת! קרי תשלום שיושלם יחוייב באמת. על כן - הסכום בדף
+                        פייפל עומד על 10 אגורות ואינו משקף את גובה התשלום המוצג בדף ולמניעת אי נעימויות.</p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <!-----------------------------modal: show all expanses -------------------------------------->
 <div class="modal fade" id="ExpansesModal">
@@ -348,45 +405,40 @@
 <!-----------------------------END modol watch all activities -------------------------------------->
 
 
-<!-----------------------------modal: new expanse -------------------------------------->
-<div class="modal fade" id="newExpanseModal">
+<!-----------------------------modal: health declare -------------------------------------------------->
+<div class="modal fade" id="healthDeclareModal">
     <div class="modal-container">
         <div class="modal-dialog vertical-align-center">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3>הוספת הוצאה חדשה</h3>
-                    <p>הזינו את פרטי ההוצאה ההוצאה:</p>
+                    <h3>הצהרת בריאות</h3>
                 </div>
 
                 <div class="modal-body">
-                    <form id="new-expanse" action="/application/views/Instructor/homepage.php" method="post">
-                        <div class="input-box">
-                            <div class="input-group">
-                                <label for="ename">מטרת ההוצאה</label>
-                                <input type="text" name="ename">
-                            </div>
+                    <p> אני מצהיר/ה בזאת כי נכון לתאריך <span id="dateSpn"></span><br></p>
 
-                            <div class="input-group">
-                                <label for="description">פירוט:</label>
-                                <input type="text" name="description">
-                            </div>
+                    <p> <span id="nameSpn1"></span> חש/ה בטוב, אינו/ה משתעל/ת ולא חווה קשיי נשימה.<br>
+                        מדדתי חום ל<span id="nameSpn2"></span> ונמצא כי חום גופו/ה מתחת ל-38 מעלות צלזיוס.<br>
+                        <span id="nameSpn3"></span> לא בא/ה במגע עם חולה קורונה מאומת במהלך השבועיים האחרונים.
+                    </p>
 
-                            <div class="input-group">
-                                <label for="edate">תאריך ההוצאה:</label>
-                                <input type="date" name="edate">
-                            </div>
+                    <div>
+                        <input type="checkbox" id="declare" name="declare">
+                        <label for="declare">בשליחת טופס זה אני מצהיר/ה כי כל המידע הנ"ל נכון</label>
+                    </div>
 
-                            <div class="input-group">
-                                <label for="price">סכום ההוצאה:</label>
-                                <input type="time" name="price">
-                            </div>
+                    <div>
+                        <form id="healthDeclareForm">
+                            <input type="text" name="activity_id" id="activity_id_holder" hidden>
+                            <input type="text" name="email" id="email_holder" hidden>
+                            <button type="button" id="sendHealthDeclareBtn" onclick="sendHealthDeclare()" disabled>שלח
+                                הצהרה</button>
+                        </form>
+                    </div>
 
-                        </div>
 
-                        <button type="sumbit">בצע</button>
-                    </form>
                 </div>
 
             </div>
@@ -431,8 +483,6 @@
 <!-----------------------------END modol watch all meetings -------------------------------------->
 
 
-
-
 <!-----------------------------modal: read notifications -------------------------------------->
 <div class="modal fade" id="notificationsModal">
     <div class="modal-container">
@@ -459,7 +509,8 @@
 <!-----------------------------END modal: read notifications -------------------------------------->
 
 
-<!-----------------------------modal: send message -------------------------------------->
+
+<!-----------------------------modal: send message to guide -------------------------------------->
 <div class="modal fade" id="newMessageModal">
     <div class="modal-container">
         <div class="modal-dialog vertical-align-center">
@@ -467,18 +518,26 @@
 
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3>שליחת הודעה לחניכים</h3>
+                    <h3>שליחת הודעה למדריך</h3>
                 </div>
 
                 <div class="modal-body">
                     <form id="new-message" method="post">
                         <div class="input-box">
+
+                            <div class="input-group" id="instructorSelectorDiv">
+                                <label for="instructors">בחרו במדריך:</label>
+                                <select name="recipient_email" id="instructors" form="new-message">
+
+                                </select>
+                            </div>
+
                             <div class="input-group">
                                 <label for="MessageHeadline">נושא ההודעה:</label>
                                 <input type="text" name="subject">
                             </div>
-                            <textarea name="content" form="new-message" rows="4"
-                                cols="50">הקלידו כאן את הודעתכם...</textarea>
+                            <textarea name="content" form="new-message" rows="4" cols="50"
+                                placeholder="הקלידו כאן את הודעתכם..."></textarea>
                         </div>
                         <button onclick="sendMessage()"><span class="spinner-border spinner-border-sm" role="status"
                                 aria-hidden="true" style="margin-left:0.5em" id="msgSpinner" hidden></span>שלח</button>
@@ -492,283 +551,52 @@
 
 <!-----------------------------END modal: send message -------------------------------------->
 
-<!-----------------------------modal: show pending members -------------------------------------->
-<div class="modal fade" id="payModal">
+<!-----------------------------modal: send new meeting request to guide -------------------------------------->
+<div class="modal fade" id="newMeetingModal">
     <div class="modal-container">
         <div class="modal-dialog vertical-align-center">
             <div class="modal-content">
 
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">X</button>
-                    <h3>בצע תשלום</h3>
+                    <h3>זימון פגישה חדשה</h3>
                 </div>
 
                 <div class="modal-body">
-                    <h3>ביצוע תשלום עבור: <span id="payTitle"></span></h3>
-                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                        <input type="hidden" name="cmd" value="_xclick">
-                        <input type="hidden" name="business" value="iliashifrin@gmail.com">
-                        <input type="hidden" name="lc" value="IL">
-                        <input type="hidden" name="button_subtype" value="services">
-                        <input type="hidden" name="no_note" value="0">
-                        <input type="hidden" name="currency_code" value="ILS">
-                        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest">
-                        <table>
-                            <tr>
-                                <td><input type="hidden" name="on0" value="pay for">תשלום עבור:</td>
-                            </tr>
-                            <tr>
-                                <td><select name="os0" id="paymentSelector">
+                    <form id="new-meeting" method="post">
+                        <div class="input-box">
 
-                                    </select> </td>
-                            </tr>
-                        </table>
-                        <input type="hidden" name="option_select0" value="membership">
-                        <input type="hidden" name="option_amount0" value="0.10">
-                        <input type="hidden" name="option_select1" value="insurance">
-                        <input type="hidden" name="option_amount1" value="0.20">
-                        <input type="hidden" name="option_select2" value="trips">
-                        <input type="hidden" name="option_amount2" value="0.30">
-                        <input type="hidden" name="option_index" value="0">
-                        <input type="hidden" name="email" id="kidEmail">
-                        <div id="payBtnDiv">
-                            <input type="image" src="https://www.paypalobjects.com/he_IL/IL/i/btn/btn_paynowCC_LG.gif"
-                                name="submit" alt="PayPal - הדרך הקלה והבטוחה יותר לשלם באינטרנט!"
-                                onclick="paypalClick()">
-                            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                        </div>
+                            <div class="input-group" id="instructorSelectorDiv">
+                                <label for="guidesSelector">בחרו במדריך:</label>
+                                <select name="guide_email" id="guidesSelector" form="new-meeting"></select>
+                            </div>
+
+
+                            <div class="input-group">
+                                <label for="MessageHeadline">נושא הפגישה:</label>
+                                <input type="text" name="subject">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="datepicker">תאריך הפגישה</label>
+                                <input type="date" name="date" id="datepicker">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="time">שעת הפגישה</label>
+                                <input type="time" name="time">
+                            </div>
+
+                            <button onclick="sendMeeting()">שלח</button>
                     </form>
-                    <p>שימו לב: ביצוע התשלום בפאיפל מתבצע דרך סביבת אמת! קרי תשלום שיושלם יחוייב באמת. על כן - הסכום בדף
-                        פייפל עומד על 10 אגורות ואינו משקף את גובה התשלום המוצג בדף ולמניעת אי נעימויות.</p>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-----------------------------modal: show all members -------------------------------------->
-    <div class="modal fade" id="showAllStudentsModal">
-        <div class="modal-container">
-            <div class="modal-dialog vertical-align-center">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">X</button>
-                        <h3>החניכים שלי</h3>
-                    </div>
-
-                    <div class="modal-body">
-                        <table class="table" id="allStudentsTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">שם</th>
-                                    <th scope="col">משפחה</th>
-                                    <th scope="col">טלפון</th>
-                                    <th scope="col">דמי חבר</th>
-                                    <th scope="col">תשלום טיול</th>
-                                    <th scope="col">דמי ביטוח</th>
-                                    <th scope="col">כתובת</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-----------------------------modal: Start activity -------------------------------------->
-    <div class="modal fade" id="startActivityModal">
-        <div class="modal-container">
-            <div class="modal-dialog vertical-align-center">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">X</button>
-                        <h3><span id="activityHeader">התחלת הפעילות</span></h3>
-                    </div>
-
-                    <div class="modal-body">
-                        <form id="manage-activity" data-target="#startActivityModal">
-                            <input type="text" id="manage_activity_id" hidden>
-                            <div class="input-box">
-                                <label>סימון נוכחות:</label>
-                                <table class="table" id="membersTable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">שם החניך</th>
-                                            <th scope="col">הצהרה</th>
-                                            <th scope="col">נוכחות</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-
-                                <div>
-                                    <label>סיכום הפגישה:</label>
-                                    <textarea id="after_summary" rows="4" cols="50" maxlength="100"
-                                        placeholder="הוסיפו סיכום קצר לפגישה..."></textarea>
-                                </div>
-                                <div>
-                                    <button onclick="sendSummery(event)">בצע</button>
-                                </div>
-
-                            </div>
-
-                        </form>
-                    </div>
                 </div>
 
             </div>
         </div>
     </div>
+</div>
 
-    <!-----------------------------END modol start activity -------------------------------------->
-
-    <!-----------------------------modal: new activity -------------------------------------->
-    <div class="modal fade" id="newActivityModal">
-        <div class="modal-container">
-            <div class="modal-dialog vertical-align-center">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">X</button>
-                        <h3>יצירת פעילות חדשה</h3>
-                        <p>הזינו את פרטי הפעילות החדשה:</p>
-                    </div>
-
-                    <div class="modal-body">
-                        <form id="new-activity">
-                            <div class="input-box">
-                                <div class="input-group">
-                                    <label for="activityName">שם הפעילות:</label>
-                                    <input type="text" name="name" id="activityName" maxlength="32">
-                                </div>
-
-                                <div class="input-group">
-                                    <label for="activityDesc">תיאור הפעילות:</label>
-                                    <textarea rows="3" cols="24" maxlength="100"
-                                        placeholder="הזינו פרטים נוספים לגבי הפעילות..." name="description"
-                                        id="activityDesc">
-                                    </textarea>
-
-                                    <div class="input-group">
-                                        <label for="activityDate">תאריך הפעילות:</label>
-                                        <input type="date" name="date">
-                                    </div>
-
-                                    <div class="input-group">
-                                        <label for="activityTime">שעת הפעילות:</label>
-                                        <input type="time" name="time">
-                                    </div>
-                                </div>
-
-                                <button type="sumbit">בצע</button>
-
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-----------------------------modal: EDIT activity -------------------------------------->
-    <div class="modal fade" id="editActivityModal">
-        <div class="modal-container">
-            <div class="modal-dialog vertical-align-center">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button class="close" type="button" data-dismiss="modal">X</button>
-                        <h3><span id="activityHeader">עריכת פעילות</span></h3>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <form id="edit-activity" data-target="#startActivityModal">
-
-
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-----------------------------END modol EDIT activity -------------------------------------->
-
-        <!-----------------------------modal: new activity -------------------------------------->
-        <div class="modal fade" id="thisGoesNowhere">
-            <div class="modal-container">
-                <div class="modal-dialog vertical-align-center">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button class="close" type="button" data-dismiss="modal">X</button>
-                            <h3>יצירת פעילות חדשה</h3>
-                            <p>הזינו את פרטי הפעילות החדשה:</p>
-                        </div>
-
-                        <div class="modal-body">
-                            <form id="new-activity">
-                                <div class="input-box">
-                                    <div class="input-group">
-                                        <label for="activityName">שם הפעילות:</label>
-                                        <input type="text" name="name" id="activityName" maxlength="32">
-                                    </div>
-
-                                    <div class="input-group">
-                                        <label for="activityDesc">תיאור הפעילות:</label>
-                                        <textarea rows="3" cols="24" maxlength="100"
-                                            placeholder="הזינו פרטים נוספים לגבי הפעילות..." name="description"
-                                            id="activityDesc">
-                                    </textarea>
-
-                                        <div class="input-group">
-                                            <label for="activityDate">תאריך הפעילות:</label>
-                                            <input type="date" name="date">
-                                        </div>
-
-                                        <div class="input-group">
-                                            <label for="activityTime">שעת הפעילות:</label>
-                                            <input type="time" name="time">
-                                        </div>
-                                    </div>
-
-                                    <button type="sumbit">בצע</button>
-
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-----------------------------END modal: send message -------------------------------------->
 
 
 

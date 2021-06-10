@@ -417,7 +417,7 @@
 
                             <div class="input-group">
                                 <label for="price">סכום ההוצאה:</label>
-                                <input type="time" name="price">
+                                <input type="number" name="price">
                             </div>
 
                         </div>
@@ -514,8 +514,8 @@
                                 <label for="MessageHeadline">נושא ההודעה:</label>
                                 <input type="text" name="subject">
                             </div>
-                            <textarea name="content" form="new-message" rows="4"
-                                cols="50">הקלידו כאן את הודעתכם...</textarea>
+                            <textarea name="content" form="new-message" rows="4" cols="50"
+                                placeholder="הקלידו כאן את הודעתכם..."></textarea>
                         </div>
                         <button onclick="sendMessage()"><span class="spinner-border spinner-border-sm" role="status"
                                 aria-hidden="true" style="margin-left:0.5em" id="msgSpinner" hidden></span>שלח</button>
@@ -675,7 +675,7 @@
 
                                 <div class="input-group">
                                     <label for="activityDate">תאריך הפעילות:</label>
-                                    <input type="date" name="date">
+                                    <input type="date" name="date" id="datepickerActivity">
                                 </div>
 
                                 <div class="input-group">
