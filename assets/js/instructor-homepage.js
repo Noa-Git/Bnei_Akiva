@@ -1023,7 +1023,7 @@ $(document).ready(function () {
 		refreshMeeting();
 		checkNewMessages();
 		updateMemberStats();
-	}, 60000);
+	}, 15000);
 
 	var i = 0;
 	var j = 0;
