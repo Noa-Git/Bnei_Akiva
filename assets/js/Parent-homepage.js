@@ -889,7 +889,7 @@ $(document).ready(function () {
 		checkNewMessages();
 		updateMemberStats();
 		showMyKids();
-	}, 60000);
+	}, 15000);
 
 	var i = 0;
 	var j = 0;
