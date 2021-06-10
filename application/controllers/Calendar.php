@@ -74,50 +74,31 @@ class Calendar extends CI_Controller
 		return;
 	}
 
-	public function schedule_meeting()
-	{
-		$booker_email=$this->session->users_email;
-		$data=array(
-			'booker_email'=>$this->input->post($booker_email),
-			'booked' => $this->input->post(1)
-		);
-
-		$this->Calender_model->update_meeting($data);
-	}
-
         //By Mor
-        	public function do_meeting()
+    public function do_meeting()
 	{
+		$parent_email=$this->session->user->email;
+		$guide_email=$this->input->post('guide_email');
+		$time = $this->input->post('date').' '.$this->input->post('time').':00';
 		$data=array(
-			'booker_email' => $this->input->post('booker_email'), //or  seesion?
-                    	'guide_email' => $this->input->post('guide_email'),
+			'booker_email'=>$parent_email,
+            'guide_email'=> $guide_email,
+			
 			'subject' => $this->input->post('subject'),
-			'date' => $this->input->post('date'),
+			'date' => $time,
 		);
                 
-		$error = $this->Calender_model->save_meeting($data);
-                if ($error) {
-			echo json_encode(array('error' => true,'db_error' => $error['message']));
-			return;
-		}
- 
-                else
-                {
+		$this->Calender_model->save_meeting($data);
+                       
 		$data2=array(
-			'recipient_email' => $this->input->post('guide_email'),
-                    	'sent_from' => $this->input->post('booker_email'),
+			'recipient_email' => $guide_email,
+            'sent_from' => $this->session->user->fname. ' '.$this->session->user->lname,
 			'subject' => "קביעת פגישה",
-                        'content' => $this->input->post('subject'),
-                    
+            'content' => $this->input->post('subject'),           
 		);
-                $error= $this->Message_model->send($data2);
-                 if ($error) {
-			echo json_encode(array('error' => true,'db_error' => $error['message']));
-			return;
-		}
-                }
-                		echo json_encode(array('success' => true));
 
+        $this->Message_model->send($data2);    
+        echo json_encode(array('success' => true));
 	}
         
         //By mor

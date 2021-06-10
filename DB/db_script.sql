@@ -84,7 +84,8 @@ CREATE TABLE health_declare
     activity_id  INT,
     member_email VARCHAR(32),
     FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE,
-    FOREIGN KEY (member_email) REFERENCES member (users_email) ON DELETE CASCADE
+    FOREIGN KEY (member_email) REFERENCES member (users_email) ON DELETE CASCADE,
+    PRIMARY KEY (`activity_id`,`member_email`)
 );
 
 CREATE TABLE rate

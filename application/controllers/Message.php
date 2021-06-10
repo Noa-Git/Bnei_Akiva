@@ -16,10 +16,9 @@ class Message extends CI_Controller
 
 	public function send_message()
 	{
-		$users_email=$this->session->user->email;
 		$data = array(
 			'recipient_email' => $this->input->post('recipient_email'),
-			'sent_from' => $this->input->post($users_email),
+			'sent_from' => $this->session->user->fname. ' ' .$this->session->user->lname,
 			'subject' => $this->input->post('subject'),
 			'content' => $this->input->post('content')
 		);

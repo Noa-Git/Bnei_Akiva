@@ -64,10 +64,8 @@ class Guide extends CI_Controller {
                     //return json_encode($guides);
                     echo json_encode($guides);
          
-            
-        
-    
         }
         
- 
     }
+
+    

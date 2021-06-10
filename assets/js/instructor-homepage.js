@@ -175,7 +175,6 @@ function selectSub(id) {
 }
 
 
-
 /******************************************** ask for a new substitute ***********************************************/
 function askSub() {
 	$.ajax({
@@ -1009,6 +1008,9 @@ function sendSummery(e) {
 /******************************************** Ready Function ***********************************************/
 $(document).ready(function () {
 
+	let now = (new Date()).toISOString().substring(0, 10);
+
+	$('#datepickerActivity').attr('min', now);
 	refreshActivity();
 	refreshMeeting();
 	refreshSubs();

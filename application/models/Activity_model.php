@@ -70,7 +70,9 @@ class Activity_model extends CI_Model
 	///////////////////////////New/////////////////////////////////////////////////
 	public function get_activity_for_kids_by_parent_mail_top_3($parent_email)
 	{
-		$sql = 'SELECT * FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC LIMIT 3';
+		//$sql = 'SELECT * FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC LIMIT 3';
+
+		$sql = 'SELECT *, CASE WHEN EXISTS (SELECT * FROM health_declare WHERE member_email=member.users_email AND activity_id=activity.id) THEN "1" ELSE "0" END AS hd FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC LIMIT 3';
 
 		$error = null;
 		$query = $this->db->query($sql, array($parent_email));
@@ -83,7 +85,9 @@ class Activity_model extends CI_Model
 
 	public function get_activity_for_kids_by_parent_mail_top_all($parent_email)
 	{
-		$sql = 'SELECT * FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC';
+		//$sql = 'SELECT * FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC';
+
+		$sql = 'SELECT *, CASE WHEN EXISTS (SELECT * FROM health_declare WHERE member_email=member.users_email AND activity_id=activity.id) THEN "1" ELSE "0" END AS hd FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC';
 
 		$error = null;
 		$query = $this->db->query($sql, array($parent_email));
