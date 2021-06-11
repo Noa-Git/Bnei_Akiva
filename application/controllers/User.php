@@ -27,7 +27,7 @@ class User extends CI_Controller
 
 		$data = array(
 			'email' => $this->input->post('email'),
-			'password' => $this->input->post('password')
+			'password' => md5($this->input->post('password'))
 		);
 
 		$check = $this->User_model->auth($data);
@@ -232,18 +232,6 @@ class User extends CI_Controller
 	{
 		$this->load->view('templates/loginAndRegisterHead');
 		$this->load->view('login+register/registrationComplete', $data);
-	}
-
-	public function send_members_for_approval()
-	{
-		//get all members from DB
-		$data['members'] = $this->Member_model->get_members();
-
-		foreach ($data['members'] as $member) {
-			if ($member->pending == TRUE) {
-				$this->load->view();
-			}
-		}
 	}
 
 	public function validate_alpha_input($names)
