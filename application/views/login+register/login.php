@@ -30,8 +30,8 @@
 	</div>
 
 	<span id="forgotPassword">
-             <a href='user/forgot_password/'>שכחת את הסיסמה?</a>
-        </span>
+		<?php echo anchor('User/forgot_password', 'שכחתי את הסיסמה'); ?>
+	</span>
 
 	<div id="gotoSignIn">
 		<?php echo anchor('User/loadRegisterParent', ' חדשים כאן? לחצו כדי להירשם', 'class="link-class"') ?>
