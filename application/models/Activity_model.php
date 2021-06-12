@@ -56,7 +56,7 @@ class Activity_model extends CI_Model
 
 	public function get_activity_with_rate_by_id($activity_id)
 	{
-		$sql = 'SELECT *, AVG(rate.rate) AS rates_avg FROM activity INNER JOIN rate ON activity.id=rate.activity_id WHERE activity.activity_id= ? ';
+		$sql = 'SELECT *, AVG(rate.rate) AS rates_avg FROM activity INNER JOIN rate ON activity.id=rate.activity_id WHERE activity.id= ? ';
 
 		$error = null;
 		$query = $this->db->query($sql, array($activity_id));
@@ -66,6 +66,40 @@ class Activity_model extends CI_Model
 		$error = $this->db->error();
 		return $error;
 	}
+
+	///////////////////////////New/////////////////////////////////////////////////
+	public function get_activity_for_kids_by_parent_mail_top_3($parent_email)
+	{
+		//$sql = 'SELECT * FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC LIMIT 3';
+
+		$sql = 'SELECT *, CASE WHEN EXISTS (SELECT * FROM health_declare WHERE member_email=member.users_email AND activity_id=activity.id) THEN "1" ELSE "0" END AS hd FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? AND time >= CURRENT_DATE ORDER BY time DESC LIMIT 3';
+
+		$error = null;
+		$query = $this->db->query($sql, array($parent_email));
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+
+	public function get_activity_for_kids_by_parent_mail_top_all($parent_email)
+	{
+		//$sql = 'SELECT * FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC';
+
+		$sql = 'SELECT *, CASE WHEN EXISTS (SELECT * FROM health_declare WHERE member_email=member.users_email AND activity_id=activity.id) THEN "1" ELSE "0" END AS hd FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC';
+
+		$error = null;
+		$query = $this->db->query($sql, array($parent_email));
+		if ($query) {
+			return $query->result();
+		}
+		$error = $this->db->error();
+		return $error;
+	}
+	///////////////////////////New/////////////////////////////////////////////////
+
+
 
 	public function get_top_3_activities_by_desc_order($guide_email)
 	{
@@ -132,10 +166,12 @@ class Activity_model extends CI_Model
 		return $error;
 	}
 
-	public function get_substitute_by_agegrade_order_by_activity_time_DESC_top3($guide_email)
+	public function get_substitute_by_agegrade_order_by_activity_time_DESC_top3($agegrade_id)
 	{
+
 		$error = null;
-		$query = $this->db->query('SELECT * FROM substitute INNER JOIN activity ON substitute.activityid=activity.id where guide_email = ? ORDER BY activity.time DESC LIMIT 3');
+		$query = $this->db->query("SELECT * FROM substitute INNER JOIN activity ON substitute.activity_id=activity.id INNER JOIN users ON activity.guide_email=users.email where activity.agegrade_id = '$agegrade_id' ORDER BY activity.time DESC LIMIT 3");
+
 
 		if ($query) {
 			return $query->result();
@@ -144,10 +180,10 @@ class Activity_model extends CI_Model
 		return $error;
 	}
 
-	public function get_substitute_by_agegrade_order_by_activity_time_DESC($guide_email)
+	public function get_substitute_by_agegrade_order_by_activity_time_DESC($agegrade_id)
 	{
 		$error = null;
-		$query = $this->db->query('SELECT * FROM substitute INNER JOIN activity ON substitute.activityid=activity.id where guide_email = ? ORDER BY activity.time DESC');
+		$query = $this->db->query("SELECT substitute.id, substitute.activity_id, substitute.agegrade_id, users.fname, users.lname, activity.time FROM substitute INNER JOIN activity ON substitute.activity_id=activity.id INNER JOIN users ON activity.guide_email=users.email where activity.agegrade_id = '$agegrade_id' ORDER BY activity.time DESC");
 
 		if ($query) {
 			return $query->result();
@@ -170,6 +206,14 @@ class Activity_model extends CI_Model
 		}
 		$error = $this->db->error();
 		return $error;
+	}
+
+	public function get_substitute_by_id($id) {
+		$query = $this->db->get_where("substitute", array('id'=>$id));
+		if ($query) {
+			return $query->result();
+		}
+		
 	}
 
 }

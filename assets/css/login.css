@@ -1,28 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 body {
-	background-image: url("../pics/background/blue.jpg");
-	display:flex;
-	justify-content: center;
-	align-items: center;
+	background-image: url("/assets/pics/background/blue.jpg");
+	display: flex;
 	flex-direction: column;
 	font-family: 'Varela Round', sans-serif;
+	align-items: center;
+	justify-content: center;
 	/*height: 100vh;*/
 }
 
-.white_block{
-    margin-top: 7%;
+.white_block {
+	margin-top: 7%;
 }
 
 .container {
+	margin-top: 10vh;
+	position: relative;
 	background-color: #fff;
 	border-radius: 10px;
 	padding: 1em;
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-	0 10px 10px rgba(0, 0, 0, 0.22);
-	width: 50%;
+		0 10px 10px rgba(0, 0, 0, 0.22);
+	width: fit-content;
 	height: auto;
-	max-height: 100%;
 	display: flex;
 	flex-direction: column;
 	/*overflow: hidden;*/
@@ -49,6 +50,13 @@ p {
 
 a {
 	text-decoration: none;
+}
+
+img {
+	width: 100%;
+	height: auto;
+	max-height: 40vh;
+	padding: 0.5em;
 }
 
 .form-div {
@@ -93,8 +101,8 @@ form input:focus {
 	color: rgb(44, 51, 148);
 }
 
-#confirmPassword{
-    	text-align: center;
+#confirmPassword {
+	text-align: center;
 
 }
 
@@ -136,15 +144,15 @@ form input:focus {
 
 #forgotPassword {
 	margin-top: 0.5em;
-	position:relative;
+	position: relative;
 	justify-content: center;
-	display:flex;
+	display: flex;
 }
 
 #gotoSignIn {
-	position:relative;
+	position: relative;
 	justify-content: center;
-	display:flex;
+	display: flex;
 }
 
 .login-error {
@@ -221,7 +229,7 @@ form input:focus {
 	align-items: center;
 }
 
-.icon-btn{
+.icon-btn {
 	margin-right: 0.25em;
 }
 
@@ -250,4 +258,202 @@ form input:focus {
 	justify-content: center;
 	margin: 0.25em;
 	font-size: 0.25vw;
+}
+
+
+/*********************************** Media Queries ***********************************************/
+@media (max-width: 992px) {
+
+	h1 {
+		font-size: 20px;
+		font-weight: bold;
+		color: rgb(34, 91, 165);
+		display: flex;
+		justify-content: center;
+	}
+
+
+	.container {
+		margin-top: 10vh;
+		background-color: #fff;
+		border-radius: 10px;
+		padding: 1em;
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+			0 10px 10px rgba(0, 0, 0, 0.22);
+		width: fit-content;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+
+		/*overflow: hidden;*/
+	}
+
+
+	.horizontal-scrollable>.row>.col-sm-12 {
+		display: inline-block;
+		float: none;
+	}
+
+	.horizontal-scrollable>.row>.col-sm-12 {
+		display: inline-block;
+		float: none;
+		scroll-snap-align: start;
+	}
+
+	.col-sm-3 {
+		width: fit-content;
+	}
+
+	h2 {
+		font-size: 20px;
+		font-weight: 600;
+	}
+
+	h3 {
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.table tr th {
+		font-size: 14px;
+	}
+
+	.table tr td {
+		font-size: 14px;
+	}
+
+	.modal-container p {
+		font-size: 16px;
+	}
+
+	.modal-container label {
+		font-size: 14px;
+	}
+
+	.modal-container input {
+		font-size: 14px;
+	}
+
+	.expandBtn i {
+		font-size: 20px;
+	}
+
+}
+
+
+
+
+
+@media (max-width: 576px) {
+
+	h1 {
+		font-size: 20px;
+		font-weight: bold;
+		color: rgb(34, 91, 165);
+		display: flex;
+		justify-content: center;
+	}
+
+
+	.container {
+		margin-top: 10vh;
+		background-color: #fff;
+		border-radius: 10px;
+		padding: 1em;
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+			0 10px 10px rgba(0, 0, 0, 0.22);
+		width: fit-content;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		min-width: 400px;
+		/*overflow: hidden;*/
+	}
+
+
+
+	.activity-bar {
+		display: flex;
+		align-items: center;
+	}
+
+	.navbar-nav {
+		position: sticky;
+		top: 0;
+	}
+
+	.horizontal-scrollable {
+		display: inline-block;
+		min-width: 400px;
+	}
+
+
+	.row {
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	.horizontal-scrollable>.row {
+
+		display: flex;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.horizontal-scrollable>.row>.col-sm-3 {
+		display: inline-block;
+		float: none;
+	}
+
+	.col-sm-3 {
+		width: fit-content;
+	}
+
+
+	h2 {
+		font-size: 20px;
+		font-weight: 600;
+	}
+
+	h3 {
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.table tr th {
+		font-size: 14px;
+	}
+
+	.table tr td {
+		font-size: 14px;
+	}
+
+
+	.modal-container p {
+		font-size: 16px;
+	}
+
+	.modal-container label {
+		font-size: 14px;
+	}
+
+	.modal-container input {
+		font-size: 14px;
+	}
+
+	button.icon-edit i {
+		font-size: 20px;
+	}
+
+	button.icon-start i {
+		font-size: 20px;
+	}
+
+	.expandBtn i {
+		font-size: 20px;
+	}
+
+
+
+
 }

@@ -2,7 +2,7 @@
 
 function showAllActivities() {
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -67,7 +67,7 @@ function showAllActivities() {
 /******************************************** show expanses ***********************************************/
 function showExpanses() {
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -115,7 +115,7 @@ function showExpanses() {
 function updateMemberStats() {
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -155,7 +155,7 @@ function updateMemberStats() {
 function selectSub(id) {
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -178,7 +178,7 @@ function selectSub(id) {
 /******************************************** ask for a new substitute ***********************************************/
 function askSub() {
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -244,7 +244,7 @@ function sendMessage() {
 
 	$('#msgSpinner').show();
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -273,7 +273,7 @@ function approveMember(email) {
 	);
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -300,7 +300,7 @@ function approveMember(email) {
 /******************************************** Show Pending Members ***********************************************/
 function showPendingMembers() {
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -358,7 +358,7 @@ function showPendingMembers() {
 
 function showAllMembers() {
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -418,7 +418,7 @@ function showAllMembers() {
 function ShowAllMeeting() {
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -495,7 +495,7 @@ function ShowAllMeeting() {
 function refreshMeeting() {
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -573,7 +573,7 @@ function setMeeting(id, book) {
 	console.log(book);
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -601,7 +601,7 @@ function setMeeting(id, book) {
 function checkNewMessages() { //this function must refresh all the time
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -643,7 +643,7 @@ function submitUpdateActivity(e) {
 	}
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -672,7 +672,7 @@ function submitUpdateActivity(e) {
 function refreshSubs() {
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -734,7 +734,7 @@ function refreshSubs() {
 function approveSubstitution(id, activity_id) {
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -775,7 +775,7 @@ function showMassages(all = 'false') {
 	$('#badge').text('');
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -827,7 +827,7 @@ function showMassages(all = 'false') {
 function editActivity(id) {
 	//alert("editing id: " + id);
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -881,7 +881,7 @@ function editActivity(id) {
 
 function showStudents(id) {
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -934,7 +934,7 @@ function sendSummery(e) {
 	console.log(activity);
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -979,7 +979,7 @@ function sendSummery(e) {
 	console.log(activity);
 
 	$.ajax({
-		url: "https://" +
+		url: "http://" +
 			window.location.hostname +
 			":" +
 			window.location.port + "/index.php" +
@@ -1030,7 +1030,7 @@ $(document).ready(function () {
 
 	function refreshActivity() {
 		$.ajax({
-			url: "https://" +
+			url: "http://" +
 				window.location.hostname +
 				":" +
 				window.location.port + "/index.php" +
@@ -1112,7 +1112,7 @@ $(document).ready(function () {
 		}
 
 		$.ajax({
-			url: "https://" +
+			url: "http://" +
 				window.location.hostname +
 				":" +
 				window.location.port + "/index.php" +
@@ -1156,7 +1156,7 @@ $(document).ready(function () {
 		} */
 
 		$.ajax({
-			url: "https://" +
+			url: "http://" +
 				window.location.hostname +
 				":" +
 				window.location.port + "/index.php" +
@@ -1184,7 +1184,7 @@ $(document).ready(function () {
 
 		$("#messages-container").empty();
 		$.ajax({
-			url: "https://" +
+			url: "http://" +
 				window.location.hostname +
 				":" +
 				window.location.port + "/index.php" +

@@ -12,7 +12,7 @@ class Calender_model extends CI_Model
 
 	public function get_meetings_by_guide_email($guide_email)
 	{
-		$sql = 'SELECT * FROM meeting WHERE guide_email= ? ORDER BY date DESC';
+		$sql = 'SELECT * FROM meeting INNER JOIN users ON meeting.booker_email=users.email WHERE guide_email= ? ORDER BY date DESC';
 		$error = null;
 		$query = $this->db->query($sql, array($guide_email));
 		if ($query) {
@@ -24,7 +24,7 @@ class Calender_model extends CI_Model
 
 	public function get_top3_meetings_by_guide_email($guide_email)
 	{
-		$sql = 'SELECT * FROM meeting WHERE guide_email= ? AND date >= CURRENT_DATE ORDER BY date ASC LIMIT 3';
+		$sql = 'SELECT * FROM meeting INNER JOIN users ON meeting.booker_email=users.email WHERE guide_email= ? AND date >= CURRENT_DATE ORDER BY date ASC LIMIT 3';
 		$error = null;
 		$query = $this->db->query($sql, array($guide_email));
 		if ($query) {
@@ -34,9 +34,10 @@ class Calender_model extends CI_Model
 		return $error;
 	}
 
-	public function get_meetings_by_booker_email($booker_email)
+	public function get_meetings_by_booker_email($booker_email, $all)
 	{
-		$sql = 'SELECT * FROM meeting WHERE booker_email= ?';
+		$limit=$all!='true'? "AND date >= CURRENT_DATE ORDER BY date ASC LIMIT 3": "ORDER BY date DESC";
+		$sql = 'SELECT * FROM meeting INNER JOIN users ON meeting.guide_email=users.email WHERE booker_email= ? ';
 		$error = null;
 		$query = $this->db->query($sql, array($booker_email));
 		if ($query) {
@@ -82,8 +83,7 @@ class Calender_model extends CI_Model
 
             if ($data['booked']==1)
             {
-  
-		$this->db->set($data)->where('id', $id)->update('meeting');
+				$this->db->set($data)->where('id', $id)->update('meeting');
             }
             else
             {

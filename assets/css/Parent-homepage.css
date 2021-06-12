@@ -107,6 +107,16 @@ button:hover {
 	background-color: rgb(49, 132, 241);
 }
 
+button:disabled {
+	border: 1px solid rgb(165, 165, 165);
+	background-color: rgb(165, 165, 165);
+}
+
+button:disabled:hover {
+	border: 1px solid rgb(165, 165, 165);
+	background-color: rgb(165, 165, 165);
+}
+
 /* Icons buttons */
 button.icon-edit {
 	justify-content: center;

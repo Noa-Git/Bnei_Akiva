@@ -50,7 +50,7 @@ CREATE TABLE parent
 
 CREATE TABLE member
 (
-    users_email  VARCHAR(32),
+    users_email  VARCHAR(32) PRIMARY KEY,
     parent_email VARCHAR(32),
     insurance    BOOLEAN default 0,
     trips        BOOLEAN default 0,
@@ -74,6 +74,7 @@ CREATE TABLE activity
     agegrade_id      INT,
     guide_email      VARCHAR(32),
     num_participants INT,
+    sub_req tinyint(1) DEFAULT 0,
     FOREIGN KEY (agegrade_id) REFERENCES agegrade (id) ON DELETE CASCADE,
     FOREIGN KEY (guide_email) REFERENCES guide (users_email) ON DELETE CASCADE
 );
@@ -83,7 +84,8 @@ CREATE TABLE health_declare
     activity_id  INT,
     member_email VARCHAR(32),
     FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE,
-    FOREIGN KEY (member_email) REFERENCES member (users_email) ON DELETE CASCADE
+    FOREIGN KEY (member_email) REFERENCES member (users_email) ON DELETE CASCADE,
+    PRIMARY KEY (`activity_id`,`member_email`)
 );
 
 CREATE TABLE rate

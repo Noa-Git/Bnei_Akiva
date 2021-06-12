@@ -36,8 +36,10 @@ class Guide_model extends CI_Model
 
 	public function get_expanses_by_time_DESC($guide_email)
 	{
+		$sql = 'SELECT * FROM expanse INNER JOIN users ON expanse.guide_email=users.email WHERE guide_email= ? ORDER BY edate DESC';
 		$error = null;
-		$query = $this->db->query('SELECT * FROM expanse WHERE guide_email = ? ORDER BY edate DESC');
+
+		$query = $this->db->query($sql, array($guide_email));
 		if ($query) {
 			return $query->result();
 		}

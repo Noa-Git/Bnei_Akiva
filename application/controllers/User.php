@@ -22,6 +22,16 @@ class User extends CI_Controller
 		$this->load->view('login+register/login', $data);
 	}
 
+	public function logout(){
+		 $data = array(
+			'user',
+			'role',
+            'loggedin',
+        );
+        $this->session->unset_userdata($data);
+        $this->login();
+	}
+
 	public function do_login()
 	{
 
@@ -45,13 +55,19 @@ class User extends CI_Controller
 				echo 'Member Dashboard';
 			}
 			if ($data['role'] == 3) {
-				echo 'Parent Dashboard';
+				redirect("Parents/dashboard");
 			}
 			if ($data['role'] == 2) {
 				redirect("Guide/dashboard");
 			}
 		}
 	}
+
+
+
+
+
+
 
 	public function loadRegisterParent($error = null)
 	{
@@ -232,18 +248,6 @@ class User extends CI_Controller
 	{
 		$this->load->view('templates/loginAndRegisterHead');
 		$this->load->view('login+register/registrationComplete', $data);
-	}
-
-	public function send_members_for_approval()
-	{
-		//get all members from DB
-		$data['members'] = $this->Member_model->get_members();
-
-		foreach ($data['members'] as $member) {
-			if ($member->pending == TRUE) {
-				$this->load->view();
-			}
-		}
 	}
 
 	public function validate_alpha_input($names)
