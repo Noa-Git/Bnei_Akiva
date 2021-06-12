@@ -23,10 +23,10 @@ function passHealthData(activity_id, name, email) {
 
 function refreshActivity() {
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/activity/activitiesForParent",
 		method: "POST",
 		data: {
@@ -88,10 +88,10 @@ function refreshActivity() {
 
 function sendHealthDeclare() {
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Parents/fill_health_declare",
 		method: "POST",
 		data: $('#healthDeclareForm').serialize(),
@@ -120,10 +120,10 @@ function sendHealthDeclare() {
 
 function showAllActivities() {
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/activity/activitiesForParent",
 		method: "POST",
 		data: {
@@ -187,10 +187,10 @@ function showAllActivities() {
 function getInstructors(selector) {
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Parents/get_guides",
 		method: "POST",
 		dataType: "json",
@@ -222,10 +222,10 @@ function sendMessage() {
 
 	$('#msgSpinner').show();
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/message/send_message",
 		method: "POST",
 		data: $('#new-message').serialize(),
@@ -243,10 +243,10 @@ function sendMessage() {
 function sendMeeting() {
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Calendar/do_meeting",
 		method: "POST",
 		data: $('#new-meeting').serialize(),
@@ -266,10 +266,10 @@ function sendMeeting() {
 /******************************************** show expanses ***********************************************/
 function showExpanses() {
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Guide/expanse_report",
 		method: "POST",
 		dataType: "json",
@@ -313,10 +313,10 @@ function showExpanses() {
 function updateMemberStats() {
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/member/members_list",
 		method: "POST",
 		dataType: "json",
@@ -353,10 +353,10 @@ function updateMemberStats() {
 /******************************************** ask for a new substitute ***********************************************/
 function askSub() {
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/activity/activities",
 		method: "POST",
 		data: {
@@ -419,10 +419,10 @@ function askSub() {
 
 function showMyKids() {
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/member/members_list",
 		method: "POST",
 		dataType: "json",
@@ -471,10 +471,10 @@ function showMyKids() {
 
 function showKidsPayments() {
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/member/members_list",
 		method: "POST",
 		dataType: "json",
@@ -567,10 +567,10 @@ function paypalClick(email, payment) {
 	console.log("email: " + email + " payment: " + payment);
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Parents/pay",
 		method: "POST",
 		data: {
@@ -591,10 +591,10 @@ function paypalClick(email, payment) {
 function ShowAllMeeting() {
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Calendar/calendar",
 		method: "POST",
 		data: {
@@ -661,10 +661,10 @@ function ShowAllMeeting() {
 function refreshMeeting() {
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Calendar/calendar",
 		method: "POST",
 		data: {
@@ -734,10 +734,10 @@ function setMeeting(id, book) {
 	console.log(book);
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Calendar/approve_meeting",
 		method: "POST",
 		data: {
@@ -762,10 +762,10 @@ function setMeeting(id, book) {
 function checkNewMessages() { //this function must refresh all the time
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Message/check_new",
 		method: "POST",
 		dataType: "json",
@@ -807,10 +807,10 @@ function showMassages(all = 'false') {
 	$('#badge').text('');
 
 	$.ajax({
-		url: "http://" +
+		url: "https://" +
 			window.location.hostname +
 			":" +
-			window.location.port +
+			window.location.port + "/index.php" +
 			"/Message/get_message",
 		method: "POST",
 		data: {
@@ -901,6 +901,22 @@ $(document).ready(function () {
 	$('#declare').click(function () {
 		$('#sendHealthDeclareBtn').attr('disabled', !this.checked)
 	});
+
+
+	$('#notificationsModal').on('hidden.bs.modal', function (e) {
+
+		$("#messages-container").empty();
+		$.ajax({
+			url: "https://" +
+				window.location.hostname +
+				":" +
+				window.location.port + "/index.php" +
+				"/message/set_read",
+			method: "POST"
+		});
+		checkNewMessages();
+
+	}) //Clears the input fields
 
 
 

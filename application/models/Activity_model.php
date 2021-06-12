@@ -72,7 +72,7 @@ class Activity_model extends CI_Model
 	{
 		//$sql = 'SELECT * FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC LIMIT 3';
 
-		$sql = 'SELECT *, CASE WHEN EXISTS (SELECT * FROM health_declare WHERE member_email=member.users_email AND activity_id=activity.id) THEN "1" ELSE "0" END AS hd FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? ORDER BY time DESC LIMIT 3';
+		$sql = 'SELECT *, CASE WHEN EXISTS (SELECT * FROM health_declare WHERE member_email=member.users_email AND activity_id=activity.id) THEN "1" ELSE "0" END AS hd FROM activity INNER JOIN member ON activity.agegrade_id=member.agegrade_id INNER JOIN parent ON member.parent_email=parent.users_email INNER JOIN users ON member.users_email=users.email WHERE parent.users_email= ? AND time >= CURRENT_DATE ORDER BY time DESC LIMIT 3';
 
 		$error = null;
 		$query = $this->db->query($sql, array($parent_email));

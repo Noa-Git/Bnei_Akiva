@@ -47,6 +47,14 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link active" type="button" href="<?php echo site_url();?>/User/logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                        </li>
+
+
+
                     </ul>
 
                 </div>
@@ -111,7 +119,7 @@
                                 <th scope="col">שעה</th>
                                 <th scope="col">פעילות</th>
                                 <th scope="col">שם הילד/ה</th>
-                                <th scope="col">הצהרת בריאות</th>
+                                <th scope="col">הצהרה</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

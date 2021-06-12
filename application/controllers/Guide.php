@@ -7,6 +7,7 @@ class Guide extends CI_Controller {
         $this->load->model('Guide_model');
         $this->load->model('Parents_model');
         $this->load->library('session');
+        $this->load->helper('url');
     }
 
     public function add_expanse() {
@@ -34,6 +35,10 @@ class Guide extends CI_Controller {
     }
 
     public function dashboard() {
+        if ($this->session->loggedin == null || $this->session->role!=2){
+    		redirect("User/login");
+		}
+
         $data['greeting_name']=$this->session->user->fname;
         $this->load->view('Instructor/homepage.php', $data);
     }

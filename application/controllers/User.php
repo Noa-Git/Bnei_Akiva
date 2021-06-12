@@ -22,6 +22,16 @@ class User extends CI_Controller
 		$this->load->view('login+register/login', $data);
 	}
 
+	public function logout(){
+		 $data = array(
+			'user',
+			'role',
+            'loggedin',
+        );
+        $this->session->unset_userdata($data);
+        $this->login();
+	}
+
 	public function do_login()
 	{
 
@@ -52,6 +62,12 @@ class User extends CI_Controller
 			}
 		}
 	}
+
+
+
+
+
+
 
 	public function loadRegisterParent($error = null)
 	{
