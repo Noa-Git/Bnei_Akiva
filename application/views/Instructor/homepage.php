@@ -27,8 +27,8 @@
         <nav class="navbar navbar-expand fixed-top navbar-expand-lg navbar-dark bg-dark navbar-custom">
             <div class="container-fluid">
 
-                <a class="navbar-brand" href="/application/views/Instructor/homepage.php">
-                    <img style="max-width:40%" src="/assets/pics/logo/white_logo.png" class="img-responsive" /></a>
+				<div class="navbar-brand" href="/application/views/Instructor/homepage.php">
+					<img style="max-width:40%" src="/assets/pics/logo/white_logo.png" class="img-responsive" /></div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
