@@ -123,6 +123,9 @@
                             דו"ח
                             הוצאות
                         </button>
+
+                        <button type="button" class="modalOpenBtns"
+                            onclick="window.location.href='<?php echo site_url('/Guide/expanse_report');?>';">סטטיסטיקות</button>
                     </div>
                 </div>
 

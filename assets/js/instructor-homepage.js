@@ -16,7 +16,7 @@ function showAllActivities() {
 		success: function (data) {
 
 			$("#allActivitiesTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			////console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (activity) {
 					/* complete structure of the table */
@@ -78,8 +78,8 @@ function showExpanses() {
 		success: function (data) {
 
 			$("#expansesTable tbody").empty(); /* empties the table before each refresh */
-			console.log("the expanses are:");
-			console.log(data);
+			//console.log("the expanses are:");
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (expanse) {
 
@@ -124,8 +124,8 @@ function updateMemberStats() {
 		dataType: "json",
 
 		success: function (data) {
-			console.log('member_stat');
-			console.log(data);
+			//console.log('member_stat');
+			//console.log(data);
 
 			let insuranceY = 0;
 			let tripY = 0;
@@ -145,7 +145,7 @@ function updateMemberStats() {
 			$('#tripY').html('' + tripY);
 			$('#tripN').html('' + (numMembers - tripY));
 
-			console.log(insuranceY, tripY, memberY);
+			//console.log(insuranceY, tripY, memberY);
 		}
 	});
 
@@ -192,7 +192,7 @@ function askSub() {
 		success: function (data) {
 
 			$("#askSubTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (activity) {
 					/* complete structure of the table */
@@ -311,7 +311,7 @@ function showPendingMembers() {
 		success: function (data) {
 
 			$("#pendingMembersTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (member) {
 					/* complete structure of the table */
@@ -369,7 +369,7 @@ function showAllMembers() {
 		success: function (data) {
 
 			$("#allStudentsTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (member) {
 					/* complete structure of the table */
@@ -432,8 +432,8 @@ function ShowAllMeeting() {
 		success: function (data) {
 
 			$("#AllMeetingsTable tbody").empty(); /* empties the table before each refresh */
-			console.log("allmeetings");
-			console.log(data);
+			//console.log("allmeetings");
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (meeting) {
 					/* complete structure of the table */
@@ -509,7 +509,7 @@ function refreshMeeting() {
 		success: function (data) {
 
 			$("#meetingsTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 
 			if (data.length > 0) {
 				data.forEach(function (meeting) {
@@ -570,7 +570,7 @@ function refreshMeeting() {
 /******************************************** Set meeting ***********************************************/
 function setMeeting(id, book) {
 
-	console.log(book);
+	//console.log(book);
 
 	$.ajax({
 		url: "https://" +
@@ -612,7 +612,7 @@ function checkNewMessages() { //this function must refresh all the time
 		success: function (data) {
 
 
-			console.log(data);
+			//console.log(data);
 			if (data.num > 0) {
 
 				$('#badge').show();
@@ -686,8 +686,8 @@ function refreshSubs() {
 		success: function (data) {
 
 			$("#substituteTable tbody").empty(); /* empties the table before each refresh */
-			console.log("refreshsub");
-			console.log(data);
+			//console.log("refreshsub");
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (substitution) {
 					const time = new Date(substitution.time);
@@ -749,7 +749,7 @@ function approveSubstitution(id, activity_id) {
 
 			if (data.success) {
 
-				console.log(data);
+				//console.log(data);
 				refreshSubs();
 
 			}
@@ -788,7 +788,7 @@ function showMassages(all = 'false') {
 
 		success: function (data) {
 
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				$("#messages-container").empty();
 				data.forEach(function (message) {
@@ -840,12 +840,12 @@ function editActivity(id) {
 
 		success: function (data) {
 			$("#edit-activity").empty();
-			console.log(data);
+			//console.log(data);
 			$("#edit_activity_id").val(id);
 
 			const activity = data[0];
 
-			console.log(activity);
+			//console.log(activity);
 
 			const time = new Date(activity.time);
 
@@ -895,7 +895,7 @@ function showStudents(id) {
 		success: function (data) {
 			$("#membersTable tbody").empty();
 
-			console.log(data);
+			//console.log(data);
 			$("#manage_activity_id").val(id);
 			data.members.forEach(function (member) {
 				$("#membersTable tbody").append(
@@ -931,7 +931,7 @@ function sendSummery(e) {
 
 	activity.members = members;
 	activity.after_summary = $("#after_summary").val();
-	console.log(activity);
+	//console.log(activity);
 
 	$.ajax({
 		url: "https://" +
@@ -976,7 +976,7 @@ function sendSummery(e) {
 
 	activity.members = members;
 	activity.after_summary = $("#after_summary").val();
-	console.log(activity);
+	//console.log(activity);
 
 	$.ajax({
 		url: "https://" +
@@ -1044,7 +1044,7 @@ $(document).ready(function () {
 			success: function (data) {
 
 				$("#activityTable tbody").empty(); /* empties the table before each refresh */
-				console.log(data);
+				//console.log(data);
 				if (data.length > 0) {
 					data.forEach(function (activity) {
 						/* complete structure of the table */
@@ -1104,8 +1104,8 @@ $(document).ready(function () {
 
 		//validations
 		let error = false;
-		console.log(this.elements.namedItem("date").value);
-		console.log(this.elements.namedItem("time").value);
+		//console.log(this.elements.namedItem("date").value);
+		//console.log(this.elements.namedItem("time").value);
 
 		if (error === true) {
 			return;
@@ -1148,8 +1148,8 @@ $(document).ready(function () {
 
 		//validations
 		/* let error = false;
-		console.log(this.elements.namedItem("date").value);
-		console.log(this.elements.namedItem("time").value);
+		//console.log(this.elements.namedItem("date").value);
+		//console.log(this.elements.namedItem("time").value);
 
 		if (error === true) {
 			return;

@@ -3,7 +3,7 @@
 
 
 function passHealthData(activity_id, name, email) {
-	console.log('Date: ' + (new Date()).toLocaleDateString());
+	//console.log('Date: ' + (new Date()).toLocaleDateString());
 
 	for (i = 1; i < 4; i++) {
 		$('#nameSpn' + i).html(name);
@@ -37,7 +37,7 @@ function refreshActivity() {
 		success: function (data) {
 
 			$("#activityTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (activity) {
 					/* complete structure of the table */
@@ -134,7 +134,7 @@ function showAllActivities() {
 		success: function (data) {
 
 			$("#allActivitiesTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (activity) {
 					/* complete structure of the table */
@@ -198,8 +198,8 @@ function getInstructors(selector) {
 		success: function (data) {
 
 			$("#instructors").empty(); /* empties the table before each refresh */
-			console.log("Here comes the guides: ");
-			console.log(data);
+			//console.log("Here comes the guides: ");
+			//console.log(data);
 
 			if (data.length > 0) {
 				data.forEach(function (guide) {
@@ -277,8 +277,8 @@ function showExpanses() {
 		success: function (data) {
 
 			$("#expansesTable tbody").empty(); /* empties the table before each refresh */
-			console.log("the expanses are:");
-			console.log(data);
+			//console.log("the expanses are:");
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (expanse) {
 
@@ -322,8 +322,8 @@ function updateMemberStats() {
 		dataType: "json",
 
 		success: function (data) {
-			console.log('member_stat');
-			console.log(data);
+			//console.log('member_stat');
+			//console.log(data);
 
 			let insuranceY = 0;
 			let tripY = 0;
@@ -343,7 +343,7 @@ function updateMemberStats() {
 			$('#tripY').html('' + tripY);
 			$('#tripN').html('' + (numMembers - tripY));
 
-			console.log(insuranceY, tripY, memberY);
+			//console.log(insuranceY, tripY, memberY);
 		}
 	});
 
@@ -367,7 +367,7 @@ function askSub() {
 		success: function (data) {
 
 			$("#askSubTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (activity) {
 					/* complete structure of the table */
@@ -430,7 +430,7 @@ function showMyKids() {
 		success: function (data) {
 
 			$("#myKidsTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (member) {
 					/* complete structure of the table */
@@ -482,8 +482,8 @@ function showKidsPayments() {
 		success: function (data) {
 
 			$("#kidsPaymentsTable tbody").empty(); /* empties the table before each refresh */
-			console.log("kids payment:  ");
-			console.log(data);
+			//console.log("kids payment:  ");
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (member) {
 					/* complete structure of the table */
@@ -564,7 +564,7 @@ function payMember(email, name, membership, insurance, trips) {
 
 function paypalClick(email, payment) {
 
-	console.log("email: " + email + " payment: " + payment);
+	//console.log("email: " + email + " payment: " + payment);
 
 	$.ajax({
 		url: "https://" +
@@ -605,8 +605,8 @@ function ShowAllMeeting() {
 		success: function (data) {
 
 			$("#AllMeetingsTable tbody").empty(); /* empties the table before each refresh */
-			console.log("allmeetings");
-			console.log(data);
+			//console.log("allmeetings");
+			//console.log(data);
 			if (data.length > 0) {
 				data.forEach(function (meeting) {
 					/* complete structure of the table */
@@ -675,7 +675,7 @@ function refreshMeeting() {
 		success: function (data) {
 
 			$("#meetingsTable tbody").empty(); /* empties the table before each refresh */
-			console.log(data);
+			//console.log(data);
 
 			if (data.length > 0) {
 				data.forEach(function (meeting) {
@@ -731,7 +731,7 @@ function refreshMeeting() {
 /******************************************** Set meeting ***********************************************/
 function setMeeting(id, book) {
 
-	console.log(book);
+	//console.log(book);
 
 	$.ajax({
 		url: "https://" +
@@ -773,7 +773,7 @@ function checkNewMessages() { //this function must refresh all the time
 		success: function (data) {
 
 
-			console.log(data);
+			//console.log(data);
 			if (data.num > 0) {
 
 				$('#badge').show();
@@ -820,7 +820,7 @@ function showMassages(all = 'false') {
 
 		success: function (data) {
 
-			console.log(data);
+			//console.log(data);
 			if (data.length > 0) {
 				$("#messages-container").empty();
 				data.forEach(function (message) {
