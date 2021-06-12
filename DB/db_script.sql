@@ -131,30 +131,6 @@ CREATE TABLE meeting
     FOREIGN KEY (booker_email) REFERENCES users (email) ON DELETE CASCADE
 );
 
-
--- CREATE TABLE trip
--- (
---     id        INT AUTO_INCREMENT PRIMARY KEY,
---     trip_name VARCHAR(32),
---     out_date  DATE,
---     back_date DATE
--- );
---
--- CREATE TABLE users_in_trip
--- (
---     trip_id    INT,
---     users_email VARCHAR(32),
---     FOREIGN KEY (users_email) REFERENCES users (email) ON DELETE CASCADE
--- );
-
-CREATE TABLE price_list
-(
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(32) NOT NULL UNIQUE,
-    description VARCHAR(100),
-    price       DOUBLE
-);
-
 CREATE TABLE payment
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
@@ -167,18 +143,6 @@ CREATE TABLE payment
     FOREIGN KEY (payment_name) REFERENCES price_list (name) ON DELETE CASCADE,
     FOREIGN KEY (parent_email) REFERENCES parent (users_email) ON DELETE CASCADE
 );
-
--- CREATE TABLE transactions_paypal
--- (
---     id         INT AUTO_INCREMENT PRIMARY KEY,
---     payment_id INT,
---     parent_id  INT,
---     HASH       VARCHAR(16),
---     complete   INT DEFAULT 0,
---     FOREIGN KEY (payment_id) REFERENCES payment (id) ON DELETE CASCADE,
---     FOREIGN KEY (parent_id) REFERENCES parent (id) ON DELETE CASCADE
--- );
-
 
 CREATE TABLE expanse
 (

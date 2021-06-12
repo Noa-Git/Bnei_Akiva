@@ -69,7 +69,7 @@ class Member extends CI_Controller
 		$this->email->from('mta-bnei-akiva@outlook.com', 'bnei-akiva');
 		$this->email->to($data);
 		$this->email->subject('אישור הצטרפותך כחבר תנועת הנוער בני עקיבא');
-		$message = "<a href='" . base_url() . "user/do_login/'>לחץ כאן</a> בקשתך התקבלה, ברוכה הבאה לבני עקיבא:)";
+		$message = "<a href='.site_url().'/user/do_login/'>לחץ כאן</a> בקשתך התקבלה, ברוכה הבאה לבני עקיבא:)";
 		$this->email->message(($message));
 
 		$sent = $this->email->send();
