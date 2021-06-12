@@ -305,7 +305,7 @@ class User extends CI_Controller
 			$this->load->library('email', $config);
 
 			$this->email->from('mta-bnei-akiva@outlook.com', 'bnei-akiva');
-			$this->email->to('');
+			$this->email->to($data);
 			$this->email->subject('איפוס סיסמה');
 			$message = "<a href='.site_url().'/user/do_login/'>לחץ כאן</a> סיסמתך החדשה: 1234";
 			$this->email->message($message);
