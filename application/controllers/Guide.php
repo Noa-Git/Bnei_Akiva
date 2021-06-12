@@ -27,13 +27,14 @@ class Guide extends CI_Controller {
 
     public function expanse_report() {
         $guide_email = $this->session->user->email;
-        $data=$this->input->post();
-        
-        $out=$this->Guide_model->get_expanses_by_time_DESC($guide_email);
 
-        echo json_encode($out);
+		$data['monthly_expanses'] =$this->Guide_model->get_expanses_per_month($guide_email);
+
+		$this->load->view('guide/statstics.php', $data);
     }
 
+
+      
     public function dashboard() {
         if ($this->session->loggedin == null || $this->session->role!=2){
     		redirect("User/login");
@@ -42,6 +43,7 @@ class Guide extends CI_Controller {
         $data['greeting_name']=$this->session->user->fname;
         $this->load->view('Instructor/homepage.php', $data);
     }
+
 
     //By Mor
     //return fname, lname, email for the Guides of his children
