@@ -25,7 +25,7 @@ class Guide extends CI_Controller {
         echo json_encode(array('success' => true));
     }
 
-    public function expanse_report() {
+    public function expanse_statistics() {
         $guide_email = $this->session->user->email;
 
 		$data['monthly_expanses'] =$this->Guide_model->get_expanses_per_month($guide_email);
@@ -33,6 +33,14 @@ class Guide extends CI_Controller {
 		$this->load->view('guide/statstics.php', $data);
     }
 
+    public function expanse_report() {
+        $guide_email = $this->session->user->email;
+        $data=$this->input->post();
+        
+        $out=$this->Guide_model->get_expanses_by_time_DESC($guide_email);
+
+        echo json_encode($out);
+    }
 
       
     public function dashboard() {

@@ -125,7 +125,7 @@
                         </button>
 
                         <button type="button" class="modalOpenBtns"
-                            onclick="window.location.href='<?php echo site_url('/Guide/expanse_report');?>';">סטטיסטיקות</button>
+                            onclick="window.location.href='<?php echo site_url('/Guide/expanse_statistics');?>';">סטטיסטיקות</button>
                     </div>
                 </div>
 
