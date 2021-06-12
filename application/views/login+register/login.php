@@ -36,7 +36,6 @@
 	<div id="gotoSignIn">
 		<?php echo anchor('User/loadRegisterParent', ' חדשים כאן? לחצו כדי להירשם', 'class="link-class"') ?>
 
-
 	</div>
 
 	<div class="img-div">

@@ -22,12 +22,22 @@ class User extends CI_Controller
 		$this->load->view('login+register/login', $data);
 	}
 
+	public function logout(){
+		 $data = array(
+			'user',
+			'role',
+            'loggedin',
+        );
+        $this->session->unset_userdata($data);
+        $this->login();
+	}
+
 	public function do_login()
 	{
 
 		$data = array(
 			'email' => $this->input->post('email'),
-			'password' => $this->input->post('password')
+			'password' => md5($this->input->post('password'))
 		);
 
 		$check = $this->User_model->auth($data);
@@ -52,6 +62,12 @@ class User extends CI_Controller
 			}
 		}
 	}
+
+
+
+
+
+
 
 	public function loadRegisterParent($error = null)
 	{

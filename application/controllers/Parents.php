@@ -11,9 +11,13 @@ class Parents extends CI_Controller
 		$this->load->model('Member_model');
 		$this->load->model('Activity_model');
 		$this->load->library('session');
+		$this->load->helper('url');
 	}
 
 	public function dashboard() {
+		if ($this->session->loggedin == null || $this->session->role!=3){
+    		redirect("User/login");
+		}
 		$data['greeting_name']=$this->session->user->fname;
         $this->load->view('parent/homepageParent.php', $data);
     }

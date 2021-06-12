@@ -47,6 +47,12 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link active" type="button" href="<?php echo site_url();?>/User/logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                        </li>
+
                     </ul>
 
                 </div>
