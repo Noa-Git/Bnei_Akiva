@@ -335,8 +335,8 @@
                 </div>
 
                 <div class="modal-body">
-                    <iframe src="/Guide/expanse_statistics" title="הוצאות לפי חודשים" height="250px" width="400px"
-                        scrolling="no"></iframe>
+                    <iframe src="<?php echo site_url('/Guide/expanse_statistics');?>" title="הוצאות לפי חודשים"
+                        height="250px" width="400px" scrolling="no"></iframe>
                     <table class="table" id="expansesTable">
                         <thead>
                             <tr>
